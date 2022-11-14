@@ -62,6 +62,9 @@ Rails.application.configure do
   # Set actionmailer host to localhost
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # Allow connections to local servers on cloud IDE
+  config.hosts.clear
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
