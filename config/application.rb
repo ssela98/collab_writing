@@ -20,8 +20,8 @@ module NowYouWrite
       domain: 'gmail.com',
       authentication: :plain,
       enable_starttls_auto: true,
-      user_name: Rails.application.credentials.mailer[:user_name],
-      password: Rails.application.credentials.mailer[:password]
+      # user_name: Rails.application.credentials.mailer[:user_name],
+      # password: Rails.application.credentials.mailer[:password]
     }
 
     # Configuration for the application, engines, and railties goes here.
