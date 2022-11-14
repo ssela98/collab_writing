@@ -61,6 +61,7 @@ Rails.application.configure do
 
   # Set actionmailer host to localhost
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :test
 
   # Allow connections to local servers on cloud IDE
   config.hosts.clear
