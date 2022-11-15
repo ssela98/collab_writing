@@ -10,9 +10,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # TODO: uncomment this when you re-enable :registerable
+    # super
+    redirect_to root_url, notice: 'Sorry, sign ups are disabled for now'
+  end
 
   # GET /resource/edit
   # def edit

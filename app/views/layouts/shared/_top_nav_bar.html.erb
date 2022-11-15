@@ -1,0 +1,11 @@
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href=<%= root_url %>>
+    <%= image_tag('logos/now-you-write', width: '45', height: '45', class: 'd-inline-block align-center', alt: 'NowYouWrite logo') %>
+    <span>NowYouWrite</span>
+  </a>
+  <div>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-primary rounded-pill" %>
+    <%= link_to "Log In", new_user_session_path, class: "btn btn-lg btn-primary rounded-pill" %>
+  </div>
+</nav>
