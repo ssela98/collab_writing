@@ -15,9 +15,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'creating user with too long username should not work' do
-    user = User.create(email: 'user@email.com', password: 'password')
+    user = User.create(email: 'user@email.com', username: 'a' * 25, password: 'password')
 
     assert_not user.valid?
-    assert_equal ['Username is too long'], user.errors.full_messages
+    assert_equal ['Username is too long (maximum is 24 characters)'], user.errors.full_messages
   end
 end

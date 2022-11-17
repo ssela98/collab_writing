@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true, length: { maximum: 24 }
 end
