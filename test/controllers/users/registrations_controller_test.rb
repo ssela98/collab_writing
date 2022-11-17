@@ -3,8 +3,9 @@ require "test_helper"
 class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   # TODO: uncomment when you reenable user :registerable
   # test "create should send mail and redirect to login" do
-  #   email = 'bla@nowyouwrite.com'
-  #   sign_up_params = { email: email, password: 'password', username: 'username', password_confirmation: 'password' }
+  #   email = Faker::Internet.email
+  #   password = Faker::Internet.password
+  #   sign_up_params = { email: email, username: Faker::Internet.username, password: password, password_confirmation: password }
 
   #   post user_registration_path(user: sign_up_params)
   #   assert_redirected_to new_user_session_path
@@ -19,8 +20,9 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "create without username should fail" do
-  #   email = 'bla@nowyouwrite.com'
-  #   sign_up_params = { email: email, password: 'password', password_confirmation: 'password' }
+  #   email = Faker::Internet.email
+  #   password = Faker::Internet.password
+  #   sign_up_params = { email: email, password: password, password_confirmation: password }
 
   #   assert_difference 'User.count', 0 do
   #     post user_registration_path(user: sign_up_params)
