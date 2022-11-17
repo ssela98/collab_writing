@@ -1,21 +1,25 @@
-require "test_helper"
+# frozen_string_literal: true
 
-class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "create with username should work" do
-    user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
-    user.confirm
+require 'test_helper'
 
-    post user_session_path(user: { username: user.username, password: user.password })
+module Users
+  class SessionsControllerTest < ActionDispatch::IntegrationTest
+    test 'create with username should work' do
+      user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
+      user.confirm
 
-    assert_equal user, @controller.current_user
-  end
+      post user_session_path(user: { username: user.username, password: user.password })
 
-  test "create without username should fail" do
-    user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
-    user.confirm
+      assert_equal user, @controller.current_user
+    end
 
-    post user_session_path(user: { password: user.password })
+    test 'create without username should fail' do
+      user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
+      user.confirm
 
-    assert_nil @controller.current_user
+      post user_session_path(user: { password: user.password })
+
+      assert_nil @controller.current_user
+    end
   end
 end
