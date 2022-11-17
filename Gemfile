@@ -67,6 +67,10 @@ group :development, :test do
 
   # binding.pry
   gem 'pry', '~> 0.13.1'
+
+  # Some fake create automations
+  gem 'factory_bot_rails', require: false
+  gem 'faker', require: false
 end
 
 group :development do
