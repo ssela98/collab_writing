@@ -30,4 +30,4 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  sign_up_disabled_for_now: "Sorry, sign ups are disabled for now" # TODO: remove this after enabling :registreable

@@ -55,6 +55,9 @@ gem 'sassc-rails'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Internationalisation
+gem 'rails-i18n'
+
 # Use Postgres for Heroku's compability
 group :production do
   gem 'pg', '1.3.5'
