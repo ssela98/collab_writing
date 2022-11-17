@@ -1,50 +1,54 @@
-require "test_helper"
-require "application_system_test_case"
+# frozen_string_literal: true
 
-class Users::SessionTest < ApplicationSystemTestCase
-  test 'signing in with username works' do
-    username = Faker::Internet.username
-    password = Faker::Internet.password
-    user = User.create(email: Faker::Internet.email, username: username, password: password)
-    user.confirm
+require 'test_helper'
+require 'application_system_test_case'
 
-    visit new_user_session_url
+module Users
+  class SessionTest < ApplicationSystemTestCase
+    test 'signing in with username works' do
+      username = Faker::Internet.username
+      password = Faker::Internet.password
+      user = User.create(email: Faker::Internet.email, username:, password:)
+      user.confirm
 
-    find('#user_username').fill_in with: username
-    find('#user_password').fill_in with: password
+      visit new_user_session_url
 
-    find("input[type='submit']").click
+      find('#user_username').fill_in with: username
+      find('#user_password').fill_in with: password
 
-    assert_equal current_url, root_url
-    assert_equal 1, user.reload.sign_in_count
-  end
+      find("input[type='submit']").click
 
-  test 'signing in without username fails' do
-    username = Faker::Internet.username
-    password = Faker::Internet.password
-    user = User.create(email: Faker::Internet.email, username: username, password: password)
-    user.confirm
+      assert_equal current_url, root_url
+      assert_equal 1, user.reload.sign_in_count
+    end
 
-    visit new_user_session_url
+    test 'signing in without username fails' do
+      username = Faker::Internet.username
+      password = Faker::Internet.password
+      user = User.create(email: Faker::Internet.email, username:, password:)
+      user.confirm
 
-    find('#user_password').fill_in with: password
+      visit new_user_session_url
 
-    find("input[type='submit']").click
+      find('#user_password').fill_in with: password
 
-    # TODO: assert flash messages when they're introduced
-    assert_equal new_user_session_url, current_url
-    assert_equal 0, user.reload.sign_in_count
-  end
+      find("input[type='submit']").click
 
-  test 'signing in with non-existing username fails' do
-    visit new_user_session_url
+      # TODO: assert flash messages when they're introduced
+      assert_equal new_user_session_url, current_url
+      assert_equal 0, user.reload.sign_in_count
+    end
 
-    find('#user_username').fill_in with: Faker::Internet.username
-    find('#user_password').fill_in with: Faker::Internet.password
+    test 'signing in with non-existing username fails' do
+      visit new_user_session_url
 
-    find("input[type='submit']").click
+      find('#user_username').fill_in with: Faker::Internet.username
+      find('#user_password').fill_in with: Faker::Internet.password
 
-    # TODO: assert flash messages when they're introduced
-    assert_equal new_user_session_url, current_url
+      find("input[type='submit']").click
+
+      # TODO: assert flash messages when they're introduced
+      assert_equal new_user_session_url, current_url
+    end
   end
 end

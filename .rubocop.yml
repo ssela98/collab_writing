@@ -1,0 +1,157 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1.2
+  TargetRailsVersion: 7.0.4
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+
+Lint/MissingCopEnableDirective:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+# This is broken and marks all strings as violations
+Rails/FilePath:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+# Inline if/unless modifiers currently don't play well with code coverage
+# tools, see https://github.com/bbatsov/ruby-style-guide/issues/286
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/Lambda:
+  Exclude:
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/RescueStandardError:
+  EnforcedStyle: implicit
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 60
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - config/environments/*
+    - test/**/*
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - config/**/*
+
+Layout/LineLength:
+  Exclude:
+    - config/*
+  Max: 160
+
+Metrics/MethodLength:
+  Max: 40
+
+Naming/PredicateName:
+  Enabled: false
+
+# rubocop seems to get confused by methods named with 'find_by' in them like Users::Authentication#find_by_login
+Rails/DynamicFindBy:
+  Enabled: false
+
+# there is a collision (false positive?) with I18N interpolation strings
+Style/FormatStringToken:
+  Enabled: false
+
+# this applies to cached variables where the method name must match the variable that is being '||=''d
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+# there are tasks which don't need to depend on the :environment task
+Rails/RakeEnvironment:
+  Enabled: false
+
+# complains when updating DB directly using methods like 'update_column' on model
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 8 # 7 is the default
+
+# nags about using $stdout instead of STDOUT
+Style/GlobalStdStream:
+  Enabled: false
+
+# complains about variables like 'last_4' which exist as part of DB column name
+Naming/VariableNumber:
+  Enabled: false
+
+# forces all controllers to inherit from 'ApplicationController'
+Rails/ApplicationController:
+  Enabled: false
+
+# nags about before_action in controller always referencing actions in the class
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
