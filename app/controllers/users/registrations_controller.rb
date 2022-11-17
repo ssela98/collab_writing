@@ -12,8 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     # TODO: uncomment this when you re-enable :registerable
-    super
-    #redirect_to root_url, notice: 'Sorry, sign ups are disabled for now'
+    # super
+    redirect_to root_url, notice: 'Sorry, sign ups are disabled for now'
   end
 
   # GET /resource/edit
