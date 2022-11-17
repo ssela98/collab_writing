@@ -58,7 +58,7 @@ group :production do
   gem "pg", "1.3.5"
 end
 
-group :development, :test do
+group :development, :test, :rubocop do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", "~> 1.4"
 
@@ -67,6 +67,11 @@ group :development, :test do
 
   # binding.pry
   gem 'pry', '~> 0.13.1'
+
+  # Use RuboCop as linter
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
 
   # Some fake create automations
   gem 'factory_bot_rails', require: false
