@@ -8,8 +8,7 @@ module Users
     test 'signing in with username works' do
       username = Faker::Internet.username
       password = Faker::Internet.password
-      user = User.create(email: Faker::Internet.email, username:, password:)
-      user.confirm
+      user = create(:user, username: username, password: password)
 
       visit new_user_session_url
 
@@ -25,8 +24,7 @@ module Users
     test 'signing in without username fails' do
       username = Faker::Internet.username
       password = Faker::Internet.password
-      user = User.create(email: Faker::Internet.email, username:, password:)
-      user.confirm
+      user = create(:user, username: username, password: password)
 
       visit new_user_session_url
 

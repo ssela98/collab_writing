@@ -5,8 +5,7 @@ require 'test_helper'
 module Users
   class SessionsControllerTest < ActionDispatch::IntegrationTest
     test 'create with username should work' do
-      user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
-      user.confirm
+      user = create(:user)
 
       post user_session_path(user: { username: user.username, password: user.password })
 
@@ -14,8 +13,7 @@ module Users
     end
 
     test 'create without username should fail' do
-      user = User.create(email: 'bla@nowyouwrite.com', username: 'username', password: 'password')
-      user.confirm
+      user = create(:user)
 
       post user_session_path(user: { password: user.password })
 
