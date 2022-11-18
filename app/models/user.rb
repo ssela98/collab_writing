@@ -33,6 +33,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
+  has_many :stories, dependent: :destroy
+
   validates :username, presence: true, uniqueness: true, length: { maximum: 24 }
   validates :email, length: { maximum: 200 }
 end

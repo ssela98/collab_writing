@@ -6,18 +6,18 @@ class CreateStories < ActiveRecord::Migration[7.0]
       t.integer :user_id, null: false
       t.string :title, null: false, limit: 48
       t.text :content
-      t.boolean :public, default: true
+      t.boolean :visible, default: true
 
       t.timestamps
     end
 
     add_index :stories, :user_id, if_not_exists: true
-    add_index :stories, :public, if_not_exists: true
+    add_index :stories, :visible, if_not_exists: true
   end
 
   def down
     drop_table :stories, if_exists: true
     remove_index :stories, :user_id, if_exists: true
-    remove_index :stories, :public, if_exists: true
+    remove_index :stories, :visible, if_exists: true
   end
 end

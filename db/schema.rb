@@ -15,11 +15,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_231142) do
     t.integer "user_id", null: false
     t.string "title", limit: 48, null: false
     t.text "content"
-    t.boolean "public", default: true
+    t.boolean "visible", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["public"], name: "index_stories_on_public"
     t.index ["user_id"], name: "index_stories_on_user_id"
+    t.index ["visible"], name: "index_stories_on_visible"
   end
 
   create_table "users", force: :cascade do |t|

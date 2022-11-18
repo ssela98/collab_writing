@@ -8,11 +8,12 @@
 #  user_id    :integer          not null
 #  title      :string(48)       not null
 #  content    :text
-#  public     :boolean          default(TRUE)
+#  visible    :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class Story < ApplicationRecord
-  validates :user_id, :title, presence: true
-  validates :title, length: { maximum: 48 }
+  belongs_to :user
+
+  validates :title, presence: true, length: { maximum: 48 }
 end
