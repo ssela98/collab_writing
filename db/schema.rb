@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2022_11_17_231142) do
   create_table "stories", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "title", limit: 48, null: false
+    t.string "title", null: false
     t.text "content"
     t.boolean "visible", default: true
     t.datetime "created_at", null: false

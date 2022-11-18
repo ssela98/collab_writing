@@ -6,17 +6,19 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer          not null
-#  title      :string(48)       not null
+#  title      :string           not null
 #  content    :text
 #  visible    :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+require 'faker'
+
 FactoryBot.define do
   factory :story do
     user
-    title { Faker::Internet.username }
-    content { Faker::Internet.password }
+    title { Faker::Movies::HitchhikersGuideToTheGalaxy.quote }
+    content { Faker::TvShows::BrooklynNineNine.quote }
     visible { true }
   end
 end

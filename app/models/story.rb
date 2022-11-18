@@ -6,7 +6,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer          not null
-#  title      :string(48)       not null
+#  title      :string           not null
 #  content    :text
 #  visible    :boolean          default(TRUE)
 #  created_at :datetime         not null
@@ -15,5 +15,5 @@
 class Story < ApplicationRecord
   belongs_to :user
 
-  validates :title, presence: true, length: { maximum: 48 }
+  validates :title, presence: true
 end

@@ -9,11 +9,6 @@ class StoriesTest < ApplicationSystemTestCase
   #   @story = create(:story, user: @user)
   # end
 
-  # test 'visiting the index' do
-  #   visit stories_url
-  #   assert_selector 'h1', text: 'Stories'
-  # end
-
   # test 'should create story' do
   #   visit stories_url
   #   click_on 'New story'

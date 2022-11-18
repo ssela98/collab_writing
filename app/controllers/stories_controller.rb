@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[show]
   before_action :set_story, only: %i[show edit update destroy]
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
-
-  # GET /stories or /stories.json
-  def index
-    @stories = Story.all
-  end
 
   # GET /stories/1 or /stories/1.json
   def show; end
@@ -54,7 +49,7 @@ class StoriesController < ApplicationController
     @story.destroy
 
     respond_to do |format|
-      format.html { redirect_to stories_url, notice: I18n.t('stories.notices.successfully_destroyed') }
+      format.html { redirect_to root_url, notice: I18n.t('stories.notices.successfully_destroyed') }
       format.json { head :no_content }
     end
   end

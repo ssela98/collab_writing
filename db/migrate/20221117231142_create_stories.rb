@@ -4,7 +4,7 @@ class CreateStories < ActiveRecord::Migration[7.0]
   def up
     create_table :stories, if_not_exists: true do |t|
       t.integer :user_id, null: false
-      t.string :title, null: false, limit: 48
+      t.string :title, null: false
       t.text :content
       t.boolean :visible, default: true
 

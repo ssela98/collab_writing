@@ -26,10 +26,12 @@
 #  updated_at             :datetime         not null
 #  username               :string(24)       not null
 #
+require 'faker'
+
 FactoryBot.define do
   factory :user do
-    email { Faker::Internet.email }
-    username { Faker::Internet.username }
+    username { "username_#{(1..50).to_a.sample(7).join}" }
+    email { "#{username}@#{Faker::Internet.domain_name}".downcase }
     password { Faker::Internet.password }
     confirmed_at { Time.current.utc }
     confirmation_token { nil }
