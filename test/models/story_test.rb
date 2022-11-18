@@ -15,7 +15,7 @@
 require "test_helper"
 
 class StoryTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @user = create(:user)
   end
 
