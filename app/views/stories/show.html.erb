@@ -1,10 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @story %>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <%= render @story %>
 
-<div>
-  <%= link_to "Edit this story", edit_story_path(@story) %> |
-  <%= link_to "Back to stories", root_url %>
+  <div>
+    <%= link_to "Edit this story", edit_story_path(@story) %>
 
-  <%= button_to "Destroy this story", @story, method: :delete %>
+    <%= button_to "Destroy this story", @story, method: :delete %>
+  </div>
 </div>
