@@ -1,0 +1,28 @@
+<%= form_with(model: story) do |form| %>
+  <% if story.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+
+      <ul>
+        <% story.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="form-group mb-3 w-50">
+      <%= form.label :title, class: "form-label"%>
+      <%= form.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
+    </div>
+
+    <div class="form-group mb-3 w-50">
+      <%= form.label :content, class:"form-label" %>
+      <%= form.text_field :content, autocomplete: "content", class:"form-control" %>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center justify-content-center">
+      <%= form.submit "Create Story", class:"btn btn-lg btn-primary" %>
+    </div>
+  </div>
+<% end %>
