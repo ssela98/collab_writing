@@ -13,4 +13,6 @@
 #  updated_at :datetime         not null
 #
 class Story < ApplicationRecord
+  validates :user_id, :title, presence: true
+  validates :title, length: { maximum: 48 }
 end
