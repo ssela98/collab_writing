@@ -61,7 +61,7 @@ class UserTest < ActiveSupport::TestCase
                        password: Faker::Internet.password)
 
     assert_not user.valid?
-    assert_equal ["Username has already been taken"], user.errors.full_messages
+    assert_equal ['Username has already been taken'], user.errors.full_messages
   end
 
   test 'should not create with too long email fails and should return validation error' do
@@ -69,15 +69,15 @@ class UserTest < ActiveSupport::TestCase
                        password: Faker::Internet.password)
 
     assert_not user.valid?
-    assert_equal ["Email is too long (maximum is 200 characters)"], user.errors.full_messages
+    assert_equal ['Email is too long (maximum is 200 characters)'], user.errors.full_messages
   end
 
   # relationships
 
   test 'deleting should delete stories' do
     user = create(:user)
-    story_1 = create(:story, user: user)
-    story_2 = create(:story, user: user)
+    story_1 = create(:story, user:)
+    story_2 = create(:story, user:)
 
     assert_difference 'Story.count', -2 do
       user.destroy
