@@ -71,4 +71,20 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
     assert_equal ["Email is too long (maximum is 200 characters)"], user.errors.full_messages
   end
+
+  # relationships
+
+  test 'deleting deletes stories' do
+    user = create(:user)
+    story_1 = create(:story, user: user)
+    story_2 = create(:story, user: user)
+
+    assert_difference 'Story.count', -2 do
+      user.destroy
+    end
+
+    assert_not User.find_by(id: user.id)
+    assert_not Story.find_by(id: story_1.id)
+    assert_not Story.find_by(id: story_2.id)
+  end
 end

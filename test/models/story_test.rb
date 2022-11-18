@@ -8,7 +8,7 @@
 #  user_id    :integer          not null
 #  title      :string(48)       not null
 #  content    :text
-#  public     :boolean          default(TRUE)
+#  visible    :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -31,7 +31,7 @@ class StoryTest < ActiveSupport::TestCase
                          content: Faker::TvShows::BrooklynNineNine.quote)
 
     assert_not story.valid?
-    assert_equal ["User can't be blank"], story.errors.full_messages
+    assert_equal ["User must exist"], story.errors.full_messages
   end
 
   test 'creating without a title fails with validation message' do
@@ -68,5 +68,12 @@ class StoryTest < ActiveSupport::TestCase
 
     assert story.valid?
     assert_equal '@#はàلвуйا', story.content
+  end
+
+  test 'user relationship works' do
+    story = Story.create(user_id: @user.id, title: Faker::Games::WorldOfWarcraft.quote,
+      content: Faker::TvShows::BrooklynNineNine.quote)
+
+    assert_equal @user, story.user
   end
 end
