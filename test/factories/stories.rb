@@ -17,8 +17,8 @@ require 'faker'
 FactoryBot.define do
   factory :story do
     user
-    title { Faker::Movies::HitchhikersGuideToTheGalaxy.quote }
-    content { Faker::TvShows::BrooklynNineNine.quote }
+    title { Faker::Quote.famous_last_words + '. ' + Faker::TvShows::Friends.quote }
+    content { rand(20).times.collect { Faker::Movies::HitchhikersGuideToTheGalaxy.quote }.join('. ') }
     visible { true }
   end
 end
