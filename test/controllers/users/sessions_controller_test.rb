@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Users
   class SessionsControllerTest < ActionDispatch::IntegrationTest
-    test 'create works' do
+    test 'should create' do
       user = create(:user)
 
       post user_session_path(user: { username: user.username, password: user.password })
@@ -13,7 +13,7 @@ module Users
       assert_redirected_to root_path
     end
 
-    test 'create without username fails' do
+    test 'should not create without username' do
       user = create(:user)
 
       post user_session_path(user: { password: user.password })
@@ -22,7 +22,7 @@ module Users
       assert_nil @controller.current_user
     end
 
-    test 'create without password fails' do
+    test 'should not create without password' do
       user = create(:user)
 
       post user_session_path(user: { username: user.username })
@@ -31,7 +31,7 @@ module Users
       assert_nil @controller.current_user
     end
 
-    test 'create with unmatching password fails' do
+    test 'should not create with unmatching password' do
       user = create(:user)
 
       post user_session_path(user: { username: user.username, password: Faker::Internet.password })
@@ -40,7 +40,7 @@ module Users
       assert_nil @controller.current_user
     end
 
-    test 'create with non-existing username fails' do
+    test 'should not create with non-existing username' do
       user = create(:user)
 
       post user_session_path(user: { username: ('a'..'z').to_a.sample(25).join, password: user.password })

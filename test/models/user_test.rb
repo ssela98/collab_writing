@@ -29,7 +29,7 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  test 'creating works' do
+  test 'should create' do
     user = User.create(email: Faker::Internet.email, username: Faker::Internet.username,
                        password: Faker::Internet.password)
 
@@ -38,14 +38,14 @@ class UserTest < ActiveSupport::TestCase
 
   # validatons - create
 
-  test 'creating without username fails with validation message' do
+  test 'should not create without username fails and should return validation error' do
     user = User.create(email: Faker::Internet.email, password: Faker::Internet.password)
 
     assert_not user.valid?
     assert_equal ["Username can't be blank"], user.errors.full_messages
   end
 
-  test 'creating with too long username fails with validation message' do
+  test 'should not create with too long username and should return validation error' do
     user = User.create(email: Faker::Internet.email, username: ('a'..'z').to_a.sample(25).join,
                        password: Faker::Internet.password)
 
@@ -53,7 +53,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal ['Username is too long (maximum is 24 characters)'], user.errors.full_messages
   end
 
-  test 'creating with existing username fails with validation message' do
+  test 'should not create with existing username and should return validation error' do
     username = Faker::Internet.username
     create(:user, username:)
 
@@ -64,7 +64,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal ["Username has already been taken"], user.errors.full_messages
   end
 
-  test 'creating with too long email fails with validation message' do
+  test 'should not create with too long email fails and should return validation error' do
     user = User.create(email: "#{'a' * 200}@email.com", username: Faker::Internet.username,
                        password: Faker::Internet.password)
 
@@ -74,7 +74,7 @@ class UserTest < ActiveSupport::TestCase
 
   # relationships
 
-  test 'deleting deletes stories' do
+  test 'deleting should delete stories' do
     user = create(:user)
     story_1 = create(:story, user: user)
     story_2 = create(:story, user: user)

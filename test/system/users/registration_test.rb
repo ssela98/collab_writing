@@ -5,7 +5,7 @@
 
 # module Users
 #   class RegistrationTest < ApplicationSystemTestCase
-#     test 'registration works' do
+#     test 'should register' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -24,7 +24,7 @@
 #       assert User.find_by(email:)
 #     end
 
-#     test 'registration without email fails' do
+#     test 'should not register without email' do
 #       visit new_user_registration_url
 
 #       username = Faker::Internet.username
@@ -43,7 +43,7 @@
 #       assert_not User.find_by(username:)
 #     end
 
-#     test 'registration without username fails' do
+#     test 'should not register without username' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -62,7 +62,7 @@
 #       assert_not User.find_by(email:)
 #     end
 
-#     test 'registration without password fails' do
+#     test 'should not register without password' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -80,7 +80,7 @@
 #       assert_not User.find_by(email:)
 #     end
 
-#     test 'registration with unmatching password confirmation fails' do
+#     test 'should not register with unmatching password confirmation' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -99,7 +99,7 @@
 #       assert_not User.find_by(email:)
 #     end
 
-#     test 'registration with too long email fails' do
+#     test 'should not register with too long email' do
 #       visit new_user_registration_url
 
 #       username = Faker::Internet.username
@@ -119,7 +119,7 @@
 #       assert_not User.find_by(username:)
 #     end
 
-#     test 'registration with too long username fails' do
+#     test 'should not register with too long username' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -139,7 +139,7 @@
 #       assert_not User.find_by(email:)
 #     end
 
-#     test 'registration with badly formatted email fails' do
+#     test 'should not register with badly formatted email' do
 #       visit new_user_registration_url
 
 #       username = Faker::Internet.username
@@ -159,7 +159,7 @@
 #       assert_not User.find_by(username:)
 #     end
 
-#     test 'registration with existing email fails' do
+#     test 'should not register with existing email' do
 #       visit new_user_registration_url
 
 #       email = Faker::Internet.email
@@ -181,7 +181,7 @@
 #       assert_equal 1, User.where(email:).count
 #     end
 
-#     test 'registration with existing username fails' do
+#     test 'should not register with existing username' do
 #       visit new_user_registration_url
 
 #       username = Faker::Internet.username
