@@ -34,6 +34,8 @@ en:
   stories:
     alerts:
       not_the_creator: 'You are not the creator of this story.'
+    by_username: 'by %{username}'
+    at_date: 'at %{date}'
     notices:
       successfully_created: 'Story was successfully created.'
       successfully_destroyed: 'Story was successfully destroyed.'

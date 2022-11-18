@@ -3,39 +3,41 @@
 require 'application_system_test_case'
 
 class StoriesTest < ApplicationSystemTestCase
-  setup do
-    @story = stories(:one)
-  end
+  # TODO: when the designs are ready
+  # setup do
+  #   @user = create(:user)
+  #   @story = create(:story, user: @user)
+  # end
 
-  test 'visiting the index' do
-    visit stories_url
-    assert_selector 'h1', text: 'Stories'
-  end
+  # test 'visiting the index' do
+  #   visit stories_url
+  #   assert_selector 'h1', text: 'Stories'
+  # end
 
-  test 'should create story' do
-    visit stories_url
-    click_on 'New story'
+  # test 'should create story' do
+  #   visit stories_url
+  #   click_on 'New story'
 
-    click_on 'Create Story'
+  #   click_on 'Create Story'
 
-    assert_text 'Story was successfully created'
-    click_on 'Back'
-  end
+  #   assert_text 'Story was successfully created'
+  #   click_on 'Back'
+  # end
 
-  test 'should update Story' do
-    visit story_url(@story)
-    click_on 'Edit this story', match: :first
+  # test 'should update Story' do
+  #   visit story_url(@story)
+  #   click_on 'Edit this story', match: :first
 
-    click_on 'Update Story'
+  #   click_on 'Update Story'
 
-    assert_text 'Story was successfully updated'
-    click_on 'Back'
-  end
+  #   assert_text 'Story was successfully updated'
+  #   click_on 'Back'
+  # end
 
-  test 'should destroy Story' do
-    visit story_url(@story)
-    click_on 'Destroy this story', match: :first
+  # test 'should destroy Story' do
+  #   visit story_url(@story)
+  #   click_on 'Destroy this story', match: :first
 
-    assert_text 'Story was successfully destroyed'
-  end
+  #   assert_text 'Story was successfully destroyed'
+  # end
 end

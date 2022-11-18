@@ -1,2 +1,10 @@
-<div id="<%= dom_id story %>">
+<div id="<%= dom_id story %>" class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 id="<%= dom_id story %>_title" class="card-title"><%= story.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span id="<%= dom_id story %>_user_username"><%= t('stories.by_username', username: story.user.username) %></span>
+      <span id="<%= dom_id story %>_created_at"><%= t('stories.at_date', date: story.created_at) %></span>
+    </h6>
+    <p id="<%= dom_id story %>_content" class="card-text"><%= story.content %>.</p>
+  </div>
 </div>
