@@ -34,4 +34,5 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 24 }
+  validates :email, length: { maximum: 200 }
 end
