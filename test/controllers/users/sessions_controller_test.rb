@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Users
   class SessionsControllerTest < ActionDispatch::IntegrationTest
-    test 'create with username should work' do
+    test 'create works' do
       user = create(:user)
 
       post user_session_path(user: { username: user.username, password: user.password })
@@ -13,7 +13,7 @@ module Users
       assert_redirected_to root_path
     end
 
-    test 'create without username should fail' do
+    test 'create without username fails' do
       user = create(:user)
 
       post user_session_path(user: { password: user.password })
@@ -22,7 +22,7 @@ module Users
       assert_nil @controller.current_user
     end
 
-    test 'create without password should fail' do
+    test 'create without password fails' do
       user = create(:user)
 
       post user_session_path(user: { username: user.username })
@@ -31,7 +31,16 @@ module Users
       assert_nil @controller.current_user
     end
 
-    test 'create with non-existing username should fail' do
+    test 'create with unmatching password fails' do
+      user = create(:user)
+
+      post user_session_path(user: { username: user.username, password: Faker::Internet.password })
+
+      # TODO: assert flash messages when they're introduced
+      assert_nil @controller.current_user
+    end
+
+    test 'create with non-existing username fails' do
       user = create(:user)
 
       post user_session_path(user: { username: ('a'..'z').to_a.sample(25).join, password: user.password })
