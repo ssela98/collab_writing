@@ -29,25 +29,46 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  test 'creating user with username works' do
+  test 'creating with username works' do
     user = User.create(email: Faker::Internet.email, username: Faker::Internet.username,
                        password: Faker::Internet.password)
 
     assert user.valid?
   end
 
-  test 'creating user without username should not work' do
+  # validatons - create
+
+  test 'creating without username should fail with validation message' do
     user = User.create(email: Faker::Internet.email, password: Faker::Internet.password)
 
     assert_not user.valid?
     assert_equal ["Username can't be blank"], user.errors.full_messages
   end
 
-  test 'creating user with too long username should not work' do
+  test 'creating with too long username should fail with validation message' do
     user = User.create(email: Faker::Internet.email, username: ('a'..'z').to_a.sample(25).join,
                        password: Faker::Internet.password)
 
     assert_not user.valid?
     assert_equal ['Username is too long (maximum is 24 characters)'], user.errors.full_messages
+  end
+
+  test 'creating with existing username should fail with validation message' do
+    username = Faker::Internet.username
+    create(:user, username:)
+
+    user = User.create(email: Faker::Internet.email, username:,
+                       password: Faker::Internet.password)
+
+    assert_not user.valid?
+    assert_equal ["Username has already been taken"], user.errors.full_messages
+  end
+
+  test 'creating with too long email should fail with validation message' do
+    user = User.create(email: "#{'a' * 200}@email.com", username: Faker::Internet.username,
+                       password: Faker::Internet.password)
+
+    assert_not user.valid?
+    assert_equal ["Email is too long (maximum is 200 characters)"], user.errors.full_messages
   end
 end
