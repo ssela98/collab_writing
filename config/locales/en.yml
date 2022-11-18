@@ -31,3 +31,10 @@
 
 en:
   sign_up_disabled_for_now: "Sorry, sign ups are disabled for now" # TODO: remove this after enabling :registreable
+  stories:
+    alerts:
+      not_the_creator: 'You are not the creator of this story.'
+    notices:
+      successfully_created: 'Story was successfully created.'
+      successfully_destroyed: 'Story was successfully destroyed.'
+      successfully_updated: 'Story was successfully updated.'
