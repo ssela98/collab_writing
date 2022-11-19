@@ -1,5 +1,5 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="d-flex flex-column justify-content-center align-items-center mx-auto w-75">
+<div class="d-flex flex-column justify-content-center align-items-center mx-auto">
   <%= render partial: @story, locals: { signed_in_user_is_creator: current_user == @story.user } %>
 </div>
