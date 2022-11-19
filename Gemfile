@@ -61,6 +61,11 @@ gem 'rails-i18n'
 # Without this gem link_to(... method: :delete) doesn't work
 gem 'jquery-rails'
 
+# TODO: move these 2 gems back to :dev, :test once the app is mature enough
+# Some fake create automations
+gem 'factory_bot_rails', require: false
+gem 'faker', require: false
+
 # Use Postgres for Heroku's compability
 group :production do
   gem 'pg', '1.3.5'
@@ -75,10 +80,6 @@ group :development, :test do
 
   # binding.pry
   gem 'pry', '~> 0.13.1'
-
-  # Some fake create automations
-  gem 'factory_bot_rails', require: false
-  gem 'faker', require: false
 
   # Annotate models
   gem 'annotate'
