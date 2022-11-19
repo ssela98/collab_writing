@@ -26,15 +26,19 @@
 #  updated_at             :datetime         not null
 #  username               :string(24)       not null
 #
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :lockable, :timeoutable, :trackable
+require 'faker'
 
-  has_many :stories, dependent: :destroy
+FactoryBot.define do
+  factory :user do
+    username { "username_#{(1..50).to_a.sample(7).join}" }
+    email { "#{username}@#{Faker::Internet.domain_name}".downcase }
+    password { Faker::Internet.password }
+    confirmed_at { Time.current.utc }
+    confirmation_token { nil }
 
-  validates :username, presence: true, uniqueness: true, length: { maximum: 24 }
-  validates :email, length: { maximum: 200 }
+    trait :not_confirmed do
+      confirmed_at { nil }
+      confirmation_token { Digest::SHA1.hexdigest(('a'..'z').to_a.sample(4).join) }
+    end
+  end
 end

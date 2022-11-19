@@ -1,4 +1,9 @@
-<div class="d-flex flex-column justify-content-center align-items-center pt-5">
-    <h1>Hello World, and a warmest hello specifically to S.B.Y.</h1>
-    <%= link_to "Log In", new_user_session_path, class: "btn btn-lg btn-primary rounded-pill" %>
+<div id="stories" class="d-flex flex-column justify-content-center align-items-center">
+  <% @stories.each do |story| %>
+    <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
+      <div class="m-3">
+        <%= render story %>
+      </div>
+    <% end %>
+  <% end %>
 </div>

@@ -66,7 +66,7 @@ Style/Lambda:
   Exclude:
 
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
 
 Style/NumericLiterals:
   Enabled: false

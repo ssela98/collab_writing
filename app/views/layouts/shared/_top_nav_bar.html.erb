@@ -2,10 +2,10 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" href=<%= root_url %>>
     <%= image_tag('logos/now-you-write.svg', width: '45', height: '45', class: 'd-inline-block align-bottom', alt: 'NowYouWrite logo') %>
-    <span>Now You Write</span>
   </a>
   <div>
-    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-primary rounded-pill" %>
-    <%= link_to "Log In", new_user_session_path, class: "btn btn-lg btn-primary rounded-pill" %>
+    <%= link_to "New story", new_story_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Log In", new_user_session_path, class: "btn btn-lg btn-primary" %>
   </div>
 </nav>

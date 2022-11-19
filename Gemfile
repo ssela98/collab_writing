@@ -58,12 +58,15 @@ gem 'sassc-rails'
 # Internationalisation
 gem 'rails-i18n'
 
+# Without this gem link_to(... method: :delete) doesn't work
+gem 'jquery-rails'
+
 # Use Postgres for Heroku's compability
 group :production do
   gem 'pg', '1.3.5'
 end
 
-group :development, :test, :rubocop do
+group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
 
@@ -73,14 +76,19 @@ group :development, :test, :rubocop do
   # binding.pry
   gem 'pry', '~> 0.13.1'
 
+  # Some fake create automations
+  gem 'factory_bot_rails', require: false
+  gem 'faker', require: false
+
+  # Annotate models
+  gem 'annotate'
+end
+
+group :development, :test, :rubocop do
   # Use RuboCop as linter
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
-
-  # Some fake create automations
-  gem 'factory_bot_rails', require: false
-  gem 'faker', require: false
 end
 
 group :development do
