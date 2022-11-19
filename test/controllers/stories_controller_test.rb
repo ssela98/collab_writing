@@ -114,7 +114,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
       delete story_url(@story)
     end
 
-    assert_redirected_to root_url
+    assert_redirected_to root_path
     assert_equal I18n.t('stories.notices.successfully_destroyed'), flash[:notice]
   end
 

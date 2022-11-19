@@ -28,7 +28,7 @@ module Users
 
     # The path used after sign in.
     def after_sign_in_path(_resource)
-      root_url
+      root_path
     end
   end
 end

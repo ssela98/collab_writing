@@ -49,7 +49,7 @@ class StoriesController < ApplicationController
     @story.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_url, notice: I18n.t('stories.notices.successfully_destroyed') }
+      format.html { redirect_to root_path, notice: I18n.t('stories.notices.successfully_destroyed') }
       format.json { head :no_content }
     end
   end

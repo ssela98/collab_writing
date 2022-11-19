@@ -16,7 +16,7 @@ module Users
 
       find("input[type='submit']").click
 
-      assert_equal current_url, root_url
+      assert_equal current_url, root_path
       assert_equal 1, user.reload.sign_in_count
     end
 
