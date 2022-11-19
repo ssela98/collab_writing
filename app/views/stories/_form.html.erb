@@ -4,21 +4,20 @@
     <div class="form-group mb-3 w-50">
       <%= form.label :title, class: "form-label"%>
       <%= form.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: story, attribute: :title } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: story, attribute: :title } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :content, class:"form-label" %>
       <%= form.text_area :content, autocomplete: "content", class:"form-control", rows: 8 %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: story, attribute: :content } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: story, attribute: :content } %>
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
       <%= form.submit "Save", class:"btn btn-m btn-primary m-3" %>
-      <%= button_tag onclick: "return confirm('Are you sure? All changes will be lost.')", class:"btn btn-m btn-danger m-3" do %>
-        <%= hidden_field_tag :cancel, true %>
-        <%= link_to "Cancel", request.referer || root_url, class: 'text-decoration-none text-reset' %>
-      <% end %>
+      <%= link_to "Cancel", request.referer == new_story_url ? root_url : request.referer,
+        data: { turbo_method: :get, turbo_confirm: "Are you sure? All yourchanges will be lost."},
+        class: "btn btn-m btn-danger m-3" %>
     </div>
   </div>
 <% end %>

@@ -8,6 +8,7 @@ AllCops:
   TargetRailsVersion: 7.0.4
   Exclude:
     - 'db/schema.rb'
+    - 'db/seeds.rb'
     - 'node_modules/**/*'
     - 'bin/*'
     - 'tmp/**/*'

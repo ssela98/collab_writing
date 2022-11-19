@@ -7,13 +7,13 @@
     <div class="form-group mb-3 w-50">
       <%= form.label :email class:"form-label" %>
       <%= form.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: resource, attribute: :email } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :email } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :username, class:"form-label" %>
       <%= form.text_field :username, autocomplete: "username", class:"form-control" %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: resource, attribute: :username } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :username } %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -26,19 +26,19 @@
       <% if @minimum_password_length %>
         <span><em><%= @minimum_password_length %> characters minimum</em></span>
       <% end %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: resource, attribute: :password } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :password } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :password_confirmation, class:"form-label" %>
       <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: resource, attribute: :password_confirmation } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :password_confirmation } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :current_password, class:"form-label" %> <i>(we need your current password to confirm your changes)</i>
       <%= form.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
-      <%= render partial: "layouts/shared/errors_for_form_with", locals: { resource: resource, attribute: :current_password } %>
+      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :current_password } %>
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">

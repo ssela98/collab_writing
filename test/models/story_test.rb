@@ -37,7 +37,6 @@ class StoryTest < ActiveSupport::TestCase
   test 'should not create without a title and should return validation error' do
     story = Story.create(user_id: @user.id, content: Faker::TvShows::BrooklynNineNine.quote)
 
-    binding.pry
     assert_not story.valid?
     assert_equal ["Title can't be blank"], story.errors.full_messages
   end
