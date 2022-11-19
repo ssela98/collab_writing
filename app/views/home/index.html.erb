@@ -1,11 +1,9 @@
-<div id="stories" class="d-flex flex-column justify-content-center align-items-center w-100">
-  <div class="w-70">
-    <% @stories.each do |story| %>
-      <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
-        <div class="m-3">
-          <%= render story %>
-        </div>
-      <% end %>
+<div id="stories" class="d-flex flex-column justify-content-center align-items-center mx-auto w-50">
+  <% @stories.each do |story| %>
+    <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
+      <div class="m-3">
+        <%= render story %>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 </div>
