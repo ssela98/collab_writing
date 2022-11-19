@@ -1,7 +1,7 @@
-<% if resource.errors.any? %>
+<% if defined?(resource) && defined?(attribute) && resource.errors&.include?(attribute) %>
   <div style="color: red">
     <ul class="error">
-      <% resource.errors.full_messages.each do |msg| %>
+      <% resource.errors.full_messages_for(attribute).each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>

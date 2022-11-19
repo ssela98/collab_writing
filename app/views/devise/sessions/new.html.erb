@@ -1,29 +1,30 @@
 <h2 class="page-title">Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= render partial: "layouts/shared/error_messages", locals: { resource: resource } %>
+<%= form_with(model: resource, scope: resource_name, url: session_path(resource_name), method: :post) do |form| %>
 
   <div class="d-flex flex-column justify-content-center align-items-center">
 
     <div class="form-group mb-3 w-50">
-      <%= f.label :username, class:"form-label" %>
-      <%= f.text_field :username, autofocus: true, autocomplete: "username", class:"form-control" %>
+      <%= form.label :username, class:"form-label" %>
+      <%= form.text_field :username, autofocus: true, autocomplete: "username", class:"form-control" %>
+      <%= render partial: "layouts/shared/error_messages", resource: resource, attribute: :username %>
     </div>
 
     <div class="form-group mb-3 w-50">
-      <%= f.label :password, class: "form-label" %>
-      <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
+      <%= form.label :password, class: "form-label" %>
+      <%= form.password_field :password, autocomplete: "current-password", class:"form-control" %>
+      <%= render partial: "layouts/shared/error_messages", resource: resource, attribute: :password %>
     </div>
 
     <% if devise_mapping.rememberable? %>
       <div class="form-check mb-3 w-50">
-        <%= f.check_box :remember_me, class:"form-check-input" %>
-        <%= f.label :remember_me, class:"form-check-label" %>
+        <%= form.check_box :remember_me, class:"form-check-input" %>
+        <%= form.label :remember_me, class:"form-check-label" %>
       </div>
     <% end %>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= f.submit "Log in", class:"btn btn-m btn-primary" %>
+      <%= form.submit "Log in", class:"btn btn-m btn-primary" %>
     </div>
 
     <%= render "devise/shared/links" %>

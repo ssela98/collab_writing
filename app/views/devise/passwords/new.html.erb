@@ -1,17 +1,17 @@
 <h2 class="page-title">Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "layouts/shared/error_messages", locals: { resource: resource } %>
+<%= form_with(model: resource, scope: resource_name, url: password_path(resource_name), method: :post) do |form| %>
 
   <div class="d-flex flex-column justify-content-center align-items-center">
 
     <div class="form-group mb-3 w-50">
-      <%= f.label :email, class: "form-label" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      <%= form.label :email, class: "form-label" %>
+      <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      <%= render "layouts/shared/error_messages", { resource: resource, attribute: :email } %>
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= f.submit "Send me reset password instructions", class:"btn btn-m btn-primary" %>
+      <%= form.submit "Send me reset password instructions", class:"btn btn-m btn-primary" %>
     </div>
 
     <%= render "devise/shared/links" %>
