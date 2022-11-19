@@ -1,7 +1,7 @@
 <h2 class="page-title">Change your password</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= render "layouts/shared/error_messages", locals: { resource: resource } %>
   <%= f.hidden_field :reset_password_token %>
 
   <div class="d-flex flex-column justify-content-center align-items-center">

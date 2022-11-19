@@ -1,15 +1,6 @@
 <%= form_with(model: story) do |form| %>
-  <% if story.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+  <%= render partial: "layouts/shared/error_messages", locals: { resource: story } %>
 
-      <ul>
-        <% story.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="form-group mb-3 w-50">
       <%= form.label :title, class: "form-label"%>
