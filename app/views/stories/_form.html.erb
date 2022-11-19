@@ -1,15 +1,15 @@
 <%= form_with(model: story) do |form| %>
 
-  <div class="d-flex flex-column justify-content-center align-items-center">
-    <div class="form-group mb-3 w-50">
+  <div class="d-flex flex-column justify-content-center align-items-center m-3">
+    <div class="form-group mb-3 w-100">
       <%= form.label :title, class: "form-label"%>
       <%= form.text_field :title, autofocus: true, autocomplete: "title", class: "form-control" %>
       <%= render partial: "layouts/shared/error_messages", locals: { resource: story, attribute: :title } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
+    <div class="form-group mb-3 w-100">
       <%= form.label :content, class:"form-label" %>
-      <%= form.text_area :content, autocomplete: "content", class:"form-control", rows: 8 %>
+      <%= form.text_area :content, autocomplete: "content", class:"form-control", rows: 16 %>
       <%= render partial: "layouts/shared/error_messages", locals: { resource: story, attribute: :content } %>
     </div>
 
