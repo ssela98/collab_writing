@@ -10,7 +10,7 @@ module Users
       post user_session_path(user: { username: user.username, password: user.password })
 
       assert_equal user, @controller.current_user
-      assert_redirected_to root_path
+      assert_redirected_to root_url
     end
 
     test 'should not create without username' do
