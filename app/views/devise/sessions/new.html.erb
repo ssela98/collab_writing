@@ -1,6 +1,7 @@
 <h2 class="page-title">Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= render partial: 'layouts/shared/errors', resource: resource %>
 
   <div class="d-flex flex-column justify-content-center align-items-center">
 
