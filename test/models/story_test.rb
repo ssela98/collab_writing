@@ -49,17 +49,19 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test 'should create with title with non-latin alphabet letters and special chars' do
-    story = Story.create(user_id: @user.id, title: '@#はàلвуйا', content: Faker::TvShows::BrooklynNineNine.quote)
+    title = Faker::String.random
+    story = Story.create(user_id: @user.id, title:, content: Faker::TvShows::BrooklynNineNine.quote)
 
     assert story.valid?
-    assert_equal '@#はàلвуйا', story.title
+    assert_equal title, story.title
   end
 
   test 'should create with content with non-latin alphabet letters and special chars' do
-    story = Story.create(user_id: @user.id, title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote, content: '@#はàلвуйا')
+    content = Faker::String.random
+    story = Story.create(user_id: @user.id, title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote, content:)
 
     assert story.valid?
-    assert_equal '@#はàلвуйا', story.content
+    assert_equal content, story.content
   end
 
   test 'user relationship works' do

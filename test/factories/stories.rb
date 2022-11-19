@@ -12,13 +12,13 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require 'faker'
+require Rails.root.join('lib/faker_randomizer')
 
 FactoryBot.define do
   factory :story do
     user
-    title { "#{Faker::Quote.famous_last_words}. #{Faker::TvShows::Friends.quote}" }
-    content { Array.new(rand(20)) { Faker::Movies::HitchhikersGuideToTheGalaxy.quote }.join('. ') }
+    title { FakerRandomizer::ALL.sample(rand(3..5)).join(' ') }
+    content { FakerRandomizer::ALL.sample(rand(3..20)).join(' ') }
     visible { true }
   end
 end
