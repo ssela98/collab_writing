@@ -35,7 +35,7 @@ class StoriesController < ApplicationController
   def update
     respond_to do |format|
       if @story.update(story_params)
-        format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_updated') }
+        format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
         format.json { render :show, status: :ok, location: @story }
       else
         format.html { render :edit, status: :unprocessable_entity }

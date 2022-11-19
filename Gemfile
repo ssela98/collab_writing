@@ -58,6 +58,9 @@ gem 'sassc-rails'
 # Internationalisation
 gem 'rails-i18n'
 
+# Without this gem link_to(... method: :delete) doesn't work
+gem 'jquery-rails'
+
 # Use Postgres for Heroku's compability
 group :production do
   gem 'pg', '1.3.5'

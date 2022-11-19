@@ -22,7 +22,11 @@
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= form.submit "Create Story", class:"btn btn-lg btn-primary" %>
+      <%= form.submit "Save", class:"btn btn-lg btn-primary m-3" %>
+      <%= button_tag onclick: "return confirm('Are you sure? All changes will be lost.')", class:"btn btn-lg btn-danger m-3" do %>
+        <%= hidden_field_tag :cancel, true %>
+        <%= link_to "Cancel", request.referer || root_url, class: 'text-decoration-none text-reset' %>
+      <% end %>
     </div>
   </div>
 <% end %>

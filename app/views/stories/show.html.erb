@@ -1,11 +1,5 @@
 <p style="color: green"><%= notice %></p>
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-  <%= render @story %>
-
-  <div>
-    <%= link_to "Edit this story", edit_story_path(@story) %>
-
-    <%= button_to "Destroy this story", @story, method: :delete %>
-  </div>
+  <%= render partial: @story, locals: { signed_in_user_is_creator: current_user == @story.user } %>
 </div>
