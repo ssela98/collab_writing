@@ -1,11 +1,6 @@
-<% signed_in_user_is_creator = current_user == @story.user %>
 <div class="container">
   <div class="m-3">
     <%= button_to "Back to Stories", root_path, method: :get, class:"btn btn-m btn-secondary mb-3" %>
-    <% if signed_in_user_is_creator %>
-        <%= render partial: @story %>
-    <% else %>
-      <%= render partial: 'stories/readonly_story', locals: { story: @story } %>
-    <% end %>
+    <%= render @story %>
   </div>
 </div>

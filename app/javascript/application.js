@@ -4,7 +4,9 @@ import * as bootstrap from "bootstrap"
 import "controllers"
 import "@hotwired/turbo-rails"
 
-// TODO: remove @rails/ujs and replace link_to delete with buttons
-// https://www.youtube.com/watch?v=dr8AbCCXuEw
+// TODO: remove these 2 lines(@rails/ujs) and replace link_to delete with buttons
 import Rails from '@rails/ujs'
 Rails.start()
+
+import "trix"
+import "@rails/actiontext"
