@@ -83,11 +83,11 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     content = Faker::TvShows::BrooklynNineNine.quote
     visible = false
 
-    patch story_url(@story), params: { story: { title:, content:, visible:, } }
+    patch story_url(@story), params: { story: { title:, content:, visible:, }, format: :turbo_stream }
     @story.reload
 
-    assert_redirected_to story_url(@story)
-    assert_equal I18n.t('stories.notices.successfully_updated'), flash[:notice]
+    assert_response :success
+    assert_equal I18n.t('stories.notices.successfully_updated'), flash.now[:notice]
     assert_equal title, @story.title
     assert_equal content, @story.content
     assert_equal visible, @story.visible
