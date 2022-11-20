@@ -1,9 +1,7 @@
 <div id="stories" class="d-flex flex-column justify-content-center align-items-center mx-auto">
   <% @stories.each do |story| %>
     <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
-      <div class="m-3">
-        <%= render story %>
-      </div>
+      <%= render story %>
     <% end %>
   <% end %>
 </div>

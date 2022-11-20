@@ -1,5 +1,1 @@
-<div class="d-flex flex-column justify-content-center align-items-center mx-auto">
-  <div class="m-3">
-    <%= render partial: @story, locals: { signed_in_user_is_creator: current_user == @story.user } %>
-  </div>
-</div>
+<%= render partial: @story, locals: { signed_in_user_is_creator: current_user == @story.user } %>

@@ -1,1 +1,3 @@
-<%= render "form", story: @story %>
+<turbo-frame id="<%= dom_id @story %>">
+  <%= render "form", story: @story %>
+</turbo-frame>
