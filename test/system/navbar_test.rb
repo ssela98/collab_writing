@@ -12,20 +12,20 @@ class NavbarTest < ApplicationSystemTestCase
   end
 
   test 'should show relevant buttons based on authentication' do
-    assert @navbar.has_link?(I18n.t('home'))
-    assert @navbar.has_link?(I18n.t('stories.new_story'))
-    assert @navbar.has_link?(I18n.t('users.sign_up'))
-    assert @navbar.has_link?(I18n.t('users.log_in'))
-    assert_not @navbar.has_link?(I18n.t('users.log_out'))
+    assert @navbar.has_css?('#navbar-home')
+    assert @navbar.has_css?('#navbar-new-story')
+    assert @navbar.has_css?('#navbar-sign-up')
+    assert @navbar.has_css?('#navbar-log-in')
+    assert_not @navbar.has_css?('#navbar-log-out')
 
     sign_in create(:user)
     visit root_url
 
-    assert @navbar.has_link?(I18n.t('home'))
-    assert @navbar.has_link?(I18n.t('stories.new_story'))
-    assert_not @navbar.has_link?(I18n.t('users.sign_up'))
-    assert_not @navbar.has_link?(I18n.t('users.log_in'))
-    assert @navbar.has_link?(I18n.t('users.log_out'))
+    assert @navbar.has_css?('#navbar-home')
+    assert @navbar.has_css?('#navbar-new-story')
+    assert_not @navbar.has_css?('#navbar-sign-up')
+    assert_not @navbar.has_css?('#navbar-log-in')
+    assert @navbar.has_css?('#navbar-log-out')
   end
 
   test 'home link works' do
@@ -48,7 +48,7 @@ class NavbarTest < ApplicationSystemTestCase
   end
 
   test 'log_in link works' do
-    @navbar.find('#navbar-sign-in').click
+    @navbar.find('#navbar-log-in').click
 
     assert_equal new_user_session_url, current_url
   end
@@ -62,6 +62,6 @@ class NavbarTest < ApplicationSystemTestCase
   #   @navbar.find('#navbar-log-out').click
 
   #   assert_equal root_url, current_url
-  #   assert_not @navbar.has_link?(I18n.t('users.log_out'))
+  #   assert_not @navbar.has_css?('#navbar-log-out')
   # end
 end
