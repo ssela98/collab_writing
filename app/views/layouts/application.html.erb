@@ -14,8 +14,9 @@
 
   <body data-controller="visibility">
     <%= render partial: 'shared/navbar' %>
-    <p class="alert"><%= alert %></p>
-    <p class="notice"><%= notice %></p>
+    <div id="flash" class="flash">
+      <%= render "shared/flash" %>
+    </div>
     <%= yield %>
   </body>
 </html>

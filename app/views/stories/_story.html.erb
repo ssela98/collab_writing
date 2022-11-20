@@ -9,7 +9,7 @@
           </span>
           <div data-visibility-target="hideable" class="dropdown" hidden>
             <%= link_to "Edit", edit_story_path(story), class: "text-decoration-none text-reset dropdown-item" %>
-            <%= link_to "Delete", story_path(story), method: :delete, :onclick => "return confirm('Are you sure you want to delete this story?')", class: "text-decoration-none text-reset dropdown-item" %>
+            <%= link_to "Delete", story_path(story), method: :delete, :onclick => "return confirm('Are you sure you want to delete this story?')", class: "text-decoration-none text-reset dropdown-item" %><!-- TODO: turbo confirms -->
           </div>
         <% end %>
       </div>
