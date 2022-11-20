@@ -18,7 +18,7 @@ module Users
 
       post user_session_path(user: { password: user.password })
 
-      # TODO: assert flash messages when they're introduced
+      assert_equal I18n.t('devise.failure.invalid', authentication_keys: 'Username'), flash[:alert]
       assert_nil @controller.current_user
     end
 
@@ -27,7 +27,7 @@ module Users
 
       post user_session_path(user: { username: user.username })
 
-      # TODO: assert flash messages when they're introduced
+      assert_equal I18n.t('devise.failure.invalid', authentication_keys: 'Username'), flash[:alert]
       assert_nil @controller.current_user
     end
 
@@ -36,7 +36,7 @@ module Users
 
       post user_session_path(user: { username: user.username, password: Faker::Internet.password })
 
-      # TODO: assert flash messages when they're introduced
+      assert_equal I18n.t('devise.failure.invalid', authentication_keys: 'Username'), flash[:alert]
       assert_nil @controller.current_user
     end
 
@@ -45,7 +45,7 @@ module Users
 
       post user_session_path(user: { username: ('a'..'z').to_a.sample(25).join, password: user.password })
 
-      # TODO: assert flash messages when they're introduced
+      assert_equal I18n.t('devise.failure.invalid', authentication_keys: 'Username'), flash[:alert]
       assert_nil @controller.current_user
     end
   end
