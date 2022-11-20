@@ -5,5 +5,6 @@ import "controllers"
 import "@hotwired/turbo-rails"
 
 // TODO: remove @rails/ujs and replace link_to delete with buttons
+// https://www.youtube.com/watch?v=dr8AbCCXuEw
 import Rails from '@rails/ujs'
 Rails.start()
