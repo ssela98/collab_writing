@@ -11,9 +11,6 @@ gem 'rails', '~> 7.0.4'
 # Use Devise for authentication [https://github.com/heartcombo/devise]
 gem 'devise'
 
-# Use Bootstrap 5
-gem 'bootstrap', '~> 5.1.3'
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -58,13 +55,13 @@ gem 'sassc-rails'
 # Internationalisation
 gem 'rails-i18n'
 
-# Without this gem link_to(... method: :delete) doesn't work
-gem 'jquery-rails'
-
 # TODO: move these 2 gems back to :dev, :test once the app is mature enough
 # Some fake create automations
 gem 'factory_bot_rails', require: false
 gem 'faker', require: false
+
+# Use Bootstrap 5
+gem 'bootstrap', '~> 5.1.3'
 
 # Use Postgres for Heroku's compability
 group :production do

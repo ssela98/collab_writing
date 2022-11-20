@@ -6,13 +6,13 @@
     <div class="form-group mb-3 w-50">
       <%= form.label :email, class: "form-label"%>
       <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-      <%= render partial: "shared/error_messages", locals: { resource: resource, attribute: :email } %>
+      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :email } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :username, class:"form-label" %>
       <%= form.text_field :username, autocomplete: "username", class:"form-control" %>
-      <%= render partial: "shared/error_messages", locals: { resource: resource, attribute: :username } %>
+      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :username } %>
     </div>
 
     <div class="form-group mb-3 w-50">
@@ -21,13 +21,13 @@
         <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
       <%= form.password_field :password, autocomplete: "new-password", class:"form-control" %>
-      <%= render partial: "shared/error_messages", locals: { resource: resource, attribute: :password } %>
+      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password } %>
     </div>
 
     <div class="form-group mb-3 w-50">
       <%= form.label :password_confirmation, class:"form-label" %>
       <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
-      <%= render partial: "shared/error_messages", locals: { resource: resource, attribute: :password_confirmation } %>
+      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password_confirmation } %>
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
