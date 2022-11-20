@@ -30,13 +30,19 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  home: "Home"
   sign_up_disabled_for_now: "Sorry, sign ups are disabled for now" # TODO: remove this after enabling :registreable
   stories:
     alerts:
-      not_the_creator: 'You are not the creator of this story.'
-    by_username: 'by %{username}'
-    at_date: 'at %{date}'
+      not_the_creator: "You are not the creator of this story."
+    by_username: "by %{username}"
+    at_date: "at %{date}"
+    new_story: "New Story"
     notices:
-      successfully_created: 'Story was successfully created.'
-      successfully_destroyed: 'Story was successfully destroyed.'
-      successfully_updated: 'Story was successfully updated.'
+      successfully_created: "Story was successfully created."
+      successfully_destroyed: "Story was successfully destroyed."
+      successfully_updated: "Story was successfully updated."
+  users:
+    log_in: "Log In"
+    log_out: "Log Out"
+    sign_up: "Sign Up"

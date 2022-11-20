@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class HomeTest < ApplicationSystemTestCase
+  include Devise::Test::IntegrationHelpers
+
   test 'should get all visible stories' do
     visible_story = create(:story) # should be displayed
     visible_story_2 = create(:story) # should be displayed
