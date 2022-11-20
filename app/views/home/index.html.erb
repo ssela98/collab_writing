@@ -1,7 +1,9 @@
 <div id="stories" class="d-flex flex-column justify-content-center align-items-center mx-auto">
   <% @stories.each do |story| %>
-    <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
-      <%= render story %>
-    <% end %>
+    <div class="container">
+      <%= link_to story_path(story), class: "text-decoration-none text-reset m-3" do %>
+        <%= render partial: 'stories/readonly_story', locals: { story: story } %>
+      <% end %>
+    </div>
   <% end %>
 </div>

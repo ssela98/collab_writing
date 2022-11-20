@@ -1,8 +1,8 @@
 <turbo-frame id="<%= dom_id story %>">
-  <div class="card m-3">
+  <div class="card">
     <div class="card-body d-flex flex-column w-100">
       <div class="form-group mb-3">
-        <%= link_to edit_story_path(story), class: "card-title text-decoration-none text-reset" do %>
+        <%= link_to edit_story_path({ story: story, autofocus: :title }), class: "card-title text-decoration-none text-reset" do %>
           <%= text_area_tag :title, story.title, { id: "#{ dom_id story }_title", autocomplete: "title", class: "form-control form-control-lg" } %>
         <% end %>
       </div>
@@ -11,9 +11,15 @@
         <span id="<%= dom_id story %>_created_at"><%= t('stories.at_date', date: story.created_at) %></span>
       </h6>
       <div class="form-group mb-3">
-        <%= link_to edit_story_path(story), class: "card-text text-decoration-none text-reset" do %>
+        <%= link_to edit_story_path({ story: story, autofocus: :content }), class: "card-text text-decoration-none text-reset" do %>
           <%= text_area_tag :content, story.content, { id: "#{ dom_id story }_content", autocomplete: "content", class: "form-control", rows: 16 } %>
         <% end %>
+      </div>
+      <div class="w-auto d-flex justify-content-center align-items-center">
+        <%= link_to "Delete", story_path(story),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure? You won't be able to retrieve this story."},
+          class: "btn btn-m btn-danger m-3"
+        %>
       </div>
     </div>
   </div>

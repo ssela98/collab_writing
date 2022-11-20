@@ -2,6 +2,6 @@
 
 class HomeController < ApplicationController
   def index
-    @stories = Story.where(visible: true)
+    @stories = Story.where(visible: true).order(updated_at: :desc)
   end
 end

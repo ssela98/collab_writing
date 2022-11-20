@@ -2,12 +2,12 @@
   <div class="card m-3">
     <div class="card-body d-flex flex-column w-100">
       <div class="form-group mb-3">
-        <%= form.text_area :title, autocomplete: "title", class: "form-control form-control-lg" %>
+        <%= form.text_area :title, autocomplete: "title", autofocus: @autofocus == 'title', class: "form-control form-control-lg" %>
         <%= render partial: "shared/errors", locals: { resource: story, attribute: :title } %>
       </div>
 
       <div class="form-group mb-3">
-        <%= form.text_area :content, autocomplete: "content", class: "form-control", rows: 16 %>
+        <%= form.text_area :content, autocomplete: "content", autofocus: @autofocus == 'content', class: "form-control", rows: 16 %>
         <%= render partial: "shared/errors", locals: { resource: story, attribute: :content } %>
       </div>
 
@@ -15,7 +15,8 @@
         <%= form.submit "Save", class:"btn btn-m btn-primary m-3" %>
         <%= link_to "Cancel", request.referer == new_story_url ? root_path : request.referer,
           data: { turbo_method: :get, turbo_confirm: "Are you sure? All your changes will be lost."},
-          class: "btn btn-m btn-danger m-3" %>
+          class: "btn btn-m btn-danger m-3"
+        %>
       </div>
     </div>
   </div>

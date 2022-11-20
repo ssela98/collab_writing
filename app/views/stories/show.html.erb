@@ -1,1 +1,10 @@
-<%= render partial: @story, locals: { signed_in_user_is_creator: current_user == @story.user } %>
+<% signed_in_user_is_creator = current_user == @story.user %>
+<div class="container">
+  <div class="m-3">
+    <% if signed_in_user_is_creator %>
+        <%= render partial: @story %>
+    <% else %>
+      <%= render partial: 'stories/readonly_story', locals: { story: @story } %>
+    <% end %>
+  </div>
+</div>

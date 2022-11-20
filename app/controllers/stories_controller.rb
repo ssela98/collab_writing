@@ -3,6 +3,7 @@
 class StoriesController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
   before_action :set_story, only: %i[show edit update destroy]
+  before_action :set_autofocus, only: %i[show edit update]
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
   # GET /stories/1 or /stories/1.json
@@ -35,8 +36,8 @@ class StoriesController < ApplicationController
   def update
     respond_to do |format|
       if @story.update(story_params)
-        format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
-        format.json { render :show, status: :ok, location: @story }
+        format.html { redirect_to story_url(@story) }
+        format.turbo_stream { flash.now[:notice] = I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @story.errors, status: :unprocessable_entity }
@@ -70,8 +71,12 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
+  def set_autofocus
+    @autofocus = params[:autofocus]
+  end
+
   # Only allow a list of trusted parameters through.
   def story_params
-    params.require(:story).permit(:title, :content, :visible)
+    params.require(:story).permit(:title, :content, :visible, :autofocus)
   end
 end
