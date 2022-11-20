@@ -36,7 +36,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update(story_params)
         format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
-        format.json { render :show, status: :ok, location: @story }
+        format.json { render :show, status: :ok, location: @story } # TODO: with turbo_streams
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @story.errors, status: :unprocessable_entity }
