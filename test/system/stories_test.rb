@@ -99,8 +99,7 @@ class StoriesTest < ApplicationSystemTestCase
     assert has_css?("a[type='delete']")
   end
 
-  # TODO: fix this (perhaps it'd be wiser to get rid of jquery
-  # and replace link_to method: :delete with buttons)
+  # TODO: fix this - remove @rails/ujs and replace link_to delete with buttons
   # test 'should destroy story' do
   #   sign_in @user
   #   story_id = @story.id

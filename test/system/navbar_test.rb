@@ -53,8 +53,7 @@ class NavbarTest < ApplicationSystemTestCase
     assert_equal new_user_session_url, current_url
   end
 
-  # TODO: fix this (perhaps it'd be wiser to get rid of jquery
-  # and replace link_to method: :delete with buttons)
+  # TODO: fix this - remove @rails/ujs and replace link_to delete with buttons
   # test 'log_out link works' do
   #   sign_in create(:user)
   #   visit root_url

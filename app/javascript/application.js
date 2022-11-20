@@ -4,5 +4,6 @@ import * as bootstrap from "bootstrap"
 import "controllers"
 import "@hotwired/turbo-rails"
 
+// TODO: remove @rails/ujs and replace link_to delete with buttons
 import Rails from '@rails/ujs'
 Rails.start()
