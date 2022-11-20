@@ -22,6 +22,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     get new_story_url
 
     assert_redirected_to new_user_session_path
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
   test 'should create' do
@@ -48,6 +49,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to new_user_session_path
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
   test 'should show story' do
@@ -75,6 +77,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     get edit_story_url(@story)
 
     assert_redirected_to new_user_session_path
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
   test 'should update story' do
@@ -97,6 +100,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     patch story_url(@story), params: { story: { title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote } }
 
     assert_redirected_to new_user_session_path
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
   test 'should not update if signed in as another user and should get forbidden response' do
@@ -124,6 +128,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to new_user_session_path
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
   test 'should not destroy if signed in as another user and should get forbidden response' do
