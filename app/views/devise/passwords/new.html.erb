@@ -7,7 +7,7 @@
     <div class="form-group mb-3 w-50">
       <%= form.label :email, class: "form-label" %>
       <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-      <%= render partial: "layouts/shared/error_messages", locals: { resource: resource, attribute: :email } %>
+      <%= render partial: "shared/error_messages", locals: { resource: resource, attribute: :email } %>
     </div>
 
     <div class="mb-3 d-flex align-items-center justify-content-center">
