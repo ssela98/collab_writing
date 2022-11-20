@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 module Users
-  class SessionTest < ApplicationSystemTestCase
+  class SessionsTest < ApplicationSystemTestCase
     test 'should sign in' do
       username = Faker::Internet.username
       password = Faker::Internet.password

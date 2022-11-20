@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 module Users
-  class RegistrationTest < ApplicationSystemTestCase
+  class RegistrationsTest < ApplicationSystemTestCase
     # TODO: uncomment when you reenable user :registerable
     # test 'should register' do
     #   visit new_user_registration_url
