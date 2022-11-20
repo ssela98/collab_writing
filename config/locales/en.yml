@@ -30,6 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  are_you_sure_delete: "Are you sure? You won't be able to undo this action."
+  are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   home: "Home"
   sign_up_disabled_for_now: "Sorry, sign ups are disabled for now" # TODO: remove this after enabling :registreable
   stories:
@@ -39,9 +41,9 @@ en:
     at_date: "at %{date}"
     new_story: "New Story"
     notices:
-      successfully_created: "Story was successfully created."
-      successfully_destroyed: "Story was successfully destroyed."
-      successfully_updated: "Story was successfully updated."
+      successfully_created: "Story was created successfully."
+      successfully_destroyed: "Story was destroyed successfully."
+      successfully_updated: "Story was updated successfully."
   users:
     log_in: "Log In"
     log_out: "Log Out"

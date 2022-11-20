@@ -17,7 +17,8 @@
       </div>
       <div class="w-auto d-flex justify-content-center align-items-center">
         <%= link_to "Delete", story_path(story),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure? You won't be able to retrieve this story."},
+          data: { turbo_method: :delete, turbo_confirm: t('are_you_sure_delete')},
+          type: "delete",
           class: "btn btn-m btn-danger m-3"
         %>
       </div>

@@ -14,7 +14,8 @@
       <div class="mb-3 d-flex align-items-center justify-content-center">
         <%= form.submit "Save", class:"btn btn-m btn-primary m-3" %>
         <%= link_to "Cancel", request.referer == new_story_url ? root_path : request.referer,
-          data: { turbo_method: :get, turbo_confirm: "Are you sure? All your changes will be lost."},
+          data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') },
+          type: "cancel",
           class: "btn btn-m btn-danger m-3"
         %>
       </div>
