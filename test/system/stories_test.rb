@@ -18,10 +18,9 @@ class StoriesTest < ApplicationSystemTestCase
 
     find("textarea[name='story[title]']").click
     find("textarea[name='story[title]']").fill_in with: @new_title
-    find("textarea[name='story[content]']").click
-    find("textarea[name='story[content]']").fill_in with: @new_content
+    find('#story_content').set(@new_content)
     find("input[type='submit']").click
-    new_story = @user.stories.find_by(title: @new_title, content: @new_content)
+    new_story = @user.stories.find_by(user: @user, title: @new_title)
 
     assert new_story
     assert_equal story_url(new_story), current_url
@@ -34,68 +33,37 @@ class StoriesTest < ApplicationSystemTestCase
 
     find("textarea[name='story[title]']").click
     find("textarea[name='story[title]']").fill_in with: @new_title
-    find("textarea[name='story[content]']").click
-    find("textarea[name='story[content]']").fill_in with: @new_content
+    find('#story_content').set(@new_content)
 
     alert_text = accept_confirm do
       find("a[type='cancel']").click
     end
     assert_equal I18n.t('are_you_sure_changes_unsaved'), alert_text
-    assert_not @user.stories.find_by(title: @new_title, content: @new_content)
+    assert_not @user.stories.find_by(user: @user, title: @new_title)
     assert_not has_css?('.flash__message')
   end
 
-  test 'should update story by clicking on the title in the show page' do
+  test 'should update story with turbo-frames' do
     sign_in @user
     visit story_url(@story)
 
-    find("textarea[name='title']").click
+    find("a[type='edit']").click
+    find("textarea[name='story[title]']").click
     find("textarea[name='story[title]']").fill_in with: @new_title
-    find("textarea[name='story[content]']").click
-    find("textarea[name='story[content]']").fill_in with: @new_content
+    find('#story_content').set(@new_content)
     find("input[type='submit']").click
 
     @story.reload
     assert_equal @new_title, @story.title
-    assert_equal @new_content, @story.content
+    assert_equal @new_content, @story.content.to_plain_text
     assert_equal I18n.t('stories.notices.successfully_updated'), find('.flash__notice').text
   end
 
-  test 'should update story by clicking on the content in the show page' do
+  test 'should see edit and delete buttons if creator in the show page' do
     sign_in @user
     visit story_url(@story)
 
-    find("textarea[name='content']").click
-    find("textarea[name='story[title]']").fill_in with: @new_title
-    find("textarea[name='story[content]']").click
-    find("textarea[name='story[content]']").fill_in with: @new_content
-    find("input[type='submit']").click
-
-    @story.reload
-    assert_equal @new_title, @story.title
-    assert_equal @new_content, @story.content
-    assert_equal I18n.t('stories.notices.successfully_updated'), find('.flash__notice').text
-  end
-
-  test 'should see readonly story if not creator in the show page' do
-    sign_in create(:user)
-    visit story_url(@story)
-
-    assert_not has_css?("a[type='delete']")
-    find("##{dom_id @story}_title").click
-
-    assert_not has_css?("textarea[name='title']")
-    assert_not has_css?("textarea[name='story[title]']")
-    assert_not has_css?("input[type='submit']")
-    assert has_css?("##{dom_id @story}_created_at")
-  end
-
-  test 'should see editable story if creator in the show page' do
-    sign_in @user
-    visit story_url(@story)
-
-    assert has_css?("textarea[name='title']")
-    assert has_css?("textarea[name='content']")
+    assert has_css?("a[type='edit']")
     assert has_css?("a[type='delete']")
   end
 

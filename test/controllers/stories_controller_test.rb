@@ -34,13 +34,13 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
       post stories_url, params: { story: { title:, content: } }
     end
 
-    story = Story.find_by(user: @user, title:, content:)
+    story = Story.find_by(user: @user, title:)
 
     assert_redirected_to story_url(story)
     assert_equal I18n.t('stories.notices.successfully_created'), flash[:notice]
     assert_equal @user, story.user
     assert_equal title, story.title
-    assert_equal content, story.content
+    assert_equal content, story.content.to_plain_text
   end
 
   test 'should not create story if not signed in' do
@@ -92,7 +92,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal I18n.t('stories.notices.successfully_updated'), flash.now[:notice]
     assert_equal title, @story.title
-    assert_equal content, @story.content
+    assert_equal content, @story.content.to_plain_text
     assert_equal visible, @story.visible
   end
 
