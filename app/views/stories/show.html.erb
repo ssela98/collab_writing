@@ -5,7 +5,9 @@
 
     <h5 class="mt-3 mb-3">Comments</h5>
     <% if user_signed_in? %>
-      <%= render 'comments/form', commentable: @story, comment: Comment.new %>
+      <turbo-frame id="<%= dom_id(@story) %>_new_comment">
+        <%= render 'comments/form', commentable: @story, comment: Comment.new %>
+      </turbo-frame>
     <% end %>
 
     <%= turbo_stream_from @story, :comments %>
