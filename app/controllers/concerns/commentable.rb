@@ -19,9 +19,9 @@ module Commentable
         comment = Comment.new
 
         format.html { redirect_to @commentable }
-        format.turbo_stream { 
+        format.turbo_stream {
           flash.now[:notice] = I18n.t('comments.notices.successfully_created')
-          render 'comments/create', comment: comment, commentable: @commentable
+          render 'comments/create', comment:, commentable: @commentable
         }
       else
         format.html { redirect_to @commentable, status: :unprocessable_entity }

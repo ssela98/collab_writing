@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: comments
@@ -20,9 +22,9 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, no_attachments: true
 
-  after_create_commit -> {
+  after_create_commit lambda {
     broadcast_append_to [commentable, :comments],
-    target: "#{dom_id(commentable)}_comments",
-    locals: { commentable: commentable }
+                        target: "#{dom_id(commentable)}_comments",
+                        locals: { commentable: }
   }
 end
