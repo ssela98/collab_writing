@@ -25,6 +25,7 @@ class Comment < ApplicationRecord
   after_create_commit lambda {
     broadcast_append_to [commentable, :comments],
                         target: "#{dom_id(commentable)}_comments",
+                        partial: 'comments/comment',
                         locals: { commentable: }
   }
 end

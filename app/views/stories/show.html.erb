@@ -10,7 +10,7 @@
 
     <%= turbo_stream_from @story, :comments %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
-      <% @story.comments.order(created_at: :desc).each do |comment| %>
+      <% @story.comments.each do |comment| %>
         <%= render comment, commentable: @story, comment: comment %>
       <% end %>
     <% end %>
