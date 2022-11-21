@@ -14,6 +14,7 @@
 #
 class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
+  include RecordHelper
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
@@ -27,5 +28,9 @@ class Comment < ApplicationRecord
                         target: "#{dom_id(commentable)}_comments",
                         partial: 'comments/comment',
                         locals: { commentable: }
+  }
+
+  after_destroy_commit lambda {
+    broadcast_remove_to self, target: dom_id_for_records(commentable, self)
   }
 end

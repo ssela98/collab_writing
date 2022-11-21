@@ -64,8 +64,8 @@ module Stories
       @comment.destroy
 
       respond_to do |format|
-        format.html { redirect_to comments_url, notice: I18n.t('comments.notices.successfully_destroyed') }
-        format.json { head :no_content }
+        format.html { redirect_to @commentable }
+        format.turbo_stream { flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed') }
       end
     end
 
