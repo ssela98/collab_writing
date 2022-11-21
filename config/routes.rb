@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :stories, except: %i[index] do
-    resources :comments, module: :stories, except: %i[index new]
+    resources :comments, module: :stories, except: %i[index new show]
   end
 
   get 'home/index'

@@ -10,12 +10,6 @@ module Stories
     before_action :set_commentable
     before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
-    def show
-      respond_to do |format|
-        format.html { render 'comments/show' }
-      end
-    end
-
     # GET /stories/:story_id/comments/:id/edit
     def edit
       respond_to do |format|
@@ -34,13 +28,13 @@ module Stories
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_created')
-            render partial: 'comments/form', commentable: @commentable, comment: @comment
+            render 'comments/form'
           }
         else
           format.html { redirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
-            render partial: 'comments/form', commentable: @commentable, comment: @comment, status: :unprocessable_entity
+            render 'comments/form', status: :unprocessable_entity
           }
         end
       end
@@ -53,13 +47,13 @@ module Stories
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
-            render partial: 'comments/comment', commentable: @commentable, comment: @comment
+            render 'comments/comment'
           }
         else
           format.html { rendirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-            render partial: 'comments/form', commentable: @commentable, comment: @comment, status: :unprocessable_entity
+            render 'comments/form', status: :unprocessable_entity
           }
         end
       end
