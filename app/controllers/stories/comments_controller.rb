@@ -5,24 +5,27 @@ module Stories
     include ActionView::RecordIdentifier
     include RecordHelper
 
-    before_action :authenticate_user!, except: %i[show]
-    before_action :set_comment, except: %i[new]
+    before_action :authenticate_user!
+    before_action :set_comment, except: %i[create]
     before_action :set_commentable
+    before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
-    # GET /comments/1 or /comments/1.json
-    def show; end
-
-    # GET /comments/new
-    def new
-      @comment = Comment.new
+    def show
+      respond_to do |format|
+        format.html { render 'comments/show' }
+      end
     end
 
-    # GET /comments/1/edit
-    def edit; end
+    # GET /stories/:story_id/comments/:id/edit
+    def edit
+      respond_to do |format|
+        format.html { render 'comments/edit' }
+      end
+    end
 
-    # POST /stories/:id/comments or /stories/:id/comments.json
+    # POST /stories/:story_id/comments
     def create
-      @comment = @commentable.comments.new(comment_params.merge(user: current_user))
+      @comment = @commentable.comments.new(comment_create_params.merge(user: current_user))
 
       respond_to do |format|
         if @comment.save
@@ -43,20 +46,23 @@ module Stories
       end
     end
 
-    # PATCH/PUT /comments/1 or /comments/1.json
+    # PATCH/PUT /stories/:story_id/comments/:id
     def update
       respond_to do |format|
-        if @comment.update(comment_params)
-          format.html { redirect_to comment_url(@comment), notice: I18n.t('comments.notices.successfully_updated') }
-          format.json { render :show, status: :ok, location: @comment }
+        if @comment.update(comment_update_params)
+          format.html { redirect_to story_comment_url(@commentable, @comment) }
+          # format.turbo_stream {
+          #   flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
+          #   render 'comments/update', comment: @comment, commentable: @commentable
+          # }
         else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
+          format.html { render 'comments/edit', status: :unprocessable_entity }
+          format.turbo_stream { flash.now[:alert] = I18n.t('comments.errors.failed_to_update') }
         end
       end
     end
 
-    # DELETE /comments/1 or /comments/1.json
+    # DELETE /stories/:story_id/comments/:id
     def destroy
       @comment.destroy
 
@@ -68,8 +74,17 @@ module Stories
 
     private
 
+    # Do not allow edit, update or destroy changes if the logged in user
+    # is not the creator of the story
+    def forbidden_unless_creator
+      return if current_user == @comment.user
+
+      flash.now[:alert] = I18n.t('comments.alerts.not_the_creator')
+      head :forbidden
+    end
+
     def set_comment
-      @comment = Comment.find_by(id: params[:id])
+      @comment = current_user.comments.find_by(id: params[:id])
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -78,8 +93,12 @@ module Stories
     end
 
     # Only allow a list of trusted parameters through.
-    def comment_params
+    def comment_create_params
       params.require(:comment).permit(:content, :parent_id)
+    end
+
+    def comment_update_params
+      params.require(:comment).permit(:content)
     end
   end
 end

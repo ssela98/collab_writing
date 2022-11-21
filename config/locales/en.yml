@@ -35,6 +35,8 @@ en:
   at_date: "at %{date}"
   by_username: "by %{username}"
   comments:
+    alerts:
+      not_the_creator: "You are not the creator of this comment."
     errors:
       failed_to_create: "Comment failed to get created."
       failed_to_destroy: "Comment failed to get destroyed."
