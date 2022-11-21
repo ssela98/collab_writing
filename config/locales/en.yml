@@ -49,6 +49,7 @@ en:
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
+  reply: "Reply"
   sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
   stories:
     alerts:
