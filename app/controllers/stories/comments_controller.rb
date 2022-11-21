@@ -28,13 +28,13 @@ module Stories
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_created')
-            render 'comments/form'
+            render 'comments/create'
           }
         else
           format.html { redirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
-            render 'comments/form', status: :unprocessable_entity
+            render 'comments/create', status: :unprocessable_entity
           }
         end
       end
@@ -47,13 +47,13 @@ module Stories
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
-            render 'comments/comment'
+            render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
           }
         else
           format.html { rendirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-            render 'comments/form', status: :unprocessable_entity
+            render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
           }
         end
       end
@@ -65,7 +65,10 @@ module Stories
 
       respond_to do |format|
         format.html { redirect_to @commentable }
-        format.turbo_stream { flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed') }
+        format.turbo_stream {
+          flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed')
+          render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
+        }
       end
     end
 
@@ -80,20 +83,22 @@ module Stories
       head :forbidden
     end
 
+    # Use callbacks to share @comment between actions.
     def set_comment
       @comment = current_user.comments.find_by(id: params[:id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
+    # Use callbacks to share @commentable between actions.
     def set_commentable
       @commentable = Story.find(params[:story_id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Only allow a list of trusted parameters through for the create action.
     def comment_create_params
       params.require(:comment).permit(:content, :parent_id)
     end
 
+    # Only allow a list of trusted parameters through for the update action.
     def comment_update_params
       params.require(:comment).permit(:content)
     end
