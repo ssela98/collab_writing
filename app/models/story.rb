@@ -14,6 +14,9 @@
 class Story < ApplicationRecord
   belongs_to :user
 
-  validates :title, presence: true
   has_rich_text :content
+  has_many :comments, as: :commentable
+
+  validates :title, presence: true
+  validates :content, no_attachments: true
 end

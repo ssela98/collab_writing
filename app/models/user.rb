@@ -34,6 +34,7 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable
 
   has_many :stories, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 24 }
   validates :email, length: { maximum: 200 }
