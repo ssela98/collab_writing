@@ -47,13 +47,13 @@ module Stories
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
-            render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
+            render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash')
           }
         else
           format.html { rendirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-            render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
+            render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash')
           }
         end
       end
@@ -67,7 +67,7 @@ module Stories
         format.html { redirect_to @commentable }
         format.turbo_stream {
           flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed')
-          render turbo_stream: turbo_stream.prepend("flash", partial: "shared/flash")
+          render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash')
         }
       end
     end
