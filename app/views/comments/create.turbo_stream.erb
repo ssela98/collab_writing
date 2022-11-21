@@ -1,4 +1,0 @@
-<%= turbo_stream.replace("#{dom_id(@commentable)}_new_comment",
-  partial: 'comments/form', locals: { comment: Comment.new, commentable: @commentable })
-%>
-<%= turbo_stream.prepend "flash", partial: "shared/flash" %>

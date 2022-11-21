@@ -29,18 +29,18 @@ module Stories
 
       respond_to do |format|
         if @comment.save
-          comment = Comment.new
+          @comment = Comment.new
 
           format.html { redirect_to @commentable }
           format.turbo_stream {
             flash.now[:notice] = I18n.t('comments.notices.successfully_created')
-            render 'comments/create', comment: comment, commentable: @commentable
+            render partial: 'comments/form', commentable: @commentable, comment: @comment
           }
         else
           format.html { redirect_to @commentable, status: :unprocessable_entity }
           format.turbo_stream {
             flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
-            render 'comments/create', comment: @comment, commentable: @commentable, status: :unprocessable_entity
+            render partial: 'comments/form', commentable: @commentable, comment: @comment, status: :unprocessable_entity
           }
         end
       end
@@ -50,14 +50,17 @@ module Stories
     def update
       respond_to do |format|
         if @comment.update(comment_update_params)
-          format.html { redirect_to story_comment_url(@commentable, @comment) }
-          # format.turbo_stream {
-          #   flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
-          #   render 'comments/update', comment: @comment, commentable: @commentable
-          # }
+          format.html { redirect_to @commentable }
+          format.turbo_stream {
+            flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
+            render partial: 'comments/comment', commentable: @commentable, comment: @comment
+          }
         else
-          format.html { render 'comments/edit', status: :unprocessable_entity }
-          format.turbo_stream { flash.now[:alert] = I18n.t('comments.errors.failed_to_update') }
+          format.html { rendirect_to @commentable, status: :unprocessable_entity }
+          format.turbo_stream {
+            flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
+            render partial: 'comments/form', commentable: @commentable, comment: @comment, status: :unprocessable_entity
+          }
         end
       end
     end
