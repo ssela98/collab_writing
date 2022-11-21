@@ -32,16 +32,29 @@
 en:
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
+  at_date: "at %{date}"
+  by_username: "by %{username}"
+  comments:
+    errors:
+      failed_to_create: "Comment failed to get created."
+      failed_to_destroy: "Comment failed to get destroyed."
+      failed_to_update: "Comment failed to get updated."
+    notices:
+      successfully_created: "Comment was created successfully."
+      successfully_destroyed: "Comment was destroyed successfully."
+      successfully_updated: "Comment was updated successfully."
   home: "Home"
-  sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
+  sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
   stories:
     alerts:
       not_the_creator: "You are not the creator of this story."
-    by_username: "by %{username}"
-    at_date: "at %{date}"
+    errors:
+      failed_to_create: "Story failed to get created."
+      failed_to_destroy: "Story failed to get destroyed."
+      failed_to_update: "Story failed to get updated."
     new_story: "New Story"
     notices:
       successfully_created: "Story was created successfully."

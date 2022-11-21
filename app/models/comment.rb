@@ -11,10 +11,18 @@
 #  updated_at       :datetime         not null
 #
 class Comment < ApplicationRecord
+  include ActionView::RecordIdentifier
+
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
   has_rich_text :content
 
-  validates :content, no_attachments: true
+  validates :content, presence: true, no_attachments: true
+
+  after_create_commit -> {
+    broadcast_append_to [commentable, :comments],
+    target: "#{dom_id(commentable)}_comments",
+    locals: { commentable: commentable }
+  }
 end

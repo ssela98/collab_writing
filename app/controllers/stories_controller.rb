@@ -24,9 +24,9 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_created') }
-        format.json { render :show, status: :created, location: @story }
+        format.json { render :show, status: :created, location: @story } # TODO: do turbo_stream
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity } # TODO: try this to see if it works
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
@@ -39,8 +39,8 @@ class StoriesController < ApplicationController
         format.html { redirect_to story_url(@story) }
         format.turbo_stream { flash.now[:notice] = I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @story.errors, status: :unprocessable_entity }
+        format.html { render 'stories/form', status: :unprocessable_entity } # TODO: fix this
+        format.turbo_stream { flash.now[:alert] = I18n.t('stories.errors.failed_to_update') }
       end
     end
   end

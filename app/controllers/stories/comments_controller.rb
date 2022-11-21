@@ -2,13 +2,9 @@
 
 module Stories
   class CommentsController < ApplicationController
-    before_action :authenticate_user!, except: %i[show]
-    before_action :set_commentable, only: %i[ show edit create update destroy ]
+    include Commentable
 
-    # GET /comments or /comments.json
-    def index
-      @comments = Comment.all
-    end
+    skip_before_action :authenticate_user!, only: %i[show]
 
     # GET /comments/1 or /comments/1.json
     def show
@@ -21,21 +17,6 @@ module Stories
 
     # GET /comments/1/edit
     def edit
-    end
-
-    # POST /comments or /comments.json
-    def create
-      @comment = @commentable.comments.new(comment_params.merge(user: current_user))
-
-      respond_to do |format|
-        if @comment.save
-          format.html { redirect_to story_url(@commentable), notice: "Comment was successfully created." }
-          format.json { render @comment, status: :created, location: story_url(@commentable) }
-        else
-          format.html { redirect_to @commentable, status: :unprocessable_entity }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
-        end
-      end
     end
 
     # PATCH/PUT /comments/1 or /comments/1.json
@@ -59,18 +40,6 @@ module Stories
         format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
         format.json { head :no_content }
       end
-    end
-
-    private
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_commentable
-      @commentable = Story.find(params[:story_id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:content, :parent_id)
     end
   end
 end
