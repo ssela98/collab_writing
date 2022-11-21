@@ -30,6 +30,10 @@ class Comment < ApplicationRecord
                         locals: { commentable: }
   }
 
+  after_update_commit lambda {
+    broadcast_replace_to self, target: dom_id_for_records(commentable, self), partial: 'comments/comment', locals: { commentable: }
+  }
+
   after_destroy_commit lambda {
     broadcast_remove_to self, target: dom_id_for_records(commentable, self)
   }
