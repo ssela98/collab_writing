@@ -33,7 +33,10 @@ en:
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   home: "Home"
-  sign_up_disabled_for_now: "Sorry, sign ups are disabled for now" # TODO: remove this after enabling :registreable
+  sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
+  errors:
+      messages:
+        attachments_not_allowed: "File attachment not supported!"
   stories:
     alerts:
       not_the_creator: "You are not the creator of this story."
