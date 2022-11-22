@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     resources :comments, module: :stories, only: %i[edit create update destroy]
   end
 
+  resources :comments, only: %i[edit create update destroy] do
+    resources :comments, module: :comments, only: %i[edit create update destroy]
+  end
+
   get 'home/index'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
