@@ -9,18 +9,27 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @comment
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @comment.update(comment_params)
+        flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
+
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
+        format.html { redirect_to @comment }
+      else
+        flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
+
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.turbo_stream { }
-      format.html { redirect_to @comment.commentable, notice: I18n.t('comments.notices.successfully_destroyed') }
+      flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed')
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
+      format.html { redirect_to @comment.commentable }
     end
   end
 
