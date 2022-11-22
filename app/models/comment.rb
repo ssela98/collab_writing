@@ -14,29 +14,26 @@
 #
 class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
-  include RecordHelper
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+  belongs_to :parent, optional: true, class_name: 'Comment', inverse_of: :comments
+  has_many :comments, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
   has_rich_text :content
 
-  validates :content, presence: true, no_attachments: true
+  validates :content, presence: true
 
-  after_create_commit lambda {
-    broadcast_append_to [commentable, :comments],
-                        target: "#{dom_id(commentable)}_comments",
-                        partial: 'comments/comment',
-                        locals: { commentable: }
-  }
+  after_create_commit do
+    broadcast_append_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
+  end
 
-  after_update_commit lambda {
-    broadcast_replace_to self,
-                         target: dom_id_for_records(commentable, self),
-                         locals: { commentable: }
-  }
+  after_update_commit do
+    broadcast_replace_to self
+  end
 
-  after_destroy_commit lambda {
-    broadcast_remove_to self, target: dom_id_for_records(commentable, self)
-  }
+  after_destroy_commit do
+    broadcast_remove_to self
+    broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
+  end
 end

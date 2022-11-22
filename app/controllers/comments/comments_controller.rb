@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stories
+module Comments
   class CommentsController < ApplicationController
     include Commentable
 
@@ -8,8 +8,10 @@ module Stories
 
     private
 
+    # Use callbacks to share @commentable between actions.
     def set_commentable
-      @commentable = Story.find(params[:story_id])
+      @parent = Comment.find(params[:comment_id])
+      @commentable = @parent.commentable # Story
     end
   end
 end
