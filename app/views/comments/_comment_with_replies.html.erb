@@ -10,5 +10,6 @@
   <div id="<%= dom_id(comment) %>_comments">
     <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
     <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment %>
+    <!-- TODO: comment validation errors are not rendered for nested comments -->
   </div>
 </div>
