@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
       format.html { redirect_to @comment.commentable }
-    end 
+    end
   end
 
   def set_comment
