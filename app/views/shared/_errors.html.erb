@@ -1,3 +1,6 @@
+<% if defined?(resource) && resource.errors&.any? %>
+  <% binding.pry %>
+<% end %>
 <% if defined?(resource) && defined?(attribute) && resource.errors&.include?(attribute) %>
   <div style="color: red">
     <ul id="<%= dom_id resource %>_<%= attribute %>_errors" class="error">
