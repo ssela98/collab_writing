@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @comment.update(comment_params)
@@ -19,7 +19,9 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream {
+        # TODO: flash messages
+      }
       format.html { redirect_to @comment.commentable }
     end
   end

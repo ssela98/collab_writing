@@ -17,15 +17,15 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
-  belongs_to :parent, optional: true, class_name: "Comment"
-  has_many :comments, foreign_key: :parent_id, dependent: :destroy
+  belongs_to :parent, optional: true, class_name: 'Comment', inverse_of: :comments
+  has_many :comments, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
   has_rich_text :content
 
   validates :content, presence: true
 
   after_create_commit do
-    broadcast_append_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: "comments/comment_with_replies"
+    broadcast_append_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
   end
 
   after_update_commit do

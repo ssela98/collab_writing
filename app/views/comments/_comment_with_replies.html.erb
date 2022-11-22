@@ -3,7 +3,7 @@
 <div class="ps-3 border-left" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply">
   <%= render comment %>
 
-  <div class="text-sm">
+  <div class="text-sm mb-3">
     <%= link_to "Reply", "#", data: { action: "click->comment-reply#toggle" } %>
   </div>
 
