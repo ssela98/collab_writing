@@ -5,17 +5,13 @@
 
     <h5 class="mt-3 mb-3">Comments</h5>
     <% if user_signed_in? %>
-      <% new_comment = Comment.new %>
-      <turbo-frame id=<%= dom_id_for_records(@story, new_comment) %>>
-        <%= render 'comments/form', commentable: @story, comment: new_comment %>
-      </turbo-frame>
+      <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @story } %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "login", new_user_session_path %> to comment
     <% end %>
-
     <%= turbo_stream_from @story, :comments %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
-      <% @story.comments.each do |comment| %>
-        <%= render comment, commentable: @story, comment: comment %>
-      <% end %>
+      <%= render partial: "comments/comment_with_replies", collection: @story.comments.where(parent_id: nil), as: :comment %>
     <% end %>
   </div>
 </div>
