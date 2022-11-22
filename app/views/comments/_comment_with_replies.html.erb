@@ -1,6 +1,6 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="<%= 'ps-3' unless comment.parent.nil? %> border-left" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply">
+<div class="<%= 'ps-3' unless comment.parent.nil? %> border-left" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
   <%= render comment %>
 
   <div class="text-sm mb-3">
