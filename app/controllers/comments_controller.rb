@@ -19,10 +19,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.turbo_stream {
-        # TODO: flash messages
-      }
-      format.html { redirect_to @comment.commentable }
+      format.turbo_stream { }
+      format.html { redirect_to @comment.commentable, notice: I18n.t('comments.notices.successfully_destroyed') }
     end
   end
 
