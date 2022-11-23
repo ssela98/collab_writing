@@ -3,12 +3,16 @@
     <%= button_to "Back to Stories", root_path, method: :get, class:"btn btn-m btn-secondary mb-3" %>
     <%= render @story %>
 
-    <h5 class="mt-3 mb-3">Comments</h5>
-    <% if user_signed_in? %>
-      <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @story } %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "login", new_user_session_path %> to comment
-    <% end %>
+    <h5 class="mt-3 mb-3"><%= t('comments_title') %></h5>
+    <div class="mb-3">
+      <% if user_signed_in? %>
+        <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @story } %>
+      <% else %>
+        <%= t("comments.sign_up_or_log_in.html",
+          sign_up_href: link_to(t("comments.sign_up_or_log_in.sign_up_href"), new_user_registration_path),
+          log_in_href:  link_to(t("comments.sign_up_or_log_in.log_in_href"), new_user_session_path)) %>
+      <% end %>
+    </div>
     <%= turbo_stream_from @story, :comments %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
       <%= render partial: "comments/comment_with_replies", collection: @story.comments.where(parent_id: nil), as: :comment %>

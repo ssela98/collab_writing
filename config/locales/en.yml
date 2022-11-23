@@ -34,6 +34,7 @@ en:
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   at_date: "at %{date}"
   by_username: "by %{username}"
+  comments_title: "Comments"
   comments:
     alerts:
       not_the_creator: "You are not the creator of this comment."
@@ -45,6 +46,10 @@ en:
       successfully_created: "Comment was created successfully."
       successfully_destroyed: "Comment was destroyed successfully."
       successfully_updated: "Comment was updated successfully."
+    sign_up_or_log_in:
+      html: "%{sign_up_href} or %{log_in_href} to comment"
+      sign_up_href: "Sign up"
+      log_in_href: "log in"
   home: "Home"
   errors:
       messages:
