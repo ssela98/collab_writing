@@ -50,10 +50,12 @@ en:
       html: "%{sign_up_href} or %{log_in_href} to comment"
       sign_up_href: "Sign up"
       log_in_href: "log in"
-  home: "Home"
+  delete: "Delete"
+  edit: "Edit"
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
+  home: "Home"
   reply: "Reply"
   sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
   stories:
