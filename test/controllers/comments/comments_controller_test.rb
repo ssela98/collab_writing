@@ -14,13 +14,13 @@ module Comments
     test 'should create' do
       sign_in @user
       content = Faker::Fantasy::Tolkien.poem
-  
+
       assert_difference 'Comment.count', 1 do
         post comment_comments_url(comment_id: @commentable.id), params: { comment: { content: }, format: :turbo_stream }
       end
 
       comment = Comment.find_by(user: @user, commentable: @commentable.commentable, parent: @commentable)
-  
+
       assert_response :success
       assert_equal I18n.t('comments.notices.successfully_created'), flash[:notice]
       assert_equal @user, comment.user
@@ -31,7 +31,7 @@ module Comments
 
     test 'should not create if not signed in' do
       content = Faker::Fantasy::Tolkien.poem
-  
+
       assert_difference 'Comment.count', 0 do
         post comment_comments_url(comment_id: @commentable.id), params: { comment: { content: }, format: :turbo_stream }
       end
