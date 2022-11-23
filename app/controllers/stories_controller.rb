@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :authenticate_user!, except: %i[show]
+  before_action :authenticate_user!, except: :show
   before_action :set_story, only: %i[show edit update destroy]
   before_action :set_autofocus, only: %i[show edit update]
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
