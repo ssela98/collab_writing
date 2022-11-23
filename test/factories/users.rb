@@ -30,11 +30,10 @@ require 'faker'
 
 FactoryBot.define do
   factory :user do
-    # username { "username_#{(1..50).to_a.sample(7).join}" }
-    # email { "#{username}@#{Faker::Internet.domain_name}".downcase }
+    # sequence(:username) { |n| "username_#{n}" }
     # password { Faker::Internet.password }
-    sequence(:username) { |n| "username_#{n}" }
-    email { "#{username}@nowyouwrite.com".downcase }
+    username { "username_#{(1..50).to_a.sample(5).join}" }
+    email { "#{username}@#{Faker::Internet.domain_name}".downcase }
     password { 'alepass1212' }
     confirmed_at { Time.current.utc }
     confirmation_token { nil }
