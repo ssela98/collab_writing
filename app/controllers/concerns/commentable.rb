@@ -6,7 +6,7 @@ module Commentable
   include RecordHelper
 
   included do
-    before_action :authenticate_user!
+    before_action :authenticate_user!, only: :create
   end
 
   def create
@@ -29,7 +29,8 @@ module Commentable
         }
       else
         format.turbo_stream {
-          replace_form_and_render_flashes(@parent || @commentable, @comment, :alert, I18n.t('comments.errors.failed_to_create'))
+          replace_form_and_render_flashes(@parent || @commentable, @comment, :alert,
+                                          I18n.t('comments.errors.failed_to_create'), { data: { comment_reply_target: :form } })
         }
       end
       format.html { redirect_to @commentable }

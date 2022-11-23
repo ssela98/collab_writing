@@ -2,11 +2,11 @@
 
 Rails.application.routes.draw do
   resources :stories do
-    resources :comments, module: :stories
+    resources :comments, module: :stories, only: :create
   end
 
-  resources :comments do
-    resources :comments, module: :comments
+  resources :comments, only: %i[show edit update destroy] do
+    resources :comments, module: :comments, only: :create
   end
 
   get 'home/index'

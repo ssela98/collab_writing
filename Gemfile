@@ -77,6 +77,7 @@ group :development, :test do
 
   # binding.pry
   gem 'pry', '~> 0.13.1'
+  gem 'pry-byebug' # navigation like `step` and `next` in binding.pry
 
   # Annotate models
   gem 'annotate'

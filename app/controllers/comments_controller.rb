@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
   before_action :set_comment
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
@@ -41,10 +41,10 @@ class CommentsController < ApplicationController
   def forbidden_unless_creator
     return if current_user == @comment.user
 
-    flash.now[:alert] = I18n.t('stories.alerts.not_the_creator')
+    flash.now[:alert] = I18n.t('comments.alerts.not_the_creator')
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
-      format.html { redirect_to @comment.commentable }
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash'), status: :forbidden }
+      format.html { redirect_to @comment.commentable, status: :forbidden }
     end
   end
 

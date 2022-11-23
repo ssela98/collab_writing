@@ -21,6 +21,16 @@ class Comment < ApplicationRecord
   has_many :comments, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
   has_rich_text :content
+  scope :joins_content, lambda {
+                          joins("INNER JOIN action_text_rich_texts
+                                        ON action_text_rich_texts.record_id = comments.id
+                                        AND action_text_rich_texts.record_type = 'Comment'")
+                        }
+  scope :where_content, lambda { |content|
+    return joins_content.where(action_text_rich_texts: { body: nil }) unless content
+
+    joins_content.where('action_text_rich_texts.body LIKE ?', "%#{content}%")
+  }
 
   validates :content, presence: true
 

@@ -97,7 +97,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not update story if not signed in' do
-    patch story_url(@story), params: { story: { title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote } }
+    patch story_url(@story), params: { story: { title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote }, format: :turbo_stream }
 
     assert_redirected_to new_user_session_path
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
@@ -133,7 +133,9 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not destroy if signed in as another user and should get forbidden response' do
     sign_in @stranger
-    delete story_url(@story)
+    assert_difference 'Story.count', 0 do
+      delete story_url(@story)
+    end
 
     assert_response :forbidden
     assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
