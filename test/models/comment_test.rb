@@ -21,20 +21,20 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'should create' do
-    comment = Comment.create(user: @user, commentable: @commentable, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment = Comment.create(user: @user, commentable: @commentable, content: Faker::Fantasy::Tolkien.poem)
 
     assert comment.valid?
   end
 
   test 'should not create without user and should return validation error' do
-    comment = Comment.create(commentable: @commentable, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment = Comment.create(commentable: @commentable, content: Faker::Fantasy::Tolkien.poem)
 
     assert_not comment.valid?
     assert_equal ['User must exist'], comment.errors.full_messages
   end
 
   test 'should not create without commentable and should return validation error' do
-    comment = Comment.create(user: @user, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment = Comment.create(user: @user, content: Faker::Fantasy::Tolkien.poem)
 
     assert_not comment.valid?
     assert_equal ['Commentable must exist'], comment.errors.full_messages
@@ -55,13 +55,13 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'user relationship works' do
-    comment = Comment.create(user: @user, commentable: @commentable, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment = Comment.create(user: @user, commentable: @commentable, content: Faker::Fantasy::Tolkien.poem)
 
     assert_equal @user, comment.user
   end
 
   test 'commentable comments relationship works' do
-    comment = Comment.create(user: @user, commentable: @commentable, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment = Comment.create(user: @user, commentable: @commentable, content: Faker::Fantasy::Tolkien.poem)
 
     assert_equal @commentable, comment.commentable
     assert_equal @commentable.comments, [comment]
@@ -69,7 +69,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'parent comments relationship works' do
     comment = create(:comment, :of_story)
-    comment_2 = Comment.create(user: @user, commentable: comment, parent: comment, content: "<p>#{ Faker::Fantasy::Tolkien.poem }</>")
+    comment_2 = Comment.create(user: @user, commentable: comment, parent: comment, content:Faker::Fantasy::Tolkien.poem)
 
     assert_equal comment, comment_2.commentable
     assert_equal comment.comments, [comment_2]
