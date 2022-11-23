@@ -6,7 +6,7 @@ module Commentable
   include RecordHelper
 
   included do
-    before_action :authenticate_user!
+    before_action :authenticate_user!, only: :create
   end
 
   def create
