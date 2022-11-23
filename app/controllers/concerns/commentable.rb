@@ -30,7 +30,7 @@ module Commentable
       else
         format.turbo_stream {
           replace_form_and_render_flashes(@parent || @commentable, @comment, :alert,
-                                          I18n.t('comments.errors.failed_to_create'), { data: { comment_reply_target: :form }})
+                                          I18n.t('comments.errors.failed_to_create'), { data: { comment_reply_target: :form } })
         }
       end
       format.html { redirect_to @commentable }

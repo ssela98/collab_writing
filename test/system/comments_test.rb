@@ -234,13 +234,13 @@ class CommentsTest < ApplicationSystemTestCase
     comments = find("##{dom_id(@story)}_comments")
     comment = comments.find("##{dom_id(@user_comment)}")
 
-    #assert_difference 'Comment.count', -1 do
-      #assert_difference "all('.comment').size", -1 do
-        alert_text = accept_confirm do
-          comment.find('.hideable-buttons').find("form[class='button_to']").find("button[type='submit']").click
-        end
-      #end
-    #end
+    # assert_difference 'Comment.count', -1 do
+    # assert_difference "all('.comment').size", -1 do
+    alert_text = accept_confirm do
+      comment.find('.hideable-buttons').find("form[class='button_to']").find("button[type='submit']").click
+    end
+    # end
+    # end
 
     assert_equal I18n.t('are_you_sure_delete'), alert_text
     assert_equal I18n.t('comments.notices.successfully_destroyed'), find('.flash__notice').text
@@ -253,13 +253,13 @@ class CommentsTest < ApplicationSystemTestCase
     comments = find("##{dom_id(@story)}_comments")
     comment = comments.find("##{dom_id(@reply_to_user_comment)}")
 
-    #assert_difference 'Comment.count', -1 do
-      #assert_difference "all('.comment').size", -1 do
-        alert_text = accept_confirm do
-          comment.find('.hideable-buttons').find("form[class='button_to']").find("button[type='submit']").click
-        end
-      #end
-    #end
+    # assert_difference 'Comment.count', -1 do
+    # assert_difference "all('.comment').size", -1 do
+    alert_text = accept_confirm do
+      comment.find('.hideable-buttons').find("form[class='button_to']").find("button[type='submit']").click
+    end
+    # end
+    # end
 
     assert_equal I18n.t('are_you_sure_delete'), alert_text
     assert_equal I18n.t('comments.notices.successfully_destroyed'), find('.flash__notice').text
