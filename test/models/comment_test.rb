@@ -69,7 +69,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'parent comments relationship works' do
     comment = create(:comment, :of_story)
-    comment_2 = Comment.create(user: @user, commentable: comment, parent: comment, content:Faker::Fantasy::Tolkien.poem)
+    comment_2 = Comment.create(user: @user, commentable: comment, parent: comment, content: Faker::Fantasy::Tolkien.poem)
 
     assert_equal comment, comment_2.commentable
     assert_equal comment.comments, [comment_2]
