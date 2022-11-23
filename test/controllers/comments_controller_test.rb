@@ -79,8 +79,6 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not destroy comment if not signed in' do
-    commentable = @comment.commentable
-
     assert_difference 'Comment.count', 0 do
       delete comment_url(@comment)
     end
