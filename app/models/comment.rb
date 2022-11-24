@@ -11,6 +11,7 @@
 #  parent_id        :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  level            :integer          default(1)
 #
 class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
