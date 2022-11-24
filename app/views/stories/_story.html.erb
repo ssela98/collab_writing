@@ -8,13 +8,8 @@
         <span id="<%= dom_id(story) %>_created_at"><%= t('at_date', date: story.created_at) %></span>
       </h6>
       <p id="<%= dom_id(story) %>_content"><%= story.content %></p>
-      <% story.pins.each do |pin| %>
-        <%= link_to "##{dom_id(pin.comment)}", class: "pin text-decoration-none text-reset mb-2 ps-2" do %>
-          <div class="py-2">
-            <span id="<%= dom_id(pin) %>_content"><%= pin.comment.content %></span>
-          </div>
-        <% end %>
-      <% end %>
+      <%= turbo_stream_from story.pins %>
+      <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
 
       <% if !defined?(do_not_render_buttons) %>
         <div class="d-none d-flex justify-content-start align-items-center mt-3 mb-3 hideable-buttons"
