@@ -37,7 +37,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update(story_params)
         format.html { redirect_to story_url(@story) }
-        format.turbo_stream { flash.now[:notice] = I18n.t('stories.notices.successfully_updated') unless params[:cancel] == true }
+        format.turbo_stream { flash.now[:notice] = I18n.t('stories.notices.successfully_updated') }
       else
         format.html { render 'stories/form', status: :unprocessable_entity } # TODO: fix this
         format.turbo_stream { flash.now[:alert] = I18n.t('stories.errors.failed_to_update') }

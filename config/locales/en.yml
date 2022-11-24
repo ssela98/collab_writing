@@ -58,6 +58,7 @@ en:
         attachments_not_allowed: "File attachment not supported!"
   home: "Home"
   reply: "Reply"
+  save: "Save"
   sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
   stories:
     alerts:
