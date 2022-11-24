@@ -16,6 +16,7 @@ class Story < ApplicationRecord
 
   has_rich_text :content
   has_many :comments, as: :commentable
+  has_many :story_comments, foreign_key: :story_id, dependent: :destroy, inverse_of: :story
 
   validates :title, presence: true
   validates :content, no_attachments: true
