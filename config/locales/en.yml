@@ -72,7 +72,7 @@ en:
       successfully_created: "Story was created successfully."
       successfully_destroyed: "Story was destroyed successfully."
       successfully_updated: "Story was updated successfully."
-  story_comments:
+  pins:
     notices:
       successfully_created: "Comment was accepted successfully."
       successfully_destroyed: "Comment was removed from story successfully."

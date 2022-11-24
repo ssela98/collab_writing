@@ -60,6 +60,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "pins", force: :cascade do |t|
+    t.integer "story_id", null: false
+    t.integer "comment_id", null: false
+    t.integer "sequence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_pins_on_comment_id"
+    t.index ["story_id", "comment_id"], name: "index_pins_on_story_id_and_comment_id", unique: true
+    t.index ["story_id"], name: "index_pins_on_story_id"
+  end
+
   create_table "stories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -68,17 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_stories_on_user_id"
     t.index ["visible"], name: "index_stories_on_visible"
-  end
-
-  create_table "story_comments", force: :cascade do |t|
-    t.integer "story_id", null: false
-    t.integer "comment_id", null: false
-    t.integer "sequence"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_story_comments_on_comment_id"
-    t.index ["story_id", "comment_id"], name: "index_story_comments_on_story_id_and_comment_id", unique: true
-    t.index ["story_id"], name: "index_story_comments_on_story_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -112,6 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
-  add_foreign_key "story_comments", "comments"
-  add_foreign_key "story_comments", "stories"
+  add_foreign_key "pins", "comments"
+  add_foreign_key "pins", "stories"
 end

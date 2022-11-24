@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: story_comments
+# Table name: pins
 #
 #  id         :integer          not null, primary key
 #  story_id   :integer          not null
@@ -11,7 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class StoryComment < ApplicationRecord
+class Pin < ApplicationRecord
   belongs_to :story
   belongs_to :comment
 
@@ -29,6 +29,6 @@ class StoryComment < ApplicationRecord
   def set_sequence
     return if sequence
 
-    self.sequence = StoryComment.where(story:)&.maximum(:sequence).to_i + 1
+    self.sequence = Pin.where(story:)&.maximum(:sequence).to_i + 1
   end
 end

@@ -3,8 +3,11 @@
 <div class="<%= 'ps-3 border-left' unless comment.parent.nil? %>" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
   <%= render comment %>
 
-  <div class="text-sm mb-3">
-    <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", data: { action: "click->comment-reply#toggle" } %>
+  <div class="text-sm mt-1 mb-3 d-flex">
+    <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
+    <%= form_for(Pin.new, as: 'pin', url: pins_url(pin: { story_id: comment.commentable.id, comment_id: comment.id })) do |form| %>
+      <%= form.submit 'Accept Story', class:"btn btn-link" %>
+    <% end %>
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">

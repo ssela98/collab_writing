@@ -36,7 +36,7 @@ class StoriesTest < ApplicationSystemTestCase
     find('#story_content').set(@new_content)
 
     alert_text = accept_confirm do
-      find("a[type='cancel']").click
+      find("a[type='cancel']").click # TODO: fix this
     end
     assert_equal I18n.t('are_you_sure_changes_unsaved'), alert_text
     assert_not @user.stories.find_by(user: @user, title: @new_title)
