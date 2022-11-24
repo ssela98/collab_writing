@@ -1,24 +1,27 @@
-<turbo-frame id="<%= dom_id story %>" class="story">
+<%= turbo_frame_tag dom_id(story), class: "story", data: { controller: "turbo-frame-visibility" } do %>
   <div class="card">
     <div class="card-body d-flex flex-column w-100">
 
-      <h5 id="<%= dom_id story %>_title" class="card-title"><%= story.title %></h5>
+      <h5 id="<%= dom_id(story) %>_title" class="card-title"><%= story.title %></h5>
       <h6 class="card-subtitle mb-2 text-muted">
-        <span id="<%= dom_id story %>_user_username"><%= t('by_username', username: story.user.username) %></span>
-        <span id="<%= dom_id story %>_created_at"><%= t('at_date', date: story.created_at) %></span>
+        <span id="<%= dom_id(story) %>_user_username"><%= t('by_username', username: story.user.username) %></span>
+        <span id="<%= dom_id(story) %>_created_at"><%= t('at_date', date: story.created_at) %></span>
       </h6>
-      <p id="<%= dom_id story %>_content" class="card-text"><%= story.content %></p>
+      <p id="<%= dom_id(story) %>_content" class="card-text"><%= story.content %></p>
 
-      <% if current_user == story.user && !defined?(do_not_render_buttons) %>
-        <div class="w-auto d-flex justify-content-center align-items-center">
-          <%= link_to "Edit", edit_story_path(story), type: "edit", class: "btn btn-m btn-primary m-3" %>
-          <%= link_to "Delete", story_path(story),
-            data: { turbo_method: :delete, turbo_confirm: t('are_you_sure_delete')},
-            type: "delete",
-            class: "btn btn-m btn-danger m-3"
+      <% if !defined?(do_not_render_buttons) %>
+        <div class="d-none d-flex justify-content-start align-items-center mt-3 mb-3 hideable-buttons"
+          data-turbo-frame-visibility-target="hideableTurboFrame"
+          data-username-value="<%= story.user.username %>"
+        >
+          <%= link_to t('edit'), edit_story_path(story), type: "edit", class: "me-2" %>|
+          <%= button_to t('delete'), story_path(story),
+            method: :delete,
+            class: "btn btn-link",
+            data: { confirm: t('are_you_sure_delete') }
           %>
         </div>
       <% end %>
     </div>
   </div>
-</turbo-frame>
+<% end %>

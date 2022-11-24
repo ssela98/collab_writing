@@ -9,7 +9,8 @@
   <%= render partial: "shared/errors", locals: { source: local_assigns[:commentable], resource: form.object, attribute: :content } %>
 
   <div class="d-flex align-items-center mt-3 mb-3">
-    <%= form.submit "Save", class: "btn btn-m btn-primary me-3" %>
-    <%= link_to "Cancel", comment, class: "btn btn-link", data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } if form.object.persisted? %>
+    <%= form.submit t('save'), class: "btn btn-m btn-primary me-3" %>
+    <!-- TODO: after cancel, the stimulus doesn't reload, so the hideable-buttons disappear -->
+    <%= link_to t('cancel'), comment, class: "btn btn-link", data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } if form.object.persisted? %>
   </div>
 <% end %>

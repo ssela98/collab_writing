@@ -8,7 +8,7 @@ export default class extends Controller {
     let currentUserUsername = document.querySelector("meta[name='current-user-username']").content
     if (!currentUserUsername) return
 
-    if (this.hideableTurboFrameTarget.dataset.usernameValue != currentUserUsername)
+    if (this.hideableTurboFrameTarget.dataset.usernameValue == currentUserUsername)
       this.hideableTurboFrameTarget.classList.toggle('d-none')
   }
 }

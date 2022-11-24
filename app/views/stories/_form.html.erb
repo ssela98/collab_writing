@@ -14,12 +14,9 @@
       </div>
 
       <div class="mb-3 d-flex align-items-center justify-content-center">
-        <%= form.submit "Save", class:"btn btn-m btn-primary m-3" %>
-        <%= link_to "Cancel", request.referer == new_story_url ? root_path : request.referer,
-          data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') },
-          type: "cancel",
-          class: "btn btn-m btn-danger m-3"
-        %>
+        <%= form.submit t('save'), class:"btn btn-m btn-primary m-3" %>
+        <!-- TODO: after cancel, the stimulus doesn't reload, so the hideable-buttons disappear -->
+        <%= link_to t('cancel'), story, class: "btn btn-link", data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } %>
       </div>
     </div>
   </div>

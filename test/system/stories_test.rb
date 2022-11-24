@@ -47,11 +47,10 @@ class StoriesTest < ApplicationSystemTestCase
     sign_in @user
     visit story_url(@story)
 
-    find("a[type='edit']").click
-    find("textarea[name='story[title]']").click
-    find("textarea[name='story[title]']").fill_in with: @new_title
-    find('#story_content').set(@new_content)
-    find("input[type='submit']").click
+    find("##{dom_id(@story)}").find("a[type='edit']").click
+    find("##{dom_id(@story)}").find("textarea[name='story[title]']").click.fill_in with: @new_title
+    find("##{dom_id(@story)}").find('#story_content').click.set(@new_content)
+    find("##{dom_id(@story)}").find("input[type='submit']").click
 
     @story.reload
     assert_equal @new_title, @story.title
@@ -59,25 +58,26 @@ class StoriesTest < ApplicationSystemTestCase
     assert_equal I18n.t('stories.notices.successfully_updated'), find('.flash__notice').text
   end
 
-  test 'should see edit and delete buttons if creator in the show page' do
+  test 'should see edit or delete buttons if creator of the story' do
     sign_in @user
     visit story_url(@story)
 
-    assert has_css?("a[type='edit']")
-    assert has_css?("a[type='delete']")
+    story = find("##{dom_id(@story)}")
+
+    assert story.has_css?('.hideable-buttons')
   end
 
-  # TODO: fix this - remove @rails/ujs and replace link_to delete with buttons
-  # test 'should destroy story' do
-  #   sign_in @user
-  #   story_id = @story.id
-  #   visit story_url(@story)
+  test 'should destroy story' do
+    sign_in @user
+    story_id = @story.id
+    visit story_url(@story)
 
-  #   alert_text = accept_confirm do
-  #     find("a[type='delete']").click
-  #   end
-  #   assert_equal I18n.t('are_you_sure_delete'), alert_text
-  #   assert_equal I18n.t('stories.notices.successfully_destroyed'), find('.flash__notice').text
-  #   assert_not Story.find_by(id: story_id)
-  # end
+    alert_text = accept_confirm do
+      find("##{dom_id(@story)}").find('.hideable-buttons').find("form[class='button_to']").find("button[type='submit']").click
+    end
+
+    assert_equal I18n.t('are_you_sure_delete'), alert_text
+    assert_equal I18n.t('stories.notices.successfully_destroyed'), find('.flash__notice').text
+    assert_not Story.find_by(id: story_id)
+  end
 end
