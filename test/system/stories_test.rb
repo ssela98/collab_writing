@@ -49,7 +49,7 @@ class StoriesTest < ApplicationSystemTestCase
 
     find("##{dom_id(@story)}").find("a[type='edit']").click
     find("##{dom_id(@story)}").find("textarea[name='story[title]']").click.fill_in with: @new_title
-    find("##{dom_id(@story)}").find("#story_content").click.set(@new_content)
+    find("##{dom_id(@story)}").find('#story_content').click.set(@new_content)
     find("##{dom_id(@story)}").find("input[type='submit']").click
 
     @story.reload
