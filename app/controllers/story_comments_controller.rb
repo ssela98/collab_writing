@@ -1,4 +1,5 @@
 class StoryCommentsController < ApplicationController
+  before_action :authenticate_user!, except: :show
   before_action :set_story_comment, only: %i[ show edit update destroy ]
 
   # GET /story_comments or /story_comments.json
