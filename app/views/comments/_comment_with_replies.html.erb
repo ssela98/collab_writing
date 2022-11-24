@@ -5,8 +5,16 @@
 
   <div class="text-sm mt-1 mb-3 d-flex">
     <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
-    <%= form_for(Pin.new, as: 'pin', url: pins_url(pin: { story_id: comment.commentable.id, comment_id: comment.id })) do |form| %>
-      <%= form.submit 'Accept Story', class:"btn btn-link" %>
+    <% if comment.pin %>
+      <%= button_to 'Unpin', pin_path(comment.pin),
+          method: :delete,
+          class: "btn btn-link",
+          data: { confirm: t('are_you_sure_delete') }
+      %>
+    <% else %>
+      <%= form_for(Pin.new, as: 'pin', url: pins_path(pin: { story_id: comment.commentable.id, comment_id: comment.id })) do |form| %>
+        <%= form.submit 'Pin', class:"btn btn-link" %>
+      <% end %>
     <% end %>
   </div>
 

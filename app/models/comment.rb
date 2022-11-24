@@ -18,8 +18,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :parent, optional: true, class_name: 'Comment', inverse_of: :comments
+  has_one :pin, class_name: 'Pin', dependent: :destroy
   has_many :comments, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
-  has_many :pins, dependent: :destroy, inverse_of: :comment
 
   has_rich_text :content
   scope :joins_content, lambda {
