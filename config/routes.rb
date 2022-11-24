@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :story_comments
   resources :stories do
     resources :comments, module: :stories, only: :create
   end

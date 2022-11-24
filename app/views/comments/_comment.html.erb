@@ -16,7 +16,10 @@
           method: :delete,
           class: "btn btn-link",
           data: { confirm: t('are_you_sure_delete') }
-        %>
+        %>|
+        <%= form_for(StoryComment.new, as: 'story_comment', url: story_comments_url(story_comment: { story_id: comment.commentable.id, comment_id: comment.id })) do |form| %>
+          <%= form.submit 'Accept Story', class:"btn btn-link" %>
+        <% end %>
       </div>
     </div>
   </div>

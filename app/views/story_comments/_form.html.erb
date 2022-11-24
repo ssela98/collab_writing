@@ -1,0 +1,17 @@
+<%= form_with(model: story_comment) do |form| %>
+  <% if story_comment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(story_comment.errors.count, "error") %> prohibited this story_comment from being saved:</h2>
+
+      <ul>
+        <% story_comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

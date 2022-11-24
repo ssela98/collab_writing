@@ -16,7 +16,7 @@ module Stories
       content = Faker::Fantasy::Tolkien.poem
 
       assert_difference 'Comment.count', 1 do
-        post story_comments_url(story_id: @commentable.id), params: { comment: { content: }, format: :turbo_stream }
+        post "/stories/#{@commentable.id}/comments", params: { comment: { content: }, format: :turbo_stream }
       end
 
       comment = Comment.find_by(user: @user, commentable: @commentable, parent: nil)
@@ -33,7 +33,7 @@ module Stories
       content = Faker::Fantasy::Tolkien.poem
 
       assert_difference 'Comment.count', 0 do
-        post story_comments_url(story_id: @commentable.id), params: { comment: { content: }, format: :turbo_stream }
+        post "/stories/#{@commentable.id}/comments", params: { comment: { content: }, format: :turbo_stream }
       end
 
       assert_redirected_to new_user_session_path
