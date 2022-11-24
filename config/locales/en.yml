@@ -72,6 +72,11 @@ en:
       successfully_created: "Story was created successfully."
       successfully_destroyed: "Story was destroyed successfully."
       successfully_updated: "Story was updated successfully."
+  story_comments:
+    notices:
+      successfully_created: "Comment was accepted successfully."
+      successfully_destroyed: "Comment was removed from story successfully."
+      successfully_updated: "Story order was updated successfully."
   users:
     log_in: "Log In"
     log_out: "Log Out"

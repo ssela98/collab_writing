@@ -16,7 +16,7 @@ class StoryComment < ApplicationRecord
   belongs_to :comment
 
   validate :comment_belongs_to_story
-  validates_uniqueness_of :comment_id, scope: :story_id
+  validates :comment_id, uniqueness: { scope: :story_id }
 
   before_save :set_sequence
 
@@ -27,8 +27,8 @@ class StoryComment < ApplicationRecord
   end
 
   def set_sequence
-    return if self.sequence
+    return if sequence
 
-    self.sequence = StoryComment.where(story: story)&.maximum(:sequence).to_i + 1
+    self.sequence = StoryComment.where(story:)&.maximum(:sequence).to_i + 1
   end
 end

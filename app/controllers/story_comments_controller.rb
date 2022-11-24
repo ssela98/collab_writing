@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class StoryCommentsController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_story_comment, only: %i[ show edit update destroy ]
+  before_action :set_story_comment, only: %i[show edit update destroy]
 
   # GET /story_comments or /story_comments.json
   def index
@@ -8,8 +10,7 @@ class StoryCommentsController < ApplicationController
   end
 
   # GET /story_comments/1 or /story_comments/1.json
-  def show
-  end
+  def show; end
 
   # GET /story_comments/new
   def new
@@ -17,8 +18,7 @@ class StoryCommentsController < ApplicationController
   end
 
   # GET /story_comments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /story_comments or /story_comments.json
   def create
@@ -26,7 +26,7 @@ class StoryCommentsController < ApplicationController
 
     respond_to do |format|
       if @story_comment.save
-        format.html { redirect_to @story_comment.story, notice: "Story comment was successfully created." }
+        format.html { redirect_to @story_comment.story, notice: I18n.t('story_comments.notices.successfully_created') }
         format.json { render :show, status: :created, location: @story_comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class StoryCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @story_comment.update(story_comment_params)
-        format.html { redirect_to story_comment_url(@story_comment), notice: "Story comment was successfully updated." }
+        format.html { redirect_to story_comment_url(@story_comment), notice: I18n.t('story_comments.notices.successfully_updated') }
         format.json { render :show, status: :ok, location: @story_comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,19 +53,20 @@ class StoryCommentsController < ApplicationController
     @story_comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to story_comments_url, notice: "Story comment was successfully destroyed." }
+      format.html { redirect_to story_comments_url, notice: I18n.t('story_comments.notices.successfully_destroyed') }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_story_comment
-      @story_comment = StoryComment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def story_comment_params
-      params.require(:story_comment).permit(:story_id, :comment_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_story_comment
+    @story_comment = StoryComment.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def story_comment_params
+    params.require(:story_comment).permit(:story_id, :comment_id)
+  end
 end
