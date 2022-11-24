@@ -36,6 +36,8 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true
 
+  before_save :set_level
+
   after_create_commit do
     broadcast_prepend_later_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
   end
@@ -47,5 +49,11 @@ class Comment < ApplicationRecord
   after_destroy_commit do
     broadcast_remove_to self
     broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
+  end
+
+  private
+
+  def set_level
+    self.level = self.parent&.level.to_i + 1 if self.level.to_i <= self.parent&.level.to_i
   end
 end
