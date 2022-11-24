@@ -13,6 +13,7 @@ module Commentable
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
     @comment.parent_id = @parent&.id
+    @comment.level = @parent&.level.to_i + 1
 
     respond_to do |format|
       if @comment.save
