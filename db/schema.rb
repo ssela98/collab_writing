@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_001724) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -70,17 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
     t.index ["visible"], name: "index_stories_on_visible"
   end
 
-  create_table "story_comments", force: :cascade do |t|
-    t.integer "story_id", null: false
-    t.integer "comment_id", null: false
-    t.integer "sequence"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_story_comments_on_comment_id"
-    t.index ["story_id", "comment_id"], name: "index_story_comments_on_story_id_and_comment_id", unique: true
-    t.index ["story_id"], name: "index_story_comments_on_story_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -112,6 +101,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_005507) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
-  add_foreign_key "story_comments", "comments"
-  add_foreign_key "story_comments", "stories"
 end
