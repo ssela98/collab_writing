@@ -248,6 +248,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'should destroy reply comment' do
     sign_in @reply_to_user_comment.user
+    deleted_comment_id = @reply_to_user_comment.id
     visit story_url(@story)
 
     comments = find("##{dom_id(@story)}_comments")
@@ -263,5 +264,6 @@ class CommentsTest < ApplicationSystemTestCase
 
     assert_equal I18n.t('are_you_sure_delete'), alert_text
     assert_equal I18n.t('comments.notices.successfully_destroyed'), find('.flash__notice').text
+    assert_not Comment.find_by(id: deleted_comment_id)
   end
 end

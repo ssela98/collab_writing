@@ -34,6 +34,7 @@ en:
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   at_date: "at %{date}"
   by_username: "by %{username}"
+  cancel: "Cancel"
   comments_title: "Comments"
   comments:
     alerts:
