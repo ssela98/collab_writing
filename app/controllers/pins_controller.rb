@@ -39,7 +39,7 @@ class PinsController < ApplicationController
   def update
     respond_to do |format|
       if @pin.update(pin_params)
-        format.html { redirect_to pin_url(@pin), notice: I18n.t('pins.notices.successfully_updated') }
+        format.html { redirect_to @pin.story, notice: I18n.t('pins.notices.successfully_updated') }
         format.json { render :show, status: :ok, location: @pin }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class PinsController < ApplicationController
     @pin.destroy
 
     respond_to do |format|
-      format.html { redirect_to pins_url, notice: I18n.t('pins.notices.successfully_destroyed') }
+      format.html { redirect_to @pin.story, notice: I18n.t('pins.notices.successfully_destroyed') }
       format.json { head :no_content }
     end
   end
