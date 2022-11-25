@@ -55,10 +55,12 @@ class Comment < ApplicationRecord
   private
 
   def set_level
-    self.update(level: self.parent&.level.to_i + 1) if self.level.to_i <= self.parent&.level.to_i
+    return if self.level.to_i >= self.parent&.level.to_i + 1
+
+    self.update(level: self.parent_id ? self.parent&.level.to_i + 1 : 0)
   end
 
   def set_root_comment_id
-    self.update(root_comment_id: self.level&.to_i % 10 == 1 ? self.id : self.parent.root_comment_id)
+    self.update(root_comment_id: self.level&.to_i % 10 == 0 ? self.id : self.parent.root_comment_id)
   end
 end
