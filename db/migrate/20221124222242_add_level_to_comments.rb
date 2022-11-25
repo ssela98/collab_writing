@@ -2,7 +2,7 @@
 
 class AddLevelToComments < ActiveRecord::Migration[7.0]
   def up
-    add_column :comments, :level, :integer, default: 1, if_not_exists: true
+    add_column :comments, :level, :integer, default: 0, if_not_exists: true
   end
 
   def down
