@@ -36,7 +36,8 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true
 
-  before_save :set_level
+  after_create :set_level
+  after_create :set_root_comment_id
 
   after_create_commit do
     broadcast_prepend_later_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
@@ -54,6 +55,10 @@ class Comment < ApplicationRecord
   private
 
   def set_level
-    self.level = self.parent&.level.to_i + 1 if self.level.to_i <= self.parent&.level.to_i
+    self.update(level: self.parent&.level.to_i + 1) if self.level.to_i <= self.parent&.level.to_i
+  end
+
+  def set_root_comment_id
+    self.update(root_comment_id: self.level&.to_i % 10 == 1 ? self.id : self.parent.root_comment_id)
   end
 end
