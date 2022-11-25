@@ -20,7 +20,7 @@
 
   <div id="<%= dom_id(comment) %>_comments">
     <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
-    <% if comment.level % 10 == 0 && comment.comments.any? %>
+    <% if comment.level % 11 == 0 && comment.comments.any? %>
       <%= link_to(
         "Continue this thread",
         story_comment_path(comment.commentable.id, comment.id),
