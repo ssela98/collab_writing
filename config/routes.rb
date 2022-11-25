@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   resources :pins
   resources :stories do
-    resources :comments, module: :stories, only: :create
+    resources :comments, module: :stories, only: %i[show create]
   end
 
   resources :comments, only: %i[show edit update destroy] do

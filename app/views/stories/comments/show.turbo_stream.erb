@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "#{dom_id(@commentable)}_comments" do %>
+  <%= link_to(
+    "See all comments",
+    story_path(@commentable.id),
+    data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
+  ) %>
+  <%= render partial: "comments/comment_with_replies", collection: @comment.comments, as: :comment %>
+<% end %>
+

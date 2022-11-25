@@ -6,6 +6,10 @@ module Stories
 
     before_action :set_commentable
 
+    def show
+      @comment = Comment.find(params[:id])
+    end
+
     private
 
     def set_commentable
