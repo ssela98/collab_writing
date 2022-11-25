@@ -3,7 +3,7 @@
   <div id="<%= dom_id(@commentable) %>_comments">
     <%= link_to(
       "Back to previous comments in this thread",
-      story_comment_path(@comment.commentable.id, @comment.id),
+      story_comment_path(@commentable.id, (@comment.parent&.root_comment_id || @comment.root_comment_id)),
       data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
     ) %>
     <%= render partial: "comments/comment_with_replies", collection: @comment.comments, as: :comment %>
