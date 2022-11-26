@@ -3,6 +3,7 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pin, except: %i[create]
+  before_action :set_story, only: %i[create]
 
   # POST /pins or /pins.json
   def create
@@ -35,6 +36,10 @@ class PinsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_pin
     @pin = Pin.find(params[:id])
+  end
+
+  def set_story
+    @story = Story.find(params[:pin][:story_id])
   end
 
   # Only allow a list of trusted parameters through.
