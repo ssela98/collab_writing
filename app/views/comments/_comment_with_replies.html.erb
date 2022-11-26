@@ -1,6 +1,6 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
+<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility pin-comment">
   <%= render partial: 'comments/comment', locals: { comment: comment } %>
 
   <div class="text-sm mt-1 mb-3 d-flex">
