@@ -1,6 +1,6 @@
 <%= turbo_frame_tag pin do %>
   <div class="d-flex flex-column w-100">
-    <%= link_to "##{dom_id(pin.comment)}", class: "pin text-decoration-none text-reset mb-2 ps-2", data: { turbo: false } do %>
+    <%= link_to story_comment_path(pin.story.id, pin.comment.id), class: "pin text-decoration-none text-reset mb-2 ps-2", data: { controller: 'turbo', action: 'click->turbo#getTurboStream' } do %>
       <div class="py-2">
         <span id="<%= dom_id(pin) %>_content"><%= pin.comment.content %></span>
       </div>
