@@ -5,22 +5,24 @@
 
   <div class="text-sm mt-1 mb-3 d-flex">
     <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
-    <% if comment.pin %>
+    <% if comment.pin %><!-- TODO: replace with turbo_stream link_to -->
       <%= button_to 'Unpin', pin_path(comment.pin),
           method: :delete,
           class: "btn btn-link",
           data: { confirm: t('are_you_sure_delete') }
       %>
     <% else %>
-      <%= form_for(Pin.new, as: 'pin', url: pins_path(pin: { story_id: comment.commentable.id, comment_id: comment.id })) do |form| %>
-        <%= form.submit 'Pin', class:"btn btn-link" %>
-      <% end %>
+      <%= link_to(
+        "Pin",
+        pins_path(pin: { story_id: comment.commentable.id, comment_id: comment.id }),
+        data: { controller: 'turbo', action: 'click->turbo#postTurboStream' }
+      ) %>
     <% end %>
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">
     <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
-    <% if comment.level != 0 && comment.level % 10 == 0 && comment.comments.any? && !defined?(is_root_comment) %>
+    <% if comment.level.to_i != 0 && comment.level.to_i % 10 == 0 && comment.comments.any? && !defined?(is_root_comment) %>
       <div class="ms-2 p-1">
         <%= link_to(
           "Continue this thread",

@@ -1,0 +1,3 @@
+<%= turbo_stream.append "#{dom_id(@story)}_pins" do %>
+  <%= render partial: 'pins/pin', locals: { pin: @pin } %>
+<% end %>
