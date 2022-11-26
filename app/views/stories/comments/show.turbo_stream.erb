@@ -1,6 +1,6 @@
 <%= turbo_stream.replace "#{dom_id(@commentable)}_comments" do %>
   <%= turbo_stream_from "#{dom_id(@commentable)}_comments" %>
-  <div id="<%= dom_id(@commentable) %>_comments">
+  <div id="<%= dom_id(@commentable) %>_comments" data-controller="scroll-into-view">
     <% if @comment.parent&.level <= 9 %>
       <%= link_to("Back to previous comments", story_path(@commentable.id)) %>
     <% else %>
