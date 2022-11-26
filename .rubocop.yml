@@ -19,6 +19,9 @@ AllCops:
 Lint/MissingCopEnableDirective:
   Enabled: false
 
+Lint/SafeNavigationChain:
+  Enabled: false
+
 Rails:
   Enabled: true
 

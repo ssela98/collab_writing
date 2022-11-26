@@ -1,0 +1,15 @@
+<%= turbo_stream.replace "#{dom_id(@commentable)}_comments" do %>
+  <%= turbo_stream_from "#{dom_id(@commentable)}_comments" %>
+  <div id="<%= dom_id(@commentable) %>_comments">
+    <% if @comment.parent&.level <= 9 %>
+      <%= link_to("Back to previous comments", story_path(@commentable.id)) %>
+    <% else %>
+      <%= link_to(
+        "Back to previous comments in this thread",
+        story_comment_path(@commentable.id, (@comment.parent&.root_comment_id || @comment.root_comment_id)),
+        data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
+      ) %>
+    <% end %>
+    <%= render partial: "comments/comment_with_replies", collection: @comment.comments, as: :comment %>
+  </div>
+<% end %>

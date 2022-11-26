@@ -11,6 +11,7 @@
 #  parent_id        :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  level            :integer          default(1)
 #
 class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
@@ -35,6 +36,9 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true
 
+  after_create :set_level
+  after_create :set_root_comment_id
+
   after_create_commit do
     broadcast_prepend_later_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
   end
@@ -46,5 +50,17 @@ class Comment < ApplicationRecord
   after_destroy_commit do
     broadcast_remove_to self
     broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
+  end
+
+  private
+
+  def set_level
+    return if level.to_i >= parent&.level.to_i + 1
+
+    update(level: parent_id ? parent&.level.to_i + 1 : 0)
+  end
+
+  def set_root_comment_id
+    update(root_comment_id: (level&.to_i % 10).zero? ? id : parent.root_comment_id)
   end
 end

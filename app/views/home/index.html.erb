@@ -6,4 +6,16 @@
       <% end %>
     </div>
   <% end %>
+  <div id="pager" class="d-flex justify-between mb-5">
+    <div>
+      <% if @pagy.prev %>
+        <%= link_to "< Previous page", root_path(page: @pagy.prev), class: "my-3 mx-5" %>
+      <% end %>
+    </div>
+    <div class="text-right">
+      <% if @pagy.next %>
+        <%= link_to "Next page >", root_path(page: @pagy.next), class: "my-3 mx-5" %>
+      <% end %>
+    </div>
+  </div>
 </div>
