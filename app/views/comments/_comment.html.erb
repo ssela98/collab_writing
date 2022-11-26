@@ -8,6 +8,7 @@
       </h6>
       <p id="<%= dom_id(comment) %>_content" class="card-text"><%= comment.content %></p>
       <div class="d-none d-flex justify-content-start align-items-center mt-3 mb-3 hideable-buttons"
+        data-controller="turbo-frame-visibility"
         data-turbo-frame-visibility-target="hideableTurboFrame"
         data-username-value="<%= comment.user.username %>"
       >
