@@ -19,8 +19,7 @@ class PinsController < ApplicationController
   end
 
   # PATCH/PUT pins/1
-  def update
-  end
+  def update; end
 
   # DELETE /pins/1 or /pins/1.json
   def destroy
