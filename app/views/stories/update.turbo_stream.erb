@@ -1,2 +1,4 @@
-<%= turbo_stream.replace @story %>
+<%= turbo_stream.replace dom_id(@story) do %>
+  <%= render partial: 'stories/story', locals: { story: @story } %>
+<% end %>
 <%= turbo_stream.prepend "flash", partial: "shared/flash" %>
