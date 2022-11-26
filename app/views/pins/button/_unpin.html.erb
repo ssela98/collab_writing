@@ -1,0 +1,3 @@
+<%= tag.div id: "#{dom_id(comment)}_pin" do %>
+  <%= button_to 'Unpin', pin_path(comment.pin), method: :delete, class: "btn btn-link" %>
+<% end %>

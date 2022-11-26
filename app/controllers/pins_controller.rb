@@ -24,6 +24,8 @@ class PinsController < ApplicationController
 
   # DELETE /pins/1 or /pins/1.json
   def destroy
+    @story = @pin.story
+    @comment = @pin.comment
     @pin.destroy
 
     if @pin.destroyed?

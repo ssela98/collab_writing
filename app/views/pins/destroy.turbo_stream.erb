@@ -1,2 +1,5 @@
 <%= turbo_stream.remove @pin %>
+<%= turbo_stream.replace "#{dom_id(@comment)}_pin" do %>
+  <%= render partial: 'pins/button/pin', locals: { comment: @comment } %>
+<% end %>
 <%= turbo_stream.prepend "flash", partial: "shared/flash" %>

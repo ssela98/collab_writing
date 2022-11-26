@@ -3,11 +3,7 @@
 <% end %>
 
 <%= turbo_stream.replace "#{dom_id(@comment)}_pin" do %>
-  <%= button_to 'Unpin', pin_path(@pin),
-      method: :delete,
-      class: "btn btn-link",
-      data: { confirm: t('are_you_sure_delete') }
-  %>
+  <%= render partial: 'pins/button/unpin', locals: { comment: @comment } %>
 <% end %>
 
 <%= turbo_stream.prepend('flash', partial: 'shared/flash') %>
