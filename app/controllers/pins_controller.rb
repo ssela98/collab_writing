@@ -3,6 +3,7 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_pin, only: %i[show edit update destroy]
+  before_action :set_story, only: %i[create]
 
   # GET /pins or /pins.json
   def index
@@ -23,16 +24,7 @@ class PinsController < ApplicationController
   # POST /pins or /pins.json
   def create
     @pin = Pin.new(pin_params)
-
-    respond_to do |format|
-      if @pin.save
-        format.html { redirect_to @pin.story, notice: I18n.t('pins.notices.successfully_created') }
-        format.json { render :show, status: :created, location: @pin }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @pin.errors, status: :unprocessable_entity }
-      end
-    end
+    @pin.save # TODO: split into error handling
   end
 
   # PATCH/PUT /pins/1 or /pins/1.json
@@ -63,6 +55,10 @@ class PinsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_pin
     @pin = Pin.find(params[:id])
+  end
+
+  def set_story
+    @story = Story.find(params[:pin][:story_id])
   end
 
   # Only allow a list of trusted parameters through.

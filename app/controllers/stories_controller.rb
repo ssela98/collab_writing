@@ -7,7 +7,13 @@ class StoriesController < ApplicationController
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
   # GET /stories/1 or /stories/1.json
-  def show; end
+  def show
+    @offset = params[:offset] || 0
+    @limit = 10
+    query = @story.comments.where(parent_id: nil)
+    @comments_count = query.count
+    @comments = query.limit(@limit).offset(@offset).order(created_at: :desc)
+  end
 
   # GET /stories/new
   def new

@@ -1,0 +1,8 @@
+<% count ||= 0 %>
+<% offset ||= 0 %>
+<% url ||= url_for(request.params.merge(offset: offset)) %>
+<% if count > offset %>
+<div id="<%= dom_id(story) %>_load_more">
+  <%= link_to "Load more comments", url, data: { controller: 'turbo', action: "click->turbo#getTurboStream" } %>
+</div>
+<% end %>
