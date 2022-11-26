@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="turbo-frame-visibility-controller"
+// Connects to data-controller="current-user-visibility-controller"
 export default class extends Controller {
   static targets = [ 'hideableTurboFrame' ]
 
