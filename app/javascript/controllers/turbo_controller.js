@@ -6,7 +6,7 @@ export default class extends Controller {
   getTurboStream(event) {
     event.preventDefault()
 
-    get(event.target.href, {
+    get(event.target.href || event.target.closest('a').href, {
       contentType: 'text/vnd.turbo-stream.html',
       responseKind: 'turbo-stream'
     })
@@ -15,7 +15,7 @@ export default class extends Controller {
   postTurboStream(event) {
     event.preventDefault()
 
-    post(event.target.href, {
+    post(event.target.href || event.target.closest('a').href, {
       contentType: 'text/vnd.turbo-stream.html',
       responseKind: 'turbo-stream'
     })
