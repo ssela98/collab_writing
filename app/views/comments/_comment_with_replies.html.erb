@@ -1,6 +1,6 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="<%= 'ps-3 border-left' unless comment.parent.nil? %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
+<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
   <%= render partial: 'comments/comment', locals: { comment: comment } %>
 
   <div class="text-sm mt-1 mb-3 d-flex">
@@ -20,7 +20,7 @@
 
   <div id="<%= dom_id(comment) %>_comments">
     <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
-    <% if comment.level != 0 && comment.level % 10 == 0 && comment.comments.any? %>
+    <% if comment.level != 0 && comment.level % 10 == 0 && comment.comments.any? && !defined?(is_root_comment) %>
       <div class="ms-2 p-1">
         <%= link_to(
           "Continue this thread",

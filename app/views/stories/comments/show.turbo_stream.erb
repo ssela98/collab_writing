@@ -10,6 +10,6 @@
         data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
       ) %>
     <% end %>
-    <%= render partial: "comments/comment_with_replies", collection: @comment.comments, as: :comment %>
+    <%= render partial: "comments/comment_with_replies", locals: { comment: @comment, is_root_comment: true } %>
   </div>
 <% end %>
