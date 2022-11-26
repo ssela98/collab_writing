@@ -3,7 +3,6 @@
 class StoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_story, only: %i[show edit update destroy]
-  before_action :set_autofocus, only: %i[show edit update]
   before_action :forbidden_unless_creator, only: %i[edit update destroy]
 
   # GET /stories/1 or /stories/1.json
@@ -27,26 +26,21 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(story_params.merge(user: current_user))
 
-    respond_to do |format|
-      if @story.save
-        format.html { redirect_to story_url(@story), notice: I18n.t('stories.notices.successfully_created') }
-        format.json { render :show, status: :created, location: @story } # TODO: do turbo_stream
-      else
-        format.html { render :new, status: :unprocessable_entity } # TODO: try this to see if it works
-        format.json { render json: @story.errors, status: :unprocessable_entity }
-      end
+    if @story.save
+      redirect_to @story, notice: I18n.t('stories.notices.successfully_created')
+    else
+      render :new, status: :unprocessable_entity, alert: I18n.t('stories.errors.failed_to_create')
     end
   end
 
   # PATCH/PUT /stories/1 or /stories/1.json
   def update
-    respond_to do |format|
-      if @story.update(story_params)
-        format.html { redirect_to story_url(@story) }
-        format.turbo_stream { flash.now[:notice] = I18n.t('stories.notices.successfully_updated') }
-      else
-        format.html { render 'stories/form', status: :unprocessable_entity } # TODO: fix this
-        format.turbo_stream { flash.now[:alert] = I18n.t('stories.errors.failed_to_update') }
+    if @story.update(story_params)
+      flash.now[:notice] = I18n.t('stories.notices.successfully_updated')
+    else
+      flash.now[:alert] = I18n.t('stories.errors.failed_to_update')
+      respond_to do |format|
+        format.turbo_stream { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -56,8 +50,11 @@ class StoriesController < ApplicationController
     @story.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: I18n.t('stories.notices.successfully_destroyed') }
-      format.json { head :no_content }
+      if @story.destroyed?
+        format.html { redirect_to root_path, notice: I18n.t('stories.notices.successfully_destroyed') }
+      else
+        format.html { redirect_to @story, notice: I18n.t('stories.errors.failed_to_destroy') }
+      end
     end
   end
 
@@ -68,8 +65,11 @@ class StoriesController < ApplicationController
   def forbidden_unless_creator
     return if current_user == @story.user
 
-    flash.now[:alert] = I18n.t('stories.alerts.not_the_creator')
-    head :forbidden
+    respond_to do |format|
+      format.html { redirect_to @story, alert: I18n.t('stories.alerts.not_the_creator') }
+      flash.now[:alert] = I18n.t('stories.alerts.not_the_creator')
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -77,12 +77,8 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
-  def set_autofocus
-    @autofocus = params[:autofocus]
-  end
-
   # Only allow a list of trusted parameters through.
   def story_params
-    params.require(:story).permit(:title, :content, :visible, :autofocus)
+    params.require(:story).permit(:title, :content, :visible)
   end
 end

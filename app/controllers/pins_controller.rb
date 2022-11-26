@@ -9,7 +9,7 @@ class PinsController < ApplicationController
 
   # POST /pins or /pins.json
   def create
-    @pin = Pin.new(pin_params)
+    @pin = Pin.new(pin_create_params)
 
     if @pin.save
       flash.now[:notice] = I18n.t('pins.notices.successfully_created')
@@ -50,7 +50,7 @@ class PinsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def pin_params
+  def pin_create_params
     params.require(:pin).permit(:story_id, :comment_id)
   end
 end
