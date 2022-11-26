@@ -1,0 +1,7 @@
+<%= tag.div id: "#{dom_id(comment)}_pin" do %>
+  <%= link_to(
+    "Pin",
+    pins_path(pin: { story_id: comment.commentable.id, comment_id: comment.id }),
+    data: { controller: 'turbo', action: 'click->turbo#postTurboStream' }
+  ) %>
+<% end %>

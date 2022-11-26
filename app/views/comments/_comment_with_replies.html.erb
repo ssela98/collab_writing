@@ -5,19 +5,7 @@
 
   <div class="text-sm mt-1 mb-3 d-flex">
     <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
-    <% if comment.pin %><!-- TODO: replace with turbo_stream link_to -->
-      <%= button_to 'Unpin', pin_path(comment.pin),
-          method: :delete,
-          class: "btn btn-link",
-          data: { confirm: t('are_you_sure_delete') }
-      %>
-    <% else %>
-      <%= link_to(
-        "Pin",
-        pins_path(pin: { story_id: comment.commentable.id, comment_id: comment.id }),
-        data: { controller: 'turbo', action: 'click->turbo#postTurboStream' }
-      ) %>
-    <% end %>
+    <%= render partial: 'pins/pin_button', locals: { comment: comment } %>
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">

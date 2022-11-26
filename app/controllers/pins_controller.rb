@@ -2,8 +2,10 @@
 
 class PinsController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_pin, except: %i[create]
   before_action :set_story, only: %i[create]
+  before_action :set_comment, only: %i[create]
 
   # POST /pins or /pins.json
   def create
@@ -40,6 +42,10 @@ class PinsController < ApplicationController
 
   def set_story
     @story = Story.find(params[:pin][:story_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:pin][:comment_id])
   end
 
   # Only allow a list of trusted parameters through.
