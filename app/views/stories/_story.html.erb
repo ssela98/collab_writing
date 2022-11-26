@@ -9,9 +9,9 @@
       </h6>
       <p id="<%= dom_id(story) %>_content"><%= story.content %></p>
       <%= turbo_stream_from "#{dom_id(story)}_pins" %>
-      <div id="<%= dom_id(story) %>_pins">
+      <%= tag.div id: "#{dom_id(story)}_pins" do %>
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
-      </div>
+      <% end %>
 
       <% if !defined?(do_not_render_buttons) %>
         <div class="d-none d-flex justify-content-start align-items-center mt-3 mb-3 hideable-buttons"
