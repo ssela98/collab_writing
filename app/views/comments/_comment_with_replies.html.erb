@@ -1,15 +1,15 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="class-toggler current-user-visibility">
+<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply turbo-frame-visibility">
   <%= render partial: 'comments/comment', locals: { comment: comment } %>
 
   <div class="text-sm mt-1 mb-3 d-flex">
-    <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->class-toggler#toggle" } %>
+    <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
     <%= render partial: comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: comment } %>
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">
-    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { class_toggler_target: "togglee", toggle_class_value: "d-none" }, class: "d-none" } %>
+    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
     <% if comment.level.to_i != 0 && comment.level.to_i % 10 == 0 && comment.comments.any? && !defined?(is_root_comment) %>
       <div class="ms-2 p-1">
         <%= link_to(
