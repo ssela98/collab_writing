@@ -13,7 +13,7 @@
           log_in_href:  link_to(t("comments.sign_up_or_log_in.log_in_href"), new_user_session_path)) %>
       </p>
     <% end %>
-    <%= turbo_stream_from @story, :comments %>
+    <%= turbo_stream_from "#{dom_id(@story)}_comments" %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
       <%= render partial: "comments/comment_with_replies", collection: @comments, as: :comment %>
       <div id="<%= dom_id(@story) %>_more_comments"></div>
