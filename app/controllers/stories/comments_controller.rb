@@ -15,40 +15,18 @@ module Stories
     def edit; end
 
     def create
-      @comment = @story.comments.new(comment_params)
       @parent = Comment.find_by(id: params[:comment_id])
+      @comment = @story.comments.new(comment_params)
       @comment.user = current_user
       @comment.parent_id = @parent&.id
 
-      respond_to do |format|
-        if @comment.save
-          flash.now[:notice] = I18n.t('comments.notices.successfully_created')
-          comment = @story.comments.new
+      if @comment.save
+        flash.now[:notice] = I18n.t('comments.notices.successfully_created')
+        @new_comment = @story.comments.new
 
-          format.turbo_stream {
-            if @parent # if replied to another comment
-              render turbo_stream: [
-                turbo_stream.prepend("#{dom_id(@parent)}_comments", partial: 'stories/comments/comment_with_replies', locals: { comment: @comment }),
-                turbo_stream.replace(dom_id_for_records(@parent, comment), partial: "stories/comments/form", locals: { comment: comment, target: @parent, data: { comment_reply_target: :form }, class: "d-none" }),
-                turbo_stream.prepend('flash', partial: 'shared/flash')
-              ]
-            else # if commented on the story directly
-              render turbo_stream: [
-                turbo_stream.prepend("#{dom_id(@story)}_comments", partial: 'stories/comments/comment_with_replies', locals: { comment: @comment }),
-                turbo_stream.replace(dom_id_for_records(@story, comment), partial: "stories/comments/form", locals: { comment: comment, target: @story }),
-                turbo_stream.prepend('flash', partial: 'shared/flash')
-              ]
-            end
-          }
-        else
-          flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
-          format.turbo_stream {
-            render turbo_stream: [
-              turbo_stream.replace(dom_id_for_records(@parent || @story, @comment), partial: "stories/comments/form", locals: { comment: @comment, target: @parent || @story }),
-              turbo_stream.prepend('flash', partial: 'shared/flash')
-            ]
-          }
-        end
+        @locals = { data: { comment_reply_target: :form }, class: "d-none" } if @parent
+      else
+        flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
       end
     end
 

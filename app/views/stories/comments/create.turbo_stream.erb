@@ -1,0 +1,11 @@
+<% if @new_comment # if @comment.save %>
+  <%= turbo_stream.prepend "#{dom_id(@parent || @story)}_comments" do %>
+    <%= render partial: 'stories/comments/comment_with_replies', locals: { comment: @comment } %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace dom_id_for_records(@parent || @story, @new_comment || @comment) do %>
+  <%= render partial: "stories/comments/form", locals: { comment: @new_comment || @comment, target: @parent || @story }.merge(@locals || {}) %>
+<% end %>
+
+<%= turbo_stream.prepend('flash', partial: 'shared/flash') %>
