@@ -5,7 +5,9 @@
 
   <div class="text-sm mt-1 mb-3 d-flex">
     <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
-    <%= render partial: comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: comment } %>
+    <% if comment.story.user == current_user %>
+      <%= render partial: comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: comment } %>
+    <% end %>
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">
@@ -20,7 +22,6 @@
       </div>
     <% else %>
       <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments, as: :comment %>
-      <!-- TODO: comment validation errors are not rendered for nested comments -->
     <% end %>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<%= tag.div id: dom_id(story), class: "story", data: { controller: "turbo-frame-visibility" } do %>
+<%= tag.div id: dom_id(story), class: "story" do %>
   <div class="card">
     <div class="card-body d-flex flex-column w-100">
 
@@ -13,11 +13,8 @@
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
       <% end %>
 
-      <% if !defined?(do_not_render_buttons) %>
-        <div class="d-none d-flex justify-content-start align-items-center mt-3 mb-3 hideable-buttons"
-          data-turbo-frame-visibility-target="hideableTurboFrame"
-          data-username-value="<%= story.user.username %>"
-        >
+      <% if !defined?(do_not_render_buttons) && story.user == current_user %>
+        <div class="d-flex justify-content-start align-items-center mt-3 mb-3">
           <%= link_to t('edit'), edit_story_path(story), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
           <%= button_to t('delete'), story_path(story),
             method: :delete,
