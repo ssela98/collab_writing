@@ -39,10 +39,6 @@ class Comment < ApplicationRecord
   after_create :set_level
   after_create :set_root_comment_id
 
-  after_create_commit do
-    broadcast_prepend_later_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: 'comments/comment_with_replies'
-  end
-
   after_update_commit do
     broadcast_replace_later_to self
   end
