@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  include ActionView::RecordIdentifier
-
   before_action :authenticate_user!
   before_action :set_comment
   before_action :forbidden_unless_creator
@@ -21,11 +19,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @commentable = @comment.commentable
     @comment.destroy
-    respond_to do |format|
+
+    if @comment.destroyed?
       flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed')
-      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
-      format.html { redirect_to @comment.commentable }
+    else
+      flash.now[:alert] = I18n.t('comments.errors.failed_to_destroy')
     end
   end
 

@@ -14,8 +14,6 @@
 #  level            :integer          default(1)
 #
 class Comment < ApplicationRecord
-  include ActionView::RecordIdentifier
-
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :parent, optional: true, class_name: 'Comment', inverse_of: :comments
@@ -38,11 +36,6 @@ class Comment < ApplicationRecord
 
   after_create :set_level
   after_create :set_root_comment_id
-
-  after_destroy_commit do
-    broadcast_remove_to self
-    broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
-  end
 
   private
 
