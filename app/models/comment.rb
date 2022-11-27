@@ -39,10 +39,6 @@ class Comment < ApplicationRecord
   after_create :set_level
   after_create :set_root_comment_id
 
-  after_update_commit do
-    broadcast_replace_later_to self
-  end
-
   after_destroy_commit do
     broadcast_remove_to self
     broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"

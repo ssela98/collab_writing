@@ -1,0 +1,4 @@
+<%= turbo_stream.replace dom_id(@comment) do %>
+  <%= render partial: 'comments/comment', locals: { comment: @comment } %>
+<% end %>
+<%= turbo_stream.prepend "flash", partial: "shared/flash" %>

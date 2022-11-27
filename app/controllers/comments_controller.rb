@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :set_comment
-  before_action :forbidden_unless_creator, only: %i[edit update destroy]
+  include ActionView::RecordIdentifier
 
-  def show; end
+  before_action :authenticate_user!
+  before_action :set_comment
+  before_action :forbidden_unless_creator
 
   def edit; end
 
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
-
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
-        format.html { redirect_to @comment }
-      else
-        flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
-        format.html { render :edit, status: :unprocessable_entity }
+    if @comment.update(comment_params)
+      flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
+    else
+      flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
+      respond_to do |format|
+        format.turbo_stream { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -41,10 +36,9 @@ class CommentsController < ApplicationController
   def forbidden_unless_creator
     return if current_user == @comment.user
 
-    flash.now[:alert] = I18n.t('comments.alerts.not_the_creator')
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash'), status: :forbidden }
-      format.html { redirect_to @comment.commentable, status: :forbidden }
+      flash.now[:alert] = I18n.t('comments.alerts.not_the_creator')
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
     end
   end
 
