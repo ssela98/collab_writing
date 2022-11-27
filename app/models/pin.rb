@@ -23,7 +23,7 @@ class Pin < ApplicationRecord
   private
 
   def comment_belongs_to_story
-    errors.add(:comment, 'can\'t be from another story', value: comment_id) if comment && comment.commentable != story
+    errors.add(:comment, 'can\'t be from another story', value: comment_id) if comment && comment.story != story
   end
 
   def set_sequence

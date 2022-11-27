@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :stories, except: :index do
+    resources :comments, module: :stories, except: %i[index new]
+  end
   resources :pins, only: %i[create update destroy]
-  resources :stories do
-    resources :comments, module: :stories, only: %i[show create]
-  end
-
-  resources :comments, only: %i[show edit update destroy] do
-    resources :comments, module: :comments, only: :create
-  end
 
   get 'home/index'
 

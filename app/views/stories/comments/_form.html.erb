@@ -1,0 +1,15 @@
+<%= form_with model: [comment.story, comment],
+  id: dom_id_for_records(*[local_assigns[:target], comment].compact),
+  data: local_assigns[:data],
+  class: ["my-4"] + Array.wrap(local_assigns[:class]) do |form|
+%>
+  <%= hidden_field_tag(:comment_id, local_assigns[:target]&.id) if local_assigns[:target]&.class&.name == 'Comment' %>
+  <%= form.rich_text_area :content, id: "#{dom_id_for_records(*[local_assigns[:target], comment].compact)}_content", autocomplete: "content", class: "form-control", rows: 4 %>
+  <%= render partial: "shared/errors", locals: { resource: form.object, attribute: :content } %>
+
+  <div class="d-flex align-items-center mt-3 mb-3">
+    <%= form.submit t('save'), class: "btn btn-m btn-primary me-3" %>
+    <!-- TODO: after cancel, the stimulus doesn't reload, so the hideable-buttons disappear -->
+    <%= link_to t('cancel'), '#', class: "btn btn-link", data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } if form.object.persisted? %>
+  </div>
+<% end %>

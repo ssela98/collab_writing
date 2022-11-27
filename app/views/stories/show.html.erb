@@ -5,7 +5,7 @@
 
     <h5 class="mt-3 mb-3"><%= t('comments_title') %></h5>
     <% if user_signed_in? %>
-      <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @story } %>
+      <%= render partial: "stories/comments/form", locals: { comment: @story.comments.new, target: @story } %>
     <% else %>
       <p id="<%= dom_id(@story) %>_sign_up_or_log_in_links">
         <%= t("comments.sign_up_or_log_in.html",
@@ -15,9 +15,9 @@
     <% end %>
     <%= turbo_stream_from "#{dom_id(@story)}_comments" %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
-      <%= render partial: "comments/comment_with_replies", collection: @comments, as: :comment %>
+      <%= render partial: "stories/comments/comment_with_replies", collection: @comments, as: :comment %>
       <div id="<%= dom_id(@story) %>_more_comments"></div>
-      <%= render partial: "comments/load_more", locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
+      <%= render partial: "stories/comments/load_more", locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
     <% end %>
   </div>
 </div>

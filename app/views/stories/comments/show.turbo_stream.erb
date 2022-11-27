@@ -1,15 +1,15 @@
-<%= turbo_stream.replace "#{dom_id(@commentable)}_comments" do %>
-  <%= turbo_stream_from "#{dom_id(@commentable)}_comments" %>
-  <div id="<%= dom_id(@commentable) %>_comments" data-controller="scroll-into-view">
+<%= turbo_stream.replace "#{dom_id(@story)}_comments" do %>
+  <%= turbo_stream_from "#{dom_id(@story)}_comments" %>
+  <div id="<%= dom_id(@story) %>_comments" data-controller="scroll-into-view">
     <% if @comment.parent&.level.to_i <= 9 %>
-      <%= link_to("Back to previous comments", story_path(@commentable.id)) %>
+      <%= link_to("Back to previous comments", story_path(@story.id)) %>
     <% else %>
       <%= link_to(
         "Back to previous comments in this thread",
-        story_comment_path(@commentable.id, (@comment.parent&.root_comment_id || @comment.root_comment_id)),
+        story_comment_path(story_id: @story.id, id: (@comment.parent&.root_comment_id || @comment.root_comment_id)),
         data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
       ) %>
     <% end %>
-    <%= render partial: "comments/comment_with_replies", locals: { comment: @comment, is_root_comment: true } %>
+    <%= render partial: "stories/comments/comment_with_replies", locals: { comment: @comment, is_root_comment: true } %>
   </div>
 <% end %>
