@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_192010) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_27_165157) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -51,15 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_192010) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "commentable_type", null: false
-    t.integer "commentable_id", null: false
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "root_comment_id"
     t.integer "level", default: 0
-    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.integer "story_id", null: false
     t.index ["root_comment_id"], name: "index_comments_on_root_comment_id"
+    t.index ["story_id"], name: "index_comments_on_story_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -115,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_192010) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "comments", column: "root_comment_id"
+  add_foreign_key "comments", "stories"
   add_foreign_key "comments", "users"
   add_foreign_key "pins", "comments"
   add_foreign_key "pins", "stories"
