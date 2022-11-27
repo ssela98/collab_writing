@@ -6,6 +6,7 @@ class PinsController < ApplicationController
   before_action :set_pin, except: %i[create]
   before_action :set_story, only: %i[create]
   before_action :set_comment, only: %i[create]
+  before_action :forbidden_unless_creator
 
   # POST /pins or /pins.json
   def create
@@ -52,5 +53,14 @@ class PinsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def pin_create_params
     params.require(:pin).permit(:story_id, :comment_id)
+  end
+
+  def forbidden_unless_creator
+    return if current_user == @story.user
+
+    respond_to do |format|
+      flash.now[:alert] = I18n.t('stories.alerts.not_the_creator')
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
+    end
   end
 end

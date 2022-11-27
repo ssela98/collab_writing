@@ -5,10 +5,10 @@ module Stories
     include ActionView::RecordIdentifier
     include RecordHelper
 
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: %i[show]
     before_action :set_story
     before_action :set_comment
-    before_action :forbidden_unless_creator, except: %i[create]
+    before_action :forbidden_unless_creator, except: %i[show create]
 
     def show; end
 
@@ -76,8 +76,6 @@ module Stories
 
     private
 
-    # Do not allow edit, update or destroy changes if the logged in user
-    # is not the creator of the story
     def forbidden_unless_creator
       return if current_user == @comment.user
 
