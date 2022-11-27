@@ -1,3 +1,2 @@
-<%= turbo_stream.remove dom_id(@comment) %>
 <%= turbo_stream.remove "#{dom_id(@comment)}_with_comments" %>
 <%= turbo_stream.prepend "flash", partial: "shared/flash" %>
