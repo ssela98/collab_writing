@@ -1,0 +1,4 @@
+<%= turbo_stream.replace @comment do %>
+  <%= render "form", comment: @comment %>
+<% end %>
+<%= turbo_stream.prepend('flash', partial: 'shared/flash') %>
