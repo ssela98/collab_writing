@@ -12,8 +12,8 @@
         data-turbo-frame-visibility-target="hideableTurboFrame"
         data-username-value="<%= comment.user.username %>"
       >
-        <%= link_to t('edit'), edit_comment_path(comment), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
-        <%= button_to t('delete'), comment_path(comment),
+        <%= link_to t('edit'), edit_story_comment_path(comment.story_id, comment.id), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
+        <%= button_to t('delete'), story_comment_path(comment.story_id, comment.id),
           method: :delete,
           class: "btn btn-link",
           data: { confirm: t('are_you_sure_delete') }

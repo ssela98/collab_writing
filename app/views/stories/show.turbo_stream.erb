@@ -1,7 +1,7 @@
 <%= turbo_stream.replace "#{dom_id(@story)}_more_comments" do %>
-  <%= render partial: "comments/comment_with_replies", collection: @comments, as: :comment %>
+  <%= render partial: "stories/comments/comment_with_replies", collection: @comments, as: :comment %>
   <div id="<%= dom_id(@story) %>_more_comments"></div>
 <% end %>
 <%= turbo_stream.replace "#{dom_id(@story)}_load_more" do %>
-  <%= render partial: "comments/load_more", locals: { total: @comments.length, count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
+  <%= render partial: "stories/comments/load_more", locals: { total: @comments.length, count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
 <% end %>
