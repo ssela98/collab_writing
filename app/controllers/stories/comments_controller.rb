@@ -7,7 +7,7 @@ module Stories
     include ForbiddenUnlessCreator
     include Vote
 
-    before_action :authenticate_user!, except: %i[show]
+    before_action :authenticate_user!, except: :show
     before_action :set_story
     before_action :set_comment
     before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create]
