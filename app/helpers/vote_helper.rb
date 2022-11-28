@@ -2,7 +2,7 @@
 
 module VoteHelper
   def upvote_label(votable, user)
-    vote_message = if user.voted_up_on? votable, vote_scope: 'like'
+    vote_message = if user&.voted_up_on? votable, vote_scope: 'like'
                      'UN-vote'
                    else
                      'UP-vote'
@@ -13,7 +13,7 @@ module VoteHelper
   end
 
   def downvote_label(votable, user)
-    vote_message = if user.voted_down_on? votable, vote_scope: 'like'
+    vote_message = if user&.voted_down_on? votable, vote_scope: 'like'
                      'UN-vote'
                    else
                      'DOWN-vote'
