@@ -4,11 +4,12 @@ module Stories
   class CommentsController < ApplicationController
     include ActionView::RecordIdentifier
     include RecordHelper
+    include ForbiddenUnlessCreator
 
     before_action :authenticate_user!, except: %i[show]
     before_action :set_story
     before_action :set_comment
-    before_action :forbidden_unless_creator, except: %i[show create]
+    before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create]
 
     def show; end
 
@@ -54,17 +55,8 @@ module Stories
 
     private
 
-    def forbidden_unless_creator
-      return if current_user == @comment.user
-
-      respond_to do |format|
-        flash.now[:alert] = I18n.t('comments.alerts.not_the_creator')
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
-      end
-    end
-
     def set_story
-      @story = Story.find(params[:story_id])
+      @story = Story.find_by(id: params[:story_id])
     end
 
     def set_comment
