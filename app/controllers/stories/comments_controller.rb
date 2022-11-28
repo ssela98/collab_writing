@@ -26,7 +26,7 @@ module Stories
         flash.now[:notice] = I18n.t('comments.notices.successfully_created')
         @new_comment = @story.comments.new
 
-        @locals = { data: { comment_reply_target: :form }, class: "d-none" } if @parent
+        @locals = { data: { comment_reply_target: :form }, class: 'd-none' } if @parent
       else
         flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
       end

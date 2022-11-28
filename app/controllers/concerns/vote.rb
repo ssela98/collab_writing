@@ -16,8 +16,8 @@ module Vote
       @votable.downvote! current_user
     else
       return respond_to do |format|
-        format.html { redirect_to request.url, alert: "no such vote type" }
-        flash.now[:alert] = "no such vote type"
+        format.html { redirect_to request.url, alert: I18n.t('votes.errors.vote_type') }
+        flash.now[:alert] = I18n.t('votes.errors.vote_type')
         format.turbo_stream { render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash') }
       end
     end
