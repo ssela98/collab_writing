@@ -23,6 +23,10 @@
           %>
         </div>
       <% end %>
+      <div class="d-flex justify-content-start align-items-center">
+        <%= button_to upvote_label(story, current_user), vote_story_path(story, type: :upvote), method: :patch, class: "btn btn-link p-0 me-2" %>|
+        <%= button_to downvote_label(story, current_user), vote_story_path(story, type: :downvote), method: :patch, class: "btn btn-link p-0 ms-2" %>
+      </div>
     </div>
   </div>
 <% end %>
