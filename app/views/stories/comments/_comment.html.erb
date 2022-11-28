@@ -17,10 +17,7 @@
           %>
         </div>
       <% end %>
-      <div class="d-flex justify-content-start align-items-center">
-        <%= button_to upvote_label(comment, current_user), vote_story_comment_path(story_id: comment.story, id: comment, type: :upvote), method: :patch, class: "btn btn-link p-0 me-2" %>|
-        <%= button_to downvote_label(comment, current_user), vote_story_comment_path(story_id: comment.story, id: comment, type: :downvote), method: :patch, class: "btn btn-link p-0 ms-2" %>
-      </div>
+      <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_story_comment_path", params: { story_id: comment.story_id, id: comment.id }} %>
     </div>
   </div>
 <% end %>
