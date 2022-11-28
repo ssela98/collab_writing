@@ -1,5 +1,10 @@
-<div class="d-flex justify-content-start align-items-center"">
-  <%= button_to upvote_label(votable, current_user), public_send(vote_path, params.merge(type: :upvote)), method: :patch, class: "btn btn-link p-0 me-2" %>|
-  <span class="mx-2" data-vote-target="votes"><%= votable.weighted_score %></span>|<!-- TODO: use cached_weighted_like_score if the app gets big enough -->
-  <%= button_to downvote_label(votable, current_user), public_send(vote_path, params.merge(type: :downvote)), method: :patch, class: "btn btn-link p-0 ms-2" %>
+<%= turbo_stream_from "#{dom_id(votable)}_votes" %>
+<div id="<%= dom_id(votable) %>_votes" class="d-flex flex-row justify-content-start align-items-center">
+  <%= link_to public_send(vote_path, vote_params.merge(type: :upvote)), method: :patch, class: "me-2" do %>
+    <%= image_tag("icons/votes/#{upvote_icon(votable, current_user)}.svg", width: '24px', height: '24px') %>
+  <% end %>
+  <span class="mx-1"><%= votable.weighted_score %></span><!-- TODO: use cached_weighted_like_score if the app gets big enough -->
+  <%= link_to public_send(vote_path, vote_params.merge(type: :downvote)), method: :patch, class: "ms-2" do %>
+    <%= image_tag("icons/votes/#{downvote_icon(votable, current_user)}.svg", width: '24px', height: '24px') %>
+  <% end %>
 </div>

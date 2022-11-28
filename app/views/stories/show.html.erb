@@ -3,6 +3,8 @@
     <%= button_to "Back to Stories", root_path, method: :get, class: "btn btn-m btn-secondary mb-3" %>
     <%= render @story %>
 
+    <%= render partial: "shared/votes", locals: { votable: @story, vote_path: "vote_story_path", vote_params: { id: @story.id }} %>
+
     <h5 class="mt-3 mb-3"><%= t('comments_title') %></h5>
     <% if user_signed_in? %>
       <%= render partial: "stories/comments/form", locals: { comment: @story.comments.new, target: @story } %>
@@ -13,6 +15,7 @@
           log_in_href:  link_to(t("comments.sign_up_or_log_in.log_in_href"), new_user_session_path)) %>
       </p>
     <% end %>
+
     <%= turbo_stream_from "#{dom_id(@story)}_comments" %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
       <%= render partial: "stories/comments/comment_with_replies", collection: @comments, as: :comment %>

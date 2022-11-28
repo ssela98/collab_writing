@@ -4,6 +4,7 @@
       <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
         <%= render partial: 'frontpage_story', locals: { story: story } %>
       <% end %>
+      <%= render partial: "shared/votes", locals: { votable: story, vote_path: "vote_story_path", vote_params: { id: story.id }} %>
     </div>
   <% end %>
   <div id="pager" class="d-flex justify-between mb-5">

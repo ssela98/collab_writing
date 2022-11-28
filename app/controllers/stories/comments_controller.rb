@@ -10,7 +10,7 @@ module Stories
     before_action :authenticate_user!, except: :show
     before_action :set_story
     before_action :set_comment
-    before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create]
+    before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create vote]
 
     def show; end
 
@@ -56,8 +56,10 @@ module Stories
 
     private
 
-    def set_votable
+    def set_vote_vars
       @votable = Comment.find_by(id: params[:id])
+      @vote_path = 'vote_story_comment_path'
+      @vote_params = { story_id: @votable.story_id, id: @votable.id }
     end
 
     def set_story
