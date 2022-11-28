@@ -58,7 +58,7 @@ module Stories
 
     def set_vote_vars
       @votable = Comment.find_by(id: params[:id])
-      @vote_path = "vote_story_comment_path"
+      @vote_path = 'vote_story_comment_path'
       @vote_params = { story_id: @votable.story_id, id: @votable.id }
     end
 

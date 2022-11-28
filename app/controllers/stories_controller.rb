@@ -59,7 +59,7 @@ class StoriesController < ApplicationController
 
   def set_vote_vars
     @votable = Story.find_by(id: params[:id])
-    @vote_path = "vote_story_path"
+    @vote_path = 'vote_story_path'
     @vote_params = { id: @votable.id }
   end
 
