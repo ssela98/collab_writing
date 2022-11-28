@@ -1,7 +1,7 @@
 <div id="stories" class="d-flex flex-column justify-content-center align-items-center mx-auto">
   <%= form_tag(root_path, method: :get) do %>
-    <%= select_tag(:filter_by_time, options_for_select(%i[today this_week this_month this_year all_time].map { |filter| [filter.to_s.humanize, filter] }, [params[:filter_by_time]&.humanize, params[:filter_by_time]]), onchange: "this.form.submit();", include_blank: 'Filter By') %>
-    <%= select_tag(:order_by, options_for_select(%i[new top].map { |filter| [filter.to_s.humanize, filter] }, [params[:order_by]&.humanize, params[:order_by]]), onchange: "this.form.submit();", include_blank: 'Sort By') %>
+    <%= select_tag(:filter_by_date, options_for_select(%i[today this_week this_month this_year all_time].map { |filter| [filter.to_s.humanize, filter] }, [session[:stories_filter_by]&.humanize, session[:stories_filter_by]]), onchange: "this.form.submit();") %>
+    <%= select_tag(:order_by, options_for_select(%i[new top].map { |filter| [filter.to_s.humanize, filter] }, [session[:stories_order_by]&.humanize, session[:stories_order_by]]), onchange: "this.form.submit();") %>
   <% end %>
 
   <% @stories.each do |story| %>
