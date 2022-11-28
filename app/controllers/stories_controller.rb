@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   include Vote
 
   before_action :authenticate_user!, except: :show
-  before_action :set_story, only: %i[show edit update destroy vote]
+  before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
 
   def show

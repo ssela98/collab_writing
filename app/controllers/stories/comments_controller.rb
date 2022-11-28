@@ -5,6 +5,7 @@ module Stories
     include ActionView::RecordIdentifier
     include RecordHelper
     include ForbiddenUnlessCreator
+    include Vote
 
     before_action :authenticate_user!, except: %i[show]
     before_action :set_story
@@ -54,6 +55,10 @@ module Stories
     end
 
     private
+
+    def set_votable
+      @votable = Comment.find_by(id: params[:id])
+    end
 
     def set_story
       @story = Story.find_by(id: params[:story_id])
