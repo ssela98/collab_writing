@@ -35,6 +35,9 @@ gem 'redis', '~> 4.0'
 # Pagination
 gem 'pagy'
 
+# Votes
+gem 'acts_as_votable'
+
 # Gem for using link_to with request format: :turbo_stream
 # must come before the 'importmap-rails' gem
 gem 'requestjs-rails'
