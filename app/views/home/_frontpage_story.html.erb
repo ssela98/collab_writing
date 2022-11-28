@@ -11,7 +11,6 @@
       <%= tag.div id: "frontpage_#{dom_id(story)}_pins" do %>
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
       <% end %>
-      <%= render partial: "shared/votes", locals: { votable: story, vote_path: "vote_story_path", params: { id: story.id }} %>
     </div>
   </div>
 <% end %>

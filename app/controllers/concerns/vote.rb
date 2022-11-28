@@ -5,7 +5,7 @@ module Vote
   include VoteHelper
 
   included do
-    before_action :set_votable, only: :vote
+    before_action :set_vote_vars, only: :vote
   end
 
   def vote
@@ -24,7 +24,7 @@ module Vote
 
     flash.now[:notice] = params[:type]
     respond_to do |format|
-      format.turbo_stream { render :update }
+      format.turbo_stream { render 'shared/vote', locals: { votable: @votable, vote_path: @vote_path, vote_params: @vote_params } }
     end
   end
 end

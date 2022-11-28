@@ -23,7 +23,7 @@
           %>
         </div>
       <% end %>
-      <%= render partial: "shared/votes", locals: { votable: story, vote_path: "vote_story_path", params: { id: story.id }} %>
+      <%= render partial: "shared/votes", locals: { votable: story, vote_path: "vote_story_path", vote_params: { id: story.id }} %>
     </div>
   </div>
 <% end %>
