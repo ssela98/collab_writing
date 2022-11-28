@@ -8,7 +8,7 @@ module VoteHelper
                      'UP-vote'
                    end
     tag.span do
-      "#{votable.cached_scoped_like_votes_up} #{vote_message}"
+      "#{votable.get_upvotes.size} #{vote_message}" # TODO: use cached_scoped_like_votes_up if the app gets big enough
     end
   end
 
@@ -19,7 +19,7 @@ module VoteHelper
                      'DOWN-vote'
                    end
     tag.span do
-      "#{votable.cached_scoped_like_votes_down} #{vote_message}"
+      "#{votable.get_downvotes.size} #{vote_message}" # TODO: use cached_scoped_like_votes_down if the app gets big enough
     end
   end
 end
