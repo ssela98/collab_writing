@@ -33,6 +33,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
+  acts_as_voter
+
   has_many :stories, dependent: :destroy
   has_many :comments, dependent: :destroy
 

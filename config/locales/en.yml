@@ -85,3 +85,6 @@ en:
     log_in: "Log In"
     log_out: "Log Out"
     sign_up: "Sign Up"
+  votes:
+    errors:
+      vote_type: "No such vote type!"

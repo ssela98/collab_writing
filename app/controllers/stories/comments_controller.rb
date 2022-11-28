@@ -5,8 +5,9 @@ module Stories
     include ActionView::RecordIdentifier
     include RecordHelper
     include ForbiddenUnlessCreator
+    include Vote
 
-    before_action :authenticate_user!, except: %i[show]
+    before_action :authenticate_user!, except: :show
     before_action :set_story
     before_action :set_comment
     before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create]
@@ -25,7 +26,7 @@ module Stories
         flash.now[:notice] = I18n.t('comments.notices.successfully_created')
         @new_comment = @story.comments.new
 
-        @locals = { data: { comment_reply_target: :form }, class: "d-none" } if @parent
+        @locals = { data: { comment_reply_target: :form }, class: 'd-none' } if @parent
       else
         flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
       end
@@ -54,6 +55,10 @@ module Stories
     end
 
     private
+
+    def set_votable
+      @votable = Comment.find_by(id: params[:id])
+    end
 
     def set_story
       @story = Story.find_by(id: params[:story_id])
