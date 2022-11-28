@@ -14,6 +14,8 @@
 #  story_id        :integer          not null
 #
 class Comment < ApplicationRecord
+  include Votable
+
   belongs_to :user
   belongs_to :story, inverse_of: :comments
   belongs_to :parent, optional: true, class_name: 'Comment', inverse_of: :comments

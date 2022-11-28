@@ -12,6 +12,8 @@
 #  updated_at :datetime         not null
 #
 class Story < ApplicationRecord
+  include Votable
+
   belongs_to :user
 
   has_rich_text :content
