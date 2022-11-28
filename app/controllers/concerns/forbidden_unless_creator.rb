@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ForbiddenUnlessCreator
+  extend ActiveSupport::Concern
+
   def forbidden_unless_creator(resource)
     return if current_user == resource.user
 
