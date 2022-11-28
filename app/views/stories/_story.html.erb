@@ -13,7 +13,7 @@
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
       <% end %>
 
-      <% if !defined?(do_not_render_buttons) && story.user == current_user %>
+      <% if story.user == current_user %>
         <div class="d-flex justify-content-start align-items-center mt-3 mb-3">
           <%= link_to t('edit'), edit_story_path(story), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
           <%= button_to t('delete'), story_path(story),

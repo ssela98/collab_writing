@@ -2,7 +2,7 @@
   <% @stories.each do |story| %>
     <div class="container m-3">
       <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
-        <%= render story, { do_not_render_buttons: true } %>
+        <%= render partial: 'frontpage_story', locals: { story: story } %>
       <% end %>
     </div>
   <% end %>
