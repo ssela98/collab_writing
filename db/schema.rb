@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_27_165157) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_011237) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -57,6 +57,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_165157) do
     t.integer "root_comment_id"
     t.integer "level", default: 0
     t.integer "story_id", null: false
+    t.integer "cached_scoped_like_votes_total", default: 0
+    t.integer "cached_scoped_like_votes_score", default: 0
+    t.integer "cached_scoped_like_votes_up", default: 0
+    t.integer "cached_scoped_like_votes_down", default: 0
+    t.integer "cached_weighted_like_score", default: 0
+    t.integer "cached_weighted_like_total", default: 0
+    t.float "cached_weighted_like_average", default: 0.0
     t.index ["root_comment_id"], name: "index_comments_on_root_comment_id"
     t.index ["story_id"], name: "index_comments_on_story_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -79,6 +86,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_165157) do
     t.boolean "visible", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cached_scoped_like_votes_total", default: 0
+    t.integer "cached_scoped_like_votes_score", default: 0
+    t.integer "cached_scoped_like_votes_up", default: 0
+    t.integer "cached_scoped_like_votes_down", default: 0
+    t.integer "cached_weighted_like_score", default: 0
+    t.integer "cached_weighted_like_total", default: 0
+    t.float "cached_weighted_like_average", default: 0.0
     t.index ["user_id"], name: "index_stories_on_user_id"
     t.index ["visible"], name: "index_stories_on_visible"
   end
@@ -109,6 +123,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_165157) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.string "votable_type"
+    t.integer "votable_id"
+    t.string "voter_type"
+    t.integer "voter_id"
+    t.boolean "vote_flag"
+    t.string "vote_scope"
+    t.integer "vote_weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable"
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
