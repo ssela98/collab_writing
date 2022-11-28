@@ -29,4 +29,6 @@ class Story < ApplicationRecord
 
   validates :title, presence: true
   validates :content, no_attachments: true
+
+  scope :filter_by_time, -> (date) { where('created_at >= ?', date) if date }
 end
