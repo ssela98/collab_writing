@@ -2,7 +2,14 @@
 
 Rails.application.routes.draw do
   resources :stories, except: :index do
-    resources :comments, module: :stories, except: %i[index new]
+    member do
+      patch :vote
+    end
+    resources :comments, module: :stories, except: %i[index new] do
+      member do
+        patch :vote
+      end
+    end
   end
   resources :pins, only: %i[create update destroy]
 
