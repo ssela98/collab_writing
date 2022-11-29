@@ -29,4 +29,26 @@ class Story < ApplicationRecord
 
   validates :title, presence: true
   validates :content, no_attachments: true
+
+  scope :filter_by_date, ->(date) { where('created_at >= ?', date) if date }
+  scope :filter_by_date_keyword, lambda { |keyword|
+    case keyword
+    when 'today'
+      filter_by_date(Time.zone.today.at_beginning_of_day)
+    when 'this_week'
+      filter_by_date(Time.zone.today.at_beginning_of_week)
+    when 'this_month'
+      filter_by_date(Time.zone.today.at_beginning_of_month)
+    when 'this_year'
+      filter_by_date(Time.zone.today.at_beginning_of_year)
+    end
+  }
+  scope :order_by_keyword, lambda { |keyword|
+    case keyword
+    when 'top'
+      order(cached_weighted_like_score: :desc)
+    when 'new'
+      order(created_at: :asc)
+    end
+  }
 end
