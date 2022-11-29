@@ -1,11 +1,11 @@
 <%= turbo_stream_from "#{dom_id(comment)}_comments" %>
 
-<div class="<%= 'ps-3 border-left' unless comment.parent.nil? || defined?(is_root_comment) %> mt-3" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply pin-comment">
+<div class="<%= comment.parent.nil? || defined?(is_root_comment) ? 'mt-3' : 'ps-3 border-left' %> py-1" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply pin-comment">
 
   <%= render partial: 'stories/comments/comment', locals: { comment: comment } %>
-  <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_story_comment_path", vote_params: { story_id: comment.story_id, id: comment.id }} %>
 
-  <div class="text-sm mt-1 mb-3 d-flex">
+  <div class="text-sm d-flex py-1">
+    <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_story_comment_path", vote_params: { story_id: comment.story_id, id: comment.id }} %>
     <% if user_signed_in? %>
       <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
     <% end %>
@@ -25,7 +25,7 @@
         ) %>
       </div>
     <% else %>
-      <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments, as: :comment %>
+      <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments.order_by_keyword(session[:comments_order_by]).with_rich_text_content, as: :comment %>
     <% end %>
   </div>
 
