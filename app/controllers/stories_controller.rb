@@ -9,11 +9,14 @@ class StoriesController < ApplicationController
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
 
   def show
+    session[:comments_order_by] ||= 'top' # default order
+    session[:comments_order_by] = params[:order_by] if params[:order_by]
     @offset = params[:offset] || 0
     @limit = 10
+
     query = @story.comments.where(parent_id: nil)
     @comments_count = query.count
-    @comments = query.limit(@limit).offset(@offset).order(created_at: :desc)
+    @comments = query.limit(@limit).offset(@offset).order_by_keyword(session[:comments_order_by]).with_rich_text_content
   end
 
   def new

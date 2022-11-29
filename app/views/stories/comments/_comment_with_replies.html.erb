@@ -25,7 +25,7 @@
         ) %>
       </div>
     <% else %>
-      <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments, as: :comment %>
+      <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments.order_by_keyword(session[:comments_order_by]).with_rich_text_content, as: :comment %>
     <% end %>
   </div>
 
