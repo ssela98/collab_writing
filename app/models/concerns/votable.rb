@@ -5,6 +5,15 @@ module Votable
 
   included do
     acts_as_votable cacheable_strategy: :update_columns
+
+    scope :order_by_keyword, lambda { |keyword|
+      case keyword
+      when 'top'
+        order(cached_weighted_like_score: :desc).order(created_at: :desc)
+      when 'new'
+        order(created_at: :desc).order(cached_weighted_like_score: :desc)
+      end
+    }
   end
 
   # upvote or remove vote

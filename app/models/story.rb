@@ -43,12 +43,4 @@ class Story < ApplicationRecord
       filter_by_date(Time.zone.today.at_beginning_of_year)
     end
   }
-  scope :order_by_keyword, lambda { |keyword|
-    case keyword
-    when 'top'
-      order(cached_weighted_like_score: :desc).order(created_at: :desc)
-    when 'new'
-      order(created_at: :desc)
-    end
-  }
 end
