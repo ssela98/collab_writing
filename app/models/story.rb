@@ -48,7 +48,7 @@ class Story < ApplicationRecord
     when 'top'
       order(cached_weighted_like_score: :desc).order(created_at: :desc)
     when 'new'
-      order(created_at: :asc)
+      order(created_at: :desc)
     end
   }
 end
