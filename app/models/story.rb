@@ -46,7 +46,7 @@ class Story < ApplicationRecord
   scope :order_by_keyword, lambda { |keyword|
     case keyword
     when 'top'
-      order(cached_weighted_like_score: :desc)
+      order(cached_weighted_like_score: :desc).order(created_at: :desc)
     when 'new'
       order(created_at: :asc)
     end
