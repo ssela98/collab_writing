@@ -3,20 +3,16 @@
 class StoriesController < ApplicationController
   include ForbiddenUnlessCreator
   include Vote
+  include FilterableAndOrderable
 
   before_action :authenticate_user!, except: :show
   before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
 
   def show
-    session[:comments_order_by] ||= 'top' # default order
-    session[:comments_order_by] = params[:order_by] if params[:order_by]
-    @offset = params[:offset] || 0
-    @limit = 10
+    comments = @story.comments.where(parent_id: nil)
 
-    query = @story.comments.where(parent_id: nil)
-    @comments_count = query.count
-    @comments = query.limit(@limit).offset(@offset).order_by_keyword(session[:comments_order_by]).with_rich_text_content
+    ordered_comments(comments)
   end
 
   def new
