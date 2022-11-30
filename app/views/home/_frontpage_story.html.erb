@@ -9,7 +9,9 @@
       </h6>
       <p id="frontpage_<%= dom_id(story) %>_content"><%= story.content %></p>
       <%= tag.div id: "frontpage_#{dom_id(story)}_pins" do %>
-        <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
+        <% story.pins.each do |pin| %>
+          <%= render partial: 'pins/pin', locals: { pin: pin, render_html: true } %>
+        <% end %>
       <% end %>
     </div>
   </div>

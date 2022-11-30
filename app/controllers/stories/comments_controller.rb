@@ -12,7 +12,12 @@ module Stories
     before_action :set_comment
     before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create vote]
 
-    def show; end
+    def show
+      respond_to do |format|
+        format.html { redirect_to story_path(@story.id, anchor: dom_id(@comment)) }
+        format.turbo_stream { render :show }
+      end
+    end
 
     def edit; end
 

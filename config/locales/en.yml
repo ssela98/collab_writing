@@ -69,6 +69,7 @@ en:
   reply: "Reply"
   save: "Save"
   sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
+  stories_title: 'Stories'
   stories:
     alerts:
       not_the_creator: "You are not the creator of this story."
