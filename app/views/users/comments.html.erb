@@ -1,0 +1,14 @@
+<%= render partial: "users/shared/user_navbar", locals: { username: @user.username, active_nav_link: :comments } %>
+<div class="d-flex flex-column justify-content-center align-items-center mx-auto">
+  <%= render partial: "shared/comments_ordering", locals: { current_path: 'comments_user_path', params: @user.username } %>
+  <% @comments.each do |comment| %>
+    <div class="container m-3">
+      <%= link_to story_comment_path(story_id: comment.story_id, id: comment.id), class: "text-decoration-none text-reset" do %>
+        <%= render partial: "stories/comments/comment", locals: { comment: comment } %>
+        <div class="text-sm d-flex py-1">
+          <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_story_comment_path", vote_params: { story_id: comment.story_id, id: comment.id }} %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
