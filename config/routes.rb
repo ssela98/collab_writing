@@ -16,6 +16,16 @@ Rails.application.routes.draw do
   get 'home/index'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  resources :users, only: :show, param: :username do
+    member do
+      get :stories
+      get :comments
+      get :favourites
+    end
+  end
+  # get 'users/:username/stories', to: 'users#stories', as: 'user_stories'
+  # get 'users/:username/comments', to: 'users#comments', as: 'user_comments'
+  # get 'users/:username/favourites', to: 'users#favourites', as: 'user_favourites'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
