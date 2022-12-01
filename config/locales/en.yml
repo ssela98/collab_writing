@@ -82,6 +82,15 @@ en:
       successfully_created: "Story was created successfully."
       successfully_destroyed: "Story was destroyed successfully."
       successfully_updated: "Story was updated successfully."
+  tags:
+    errors:
+      failed_to_create: "Tag failed to get created."
+      failed_to_destroy: "Tag failed to get destroyed."
+      failed_to_update: "Tag failed to get updated."
+    notices:
+      successfully_created: "Tag was created successfully."
+      successfully_destroyed: "Tag was destroyed successfully."
+      successfully_updated: "Tag was updated successfully."
   users:
     log_in: "Log In"
     log_out: "Log Out"

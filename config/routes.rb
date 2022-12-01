@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :pins, only: %i[create update destroy]
+  resources :tags
 
   get 'home/index'
 
@@ -23,9 +24,6 @@ Rails.application.routes.draw do
       get :favourites
     end
   end
-  # get 'users/:username/stories', to: 'users#stories', as: 'user_stories'
-  # get 'users/:username/comments', to: 'users#comments', as: 'user_comments'
-  # get 'users/:username/favourites', to: 'users#favourites', as: 'user_favourites'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
