@@ -10,9 +10,9 @@ Rails.application.routes.draw do
         patch :vote
       end
     end
+    resources :tags, module: :stories, except: %i[index new]
   end
   resources :pins, only: %i[create update destroy]
-  resources :tags
 
   get 'home/index'
 

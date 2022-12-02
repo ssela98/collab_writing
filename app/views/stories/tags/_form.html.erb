@@ -1,0 +1,11 @@
+<%= form_with model: [tag.story, tag], id: dom_id_for_records(tag.story, tag)  do |form| %>
+  <%= hidden_field_tag(:story_id, tag.story.id) %>
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
