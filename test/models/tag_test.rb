@@ -5,8 +5,7 @@
 # Table name: tags
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  story_id   :integer          not null
+#  name       :string(24)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
