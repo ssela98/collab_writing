@@ -5,11 +5,11 @@
 # Table name: tags
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  story_id   :integer          not null
+#  name       :string(24)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class Tag < ApplicationRecord
-  belongs_to :story
+  has_many :story_tags, dependent: :destroy, inverse_of: :tag
+  has_many :stories, through: :story_tags
 end

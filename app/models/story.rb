@@ -26,6 +26,7 @@ class Story < ApplicationRecord
   has_rich_text :content
   has_many :comments, dependent: :destroy, inverse_of: :story
   has_many :pins, dependent: :destroy, inverse_of: :story
+  has_many :story_tags, dependent: :destroy, inverse_of: :story
   has_many :tags, through: :story_tags
 
   validates :title, presence: true
