@@ -8,9 +8,14 @@
         <span id="<%= dom_id(story) %>_created_at"><%= t('at_date', date: story.created_at) %></span>
       </h6>
       <p id="<%= dom_id(story) %>_content"><%= story.content %></p>
+
       <%= turbo_stream_from "#{dom_id(story)}_pins" %>
       <%= tag.div id: "#{dom_id(story)}_pins" do %>
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
+      <% end %>
+
+      <%= tag.div class: "d-flex justify-content-start align-items-center" do %>
+        <%= render partial: 'stories/tags/tag', collection: story.tags, as: :tag %>
       <% end %>
 
       <% if story.user == current_user %>

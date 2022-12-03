@@ -11,7 +11,8 @@ module Stories
 
     def create
       if @tag.save
-        @new_tag = @story.tags.new
+        StoryTag.create(tag: @tag, story: @story)
+        @new_tag = Tag.new
 
         flash.now[:notice] = I18n.t('tags.notices.successfully_created')
       else
@@ -38,11 +39,11 @@ module Stories
     end
 
     def set_story
-      @story = Story.find_by(id: params[:story_id]) || @tag&.story
+      @story = Story.find_by(id: params[:story_id])
     end
 
     def tag_create_params
-      params.permit(:story_id, :name)
+      params.require(:tag).permit(:name)
     end
   end
 end

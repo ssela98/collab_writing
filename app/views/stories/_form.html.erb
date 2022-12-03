@@ -13,8 +13,14 @@
         <%= render partial: "shared/errors", locals: { resource: story, attribute: :content } %>
       </div>
 
-      <div>
-        <%= render partial: "stories/tags/form", locals: { tag: story.tags.new } %>
+      <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
+      <div id="<%= dom_id(story) %>_form_tags" class="d-flex justify-content-start align-items-center">
+        <%= render partial: 'stories/tags/tag', collection: story.tags, as: :tag %>
+      </div>
+
+      <%= turbo_stream_from "#{dom_id(story)}_form_new_tag" %>
+      <div id="<%= dom_id(story) %>_form_new_tag">
+        <%= render partial: "stories/tags/form", locals: { story: story, tag: Tag.new } %>
       </div>
 
       <div class="mb-3 d-flex align-items-center justify-content-center">
