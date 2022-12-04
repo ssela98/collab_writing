@@ -4,7 +4,7 @@ module ForbiddenUnlessCreator
   extend ActiveSupport::Concern
 
   def forbidden_unless_creator(resource)
-    return if current_user == resource.user
+    return if !resource.persisted? || current_user == resource.user
 
     respond_to do |format|
       alert_message = I18n.t("#{resource.class.name.underscore.pluralize}.alerts.not_the_creator")
