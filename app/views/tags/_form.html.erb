@@ -1,5 +1,5 @@
-<%= form_with model: tag, id: dom_id_for_records(story, tag), method: :post  do |form| %>
+<%= form_with model: tag, id: dom_id_for_records(story, tag), method: :post, class: "input-group w-25"  do |form| %>
   <%= hidden_field_tag :story_id, story.id if story.persisted? %>
-  <%= form.text_field :name %>
-  <%= form.submit 'Add Tag' %>
+  <%= form.text_field :name, class: "form-control form-control-sm" %>
+  <%= form.submit 'Add Tag', class: "btn btn-sm btn-secondary" %>
 <% end %>

@@ -13,7 +13,7 @@
         <%= render partial: "shared/errors", locals: { resource: story, attribute: :content } %>
       </div>
 
-      <turbo-frame>
+      <div class="mb-3">
         <%= form.label :tags, class: "form-label h6" %>
 
         <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
@@ -24,7 +24,7 @@
         </div>
 
         <%= turbo_frame_tag "#{dom_id(story)}_new_tag", src: new_tag_path(story_id: story&.id) %>
-      </turbo-frame>
+      </div>
 
       <div class="mb-3 d-flex align-items-center justify-content-center">
         <%= form.submit t('save'), class:"btn btn-m btn-primary m-3", data: { turbo: story.persisted? } %>
