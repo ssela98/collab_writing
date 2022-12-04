@@ -7,12 +7,7 @@ class UsersController < ApplicationController
 
   def show; end
 
-  def stories
-    stories = @user.stories
-    stories = stories.where(visibile: true) unless current_user == @user
-
-    filtered_and_ordered_stories(stories)
-  end
+  def stories; end
 
   def comments
     comments = @user.comments
