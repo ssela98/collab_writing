@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :stories, except: :index do
+  resources :stories do
     member do
       patch :vote
     end
