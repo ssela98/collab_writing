@@ -19,8 +19,6 @@ module Stories
       end
     end
 
-    def update; end
-
     def destroy
       @tag_name = params[:name]
       flash.now[:notice] = I18n.t('tags.notices.successfully_destroyed')

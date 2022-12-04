@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         patch :vote
       end
     end
-    resources :tags, module: :stories, except: %i[index new destroy]
+    resources :tags, module: :stories, only: :create
     resources :tags, module: :stories, only: :destroy, param: :name
   end
   resources :pins, only: %i[create update destroy]
