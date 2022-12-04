@@ -1,4 +1,2 @@
 <%= render partial: "users/shared/user_navbar", locals: { username: @user.username, active_nav_link: :stories } %>
-<div class="d-flex flex-column justify-content-center align-items-center mx-auto">
-  <%= render partial: 'home/frontpage_stories', locals: { stories: @stories, pagy: @pagy, current_path: 'stories_user_path', params: @user.username } %>
-</div>
+<%= turbo_frame_tag "#{@user.username}_stories", src: stories_path(username: @user.username) %>
