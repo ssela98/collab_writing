@@ -72,11 +72,11 @@ class StoriesController < ApplicationController
   end
 
   def batch_update_tags
-    tag_names = params.permit(tags: { tag: :name }).to_h.dig('tags')&.map { |tag_h| tag_h[:tag][:name] } || []
+    tag_names = params.permit(tags: { tag: :name }).to_h['tags']&.map { |tag_h| tag_h[:tag][:name] } || []
     story_tags = @story.story_tags.joins(:tag)
 
     ActiveRecord::Base.transaction do
-      story_tags.where.not(tags: { name: tag_names}).destroy_all
+      story_tags.where.not(tags: { name: tag_names }).destroy_all
 
       (tag_names - story_tags.pluck('tags.name')).each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name)
