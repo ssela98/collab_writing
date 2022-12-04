@@ -1,0 +1,11 @@
+<% if @new_tag # if @tag.valid? %>
+  <%= turbo_stream.append "#{dom_id(@story)}_form_tags" do %>
+    <%= render partial: 'tags/text_field', locals: { story: @story, tag_name: @tag.name } %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "#{dom_id(@story)}_new_tag" do %>
+  <%= render partial: "tags/form", locals: { story: @story, tag: @new_tag || @tag } %>
+<% end %>
+
+<%= turbo_stream.prepend('flash', partial: 'shared/flash') %>

@@ -1,0 +1,2 @@
+<%= turbo_stream.remove [dom_id(@story), @tag_name].join("_") %>
+<%= turbo_stream.prepend "flash", partial: "shared/flash" %>

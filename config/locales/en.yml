@@ -59,12 +59,12 @@ en:
   home: "Home"
   pins:
     errors:
-      failed_to_create: "Pin failed to get created."
-      failed_to_destroy: "Pin failed to get removed from story."
+      failed_to_create: "Pin failed to get added."
+      failed_to_destroy: "Pin failed to get removed."
       failed_to_update: "Pin order failed to get updated."
     notices:
-      successfully_created: "Pin was created successfully."
-      successfully_destroyed: "Pin was removed from story successfully."
+      successfully_created: "Pin was added successfully."
+      successfully_destroyed: "Pin was removed successfully."
       successfully_updated: "Pin order was updated successfully."
   reply: "Reply"
   save: "Save"
@@ -82,6 +82,13 @@ en:
       successfully_created: "Story was created successfully."
       successfully_destroyed: "Story was destroyed successfully."
       successfully_updated: "Story was updated successfully."
+  tags:
+    errors:
+      failed_to_create: "Tag failed to get added."
+      failed_to_destroy: "Tag failed to get removed."
+    notices:
+      successfully_created: "Tag was added successfully."
+      successfully_destroyed: "Tag was removed successfully."
   users:
     log_in: "Log In"
     log_out: "Log Out"

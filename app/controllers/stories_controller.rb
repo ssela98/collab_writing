@@ -8,6 +8,8 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
+  before_action :set_story_tags, except: %i[new create destroy]
+  before_action :set_tag_names, except: :destroy
 
   def show
     comments = @story.comments.where(parent_id: nil)
@@ -25,6 +27,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params.merge(user: current_user))
 
     if @story.save
+      create_or_destroy_tags
       redirect_to @story, notice: I18n.t('stories.notices.successfully_created')
     else
       render :new, status: :unprocessable_entity, alert: I18n.t('stories.errors.failed_to_create')
@@ -33,6 +36,7 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
+      create_or_destroy_tags
       flash.now[:notice] = I18n.t('stories.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('stories.errors.failed_to_update')
@@ -68,5 +72,24 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:title, :content, :visible)
+  end
+
+  def set_story_tags
+    @story_tags = @story.story_tags.joins(:tag)
+  end
+
+  def set_tag_names
+    @tag_names = params.permit(story_tag_names: [])['story_tag_names'] || @story_tags&.pluck(:name) || []
+  end
+
+  def create_or_destroy_tags
+    ActiveRecord::Base.transaction do
+      @story_tags.where.not(tags: { name: @tag_names }).destroy_all if @story_tags
+
+      (@tag_names - (@story_tags&.pluck('tags.name') || [])).each do |tag_name|
+        tag = Tag.find_or_create_by(name: tag_name)
+        StoryTag.create(story_id: @story.id, tag_id: tag.id)
+      end
+    end
   end
 end

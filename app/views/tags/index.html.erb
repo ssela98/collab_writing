@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "#{dom_id(@story)}_tags" do %>
+  <div class="d-flex flex-direction-row">
+    <%= render partial: 'tags/tag', collection: @story.tags, as: :tag %>
+  </div>
+<% end %>

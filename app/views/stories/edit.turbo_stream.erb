@@ -1,7 +1,7 @@
 <div class="container pb-2">
   <div class="m-3">
     <%= turbo_stream.replace dom_id(@story) do %>
-      <%= render "form", story: @story %>
+      <%= render "stories/form", story: @story, tag_names: @tag_names %>
     <% end %>
   </div>
 </div>
