@@ -5,7 +5,7 @@ module Stories
     include ForbiddenUnlessCreator
 
     before_action :authenticate_user!
-    before_action :set_tag
+    before_action :set_tag, only: :create
     before_action :set_story
     before_action -> { forbidden_unless_creator(@story) }
 
@@ -23,13 +23,8 @@ module Stories
     def update; end
 
     def destroy
-      @tag.destroy
-
-      if @tag.destroyed?
-        flash.now[:notice] = I18n.t('tags.notices.successfully_destroyed')
-      else
-        flash.now[:alert] = I18n.t('tags.errors.failed_to_destroy')
-      end
+      @tag_name = params[:name]
+      flash.now[:notice] = I18n.t('tags.notices.successfully_destroyed')
     end
 
     private
