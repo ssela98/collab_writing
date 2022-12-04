@@ -4,11 +4,16 @@ class TagsController < ApplicationController
   include ForbiddenUnlessCreator
 
   before_action :authenticate_user!
-  before_action :set_tag, only: :create
   before_action :set_story
   before_action -> { forbidden_unless_creator(@story) }
+  before_action :set_tag, only: %i[new show]
+
+  def new; end
+
+  def show; end
 
   def create
+    @tag = Tag.find_or_initialize_by(params.require(:tag).permit(:name))
     if @tag.valid?
       @new_tag = Tag.new
 
@@ -25,11 +30,11 @@ class TagsController < ApplicationController
 
   private
 
-  def set_tag
-    @tag = Tag.find_or_initialize_by(params.require(:tag).permit(:name))
+  def set_story
+    @story = Story.find_by(id: params[:story_id]) || Story.new
   end
 
-  def set_story
-    @story = Story.find_by(id: params[:story_id])
+  def set_tag
+    @tag = Tag.find_by(id: params[:id]) || Tag.new
   end
 end
