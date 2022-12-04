@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params.merge(user: current_user))
 
     if @story.save
-      batch_update_tags
+      create_or_destroy_tags
       redirect_to @story, notice: I18n.t('stories.notices.successfully_created')
     else
       render :new, status: :unprocessable_entity, alert: I18n.t('stories.errors.failed_to_create')
@@ -34,7 +34,7 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      batch_update_tags
+      create_or_destroy_tags
       flash.now[:notice] = I18n.t('stories.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('stories.errors.failed_to_update')
@@ -72,7 +72,7 @@ class StoriesController < ApplicationController
     params.require(:story).permit(:title, :content, :visible)
   end
 
-  def batch_update_tags
+  def create_or_destroy_tags
     tag_names = params.permit(tags: { tag: :name }).to_h['tags']&.map { |tag_h| tag_h[:tag][:name] } || []
     story_tags = @story.story_tags.joins(:tag)
 
