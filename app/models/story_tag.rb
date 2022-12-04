@@ -11,4 +11,6 @@
 class StoryTag < ApplicationRecord
   belongs_to :story
   belongs_to :tag
+
+  after_commit -> { tag.destroy }, on: :destroy, if: -> { tag.story_tags.none? }
 end
