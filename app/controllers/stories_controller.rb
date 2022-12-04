@@ -8,6 +8,7 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
+  before_action :batch_update_tags, only: %i[create update]
 
   def show
     comments = @story.comments.where(parent_id: nil)
@@ -68,5 +69,19 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:title, :content, :visible)
+  end
+
+  def batch_update_tags
+    tag_names = params.permit(tags: { tag: :name }).to_h.dig('tags').map { |tag_h| tag_h[:tag][:name] }
+    story_tags = @story.story_tags.joins(:tag)
+
+    ActiveRecord::Base.transaction do
+      story_tags.where.not(tags: { name: tag_names}).destroy_all
+
+      tag_names - story_tags.pluck('tags.name') do |tag_name|
+        tag = Tag.create(name: tag_name)
+        @story.story_tags.new(tag_id: tag.id).save
+      end
+    end
   end
 end
