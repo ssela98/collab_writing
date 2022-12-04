@@ -19,11 +19,11 @@
         <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
         <div id="<%= dom_id(story) %>_form_tags">
           <% story.tags.each do |tag| %>
-            <%= render partial: 'stories/tags/text_field', locals: { story: story, tag: tag } %>
+            <%= render partial: 'tags/text_field', locals: { story: story, tag: tag } %>
           <% end %>
         </div>
 
-        <%= render partial: 'stories/tags/form', locals: { story: story, tag: Tag.new } %>
+        <%= render partial: 'tags/form', locals: { story: story, tag: Tag.new } %>
       </turbo-frame>
 
       <div class="mb-3 d-flex align-items-center justify-content-center">

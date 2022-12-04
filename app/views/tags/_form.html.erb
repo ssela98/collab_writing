@@ -1,0 +1,5 @@
+<%= form_with model: tag, id: dom_id_for_records(story, tag), method: :post  do |form| %>
+  <%= hidden_field_tag :story_id, story.id if story.persisted? %>
+  <%= form.text_field :name %>
+  <%= form.submit 'Add Tag' %>
+<% end %>

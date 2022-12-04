@@ -10,10 +10,9 @@ Rails.application.routes.draw do
         patch :vote
       end
     end
-    resources :tags, module: :stories, only: :create
-    resources :tags, module: :stories, only: :destroy, param: :name
   end
   resources :pins, only: %i[create update destroy]
+  resources :tags, only: %i[create destroy], param: :name
 
   get 'home/index'
 

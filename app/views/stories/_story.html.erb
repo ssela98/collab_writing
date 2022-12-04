@@ -15,7 +15,7 @@
       <% end %>
 
       <%= tag.div class: "d-flex justify-content-start align-items-center" do %>
-        <%= render partial: 'stories/tags/tag', collection: story.tags, as: :tag %>
+        <%= render partial: 'tags/tag', collection: story.tags, as: :tag %>
       <% end %>
 
       <% if story.user == current_user %>
