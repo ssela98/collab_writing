@@ -4,7 +4,7 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream.replace "#{dom_id(@story)}_form_new_tag" do %>
+<%= turbo_stream.replace "#{dom_id(@story)}_new_tag" do %>
   <%= render partial: "stories/tags/form", locals: { story: @story, tag: @new_tag || @tag } %>
 <% end %>
 
