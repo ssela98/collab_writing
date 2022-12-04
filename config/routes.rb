@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :pins, only: %i[create update destroy]
-  resources :tags, only: %i[new show create]
+  resources :tags, only: %i[show new create]
   resources :tags, only: :destroy, param: :name
 
   get 'home/index'

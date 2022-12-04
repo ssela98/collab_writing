@@ -6,11 +6,11 @@ class TagsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_story
   before_action -> { forbidden_unless_creator(@story) }
-  before_action :set_tag, only: %i[new show]
-
-  def new; end
+  before_action :set_tag, only: %i[show new]
 
   def show; end
+
+  def new; end
 
   def create
     @tag = Tag.find_or_initialize_by(params.require(:tag).permit(:name))
