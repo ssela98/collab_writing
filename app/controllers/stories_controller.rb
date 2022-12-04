@@ -80,7 +80,7 @@ class StoriesController < ApplicationController
 
       tag_names - story_tags.pluck('tags.name') do |tag_name|
         tag = Tag.create(name: tag_name)
-        @story.story_tags.new(tag_id: tag.id).save
+        @story.story_tags.create(tag_id: tag.id)
       end
     end
   end
