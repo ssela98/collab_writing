@@ -8,7 +8,6 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
-  before_action :batch_update_tags, only: %i[create update]
 
   def show
     comments = @story.comments.where(parent_id: nil)
@@ -26,6 +25,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params.merge(user: current_user))
 
     if @story.save
+      batch_update_tags
       redirect_to @story, notice: I18n.t('stories.notices.successfully_created')
     else
       render :new, status: :unprocessable_entity, alert: I18n.t('stories.errors.failed_to_create')
@@ -34,6 +34,7 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
+      batch_update_tags
       flash.now[:notice] = I18n.t('stories.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('stories.errors.failed_to_update')
