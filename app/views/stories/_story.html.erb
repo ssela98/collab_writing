@@ -14,10 +14,7 @@
         <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
       <% end %>
 
-      <%= tag.div class: "d-flex justify-content-start align-items-center" do %>
-        <!-- TODO: replace with turbo-frame -->
-        <%= render partial: 'tags/tag', collection: story.tags, as: :tag %>
-      <% end %>
+      <%= turbo_frame_tag "#{dom_id(story)}_tags", src: tags_path(story_id: story.id) %>
 
       <% if story.user == current_user %>
         <div class="d-flex justify-content-start align-items-center mt-3 mb-3">
