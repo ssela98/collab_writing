@@ -1,3 +1,1 @@
-<turbo-frame id=<%= [dom_id(@story), @tag_name].join("_") %>>
-  <%= render partial: 'tags/text_field', locals: { story: @story, tag_name: @tag_name } %>
-</turbo-frame>
+<%= render partial: 'tags/text_field', locals: { story: @story, tag_name: @tag_name } %>
