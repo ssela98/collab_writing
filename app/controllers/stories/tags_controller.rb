@@ -10,8 +10,8 @@ module Stories
     before_action -> { forbidden_unless_creator(@story) }
 
     def create
-      if @tag.save
-        StoryTag.create(tag: @tag, story: @story)
+      if @tag.valid?
+        #StoryTag.create(tag: @tag, story: @story)
         @new_tag = Tag.new
 
         flash.now[:notice] = I18n.t('tags.notices.successfully_created')

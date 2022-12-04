@@ -1,0 +1,5 @@
+<div id="<%= dom_id_for_records(story, tag) %>" class="d-inline-flex align-items-center">
+  <%= hidden_field_tag '[tags][tag[name]]', tag.name %>
+  <span class="text-muted">#<%= tag.name %></span>
+  <%= button_to 'x', story_tag_path(story_id: story.id, id: tag.id), method: :delete, class: "btn btn-link text-decoration-none text-reset" %>
+</div>

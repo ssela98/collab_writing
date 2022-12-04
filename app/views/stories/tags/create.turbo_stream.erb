@@ -1,6 +1,6 @@
 <% if @new_tag # if @tag.save %>
   <%= turbo_stream.append "#{dom_id(@story)}_form_tags" do %>
-    <%= render partial: 'stories/tags/tag', locals: { tag: @tag } %>
+    <%= render partial: 'stories/tags/text_field', locals: { story: @story, tag: @tag } %>
   <% end %>
 <% end %>
 

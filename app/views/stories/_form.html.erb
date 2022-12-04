@@ -13,15 +13,18 @@
         <%= render partial: "shared/errors", locals: { resource: story, attribute: :content } %>
       </div>
 
-      <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
-      <div id="<%= dom_id(story) %>_form_tags" class="d-flex justify-content-start align-items-center">
-        <%= render partial: 'stories/tags/tag', collection: story.tags, as: :tag %>
-      </div>
+      <turbo-frame>
+        <%= form.label :tags, class: "form-label h6" %>
 
-      <%= turbo_stream_from "#{dom_id(story)}_form_new_tag" %>
-      <div id="<%= dom_id(story) %>_form_new_tag">
-        <%= render partial: "stories/tags/form", locals: { story: story, tag: Tag.new } %>
-      </div>
+        <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
+        <div id="<%= dom_id(story) %>_form_tags">
+          <% story.tags.each do |tag| %>
+            <%= render partial: 'stories/tags/text_field', locals: { story: story, tag: tag } %>
+          <% end %>
+        </div>
+
+        <%= render partial: 'stories/tags/form', locals: { story: story, tag: Tag.new } %>
+      </turbo-frame>
 
       <div class="mb-3 d-flex align-items-center justify-content-center">
         <%= form.submit t('save'), class:"btn btn-m btn-primary m-3", data: { turbo: story.persisted? } %>
