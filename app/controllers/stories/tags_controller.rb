@@ -11,7 +11,6 @@ module Stories
 
     def create
       if @tag.valid?
-        #StoryTag.create(tag: @tag, story: @story)
         @new_tag = Tag.new
 
         flash.now[:notice] = I18n.t('tags.notices.successfully_created')
