@@ -1,5 +1,5 @@
-<div id="<%= dom_id(story) %>_<%= tag.name %>" class="d-inline-flex align-items-center">
-  <%= hidden_field_tag '[tags][][tag[name]]', tag.name %>
-  <span class="text-muted">#<%= tag.name %></span>
-  <%= button_to 'x', tag_path(tag.name, story_id: story&.id), method: :delete, class: "btn btn-link text-decoration-none text-reset" %>
+<div id=<%= [dom_id(story), tag_name].join("_") %> class="d-inline-flex align-items-center">
+  <%= hidden_field_tag "story_tag_names[]", tag_name %>
+  <span class="text-muted">#<%= tag_name %></span>
+  <%= button_to 'x', tag_path(tag_name, story_id: story&.id), method: :delete, class: "btn btn-link text-decoration-none text-reset" %>
 </div>

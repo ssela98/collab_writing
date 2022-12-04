@@ -18,8 +18,8 @@
 
         <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
         <div id="<%= dom_id(story) %>_form_tags">
-          <% story.tags.each do |tag| %>
-            <%= turbo_frame_tag "#{dom_id_for_records(story, tag)}", src: tag_path(id: tag.id, story_id: story.id) %>
+          <% tag_names.each do |tag_name| %>
+            <%= turbo_frame_tag [dom_id(story), tag_name].join("_"), src: tag_path(name: tag_name, story_id: story.id) %>
           <% end %>
         </div>
 

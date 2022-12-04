@@ -8,6 +8,8 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_story, except: %i[new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
+  before_action :set_story_tags, except: %i[new create destroy]
+  before_action :set_tag_names, except: :destroy
 
   def show
     comments = @story.comments.where(parent_id: nil)
@@ -72,16 +74,21 @@ class StoriesController < ApplicationController
     params.require(:story).permit(:title, :content, :visible)
   end
 
+  def set_story_tags
+    @story_tags = @story.story_tags.joins(:tag)
+  end
+
+  def set_tag_names
+    @tag_names = params.permit(story_tag_names: [])['story_tag_names'] || @story_tags&.pluck(:name) || []
+  end
+
   def create_or_destroy_tags
-    tag_names = params.permit(tags: { tag: :name }).to_h['tags']&.map { |tag_h| tag_h[:tag][:name] } || []
-    story_tags = @story.story_tags.joins(:tag)
-
     ActiveRecord::Base.transaction do
-      story_tags.where.not(tags: { name: tag_names }).destroy_all
+      @story_tags.where.not(tags: { name: @tag_names }).destroy_all if @story_tags
 
-      (tag_names - story_tags.pluck('tags.name')).each do |tag_name|
+      (@tag_names - (@story_tags&.pluck('tags.name') || [])).each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name)
-        @story.story_tags.create(tag_id: tag.id)
+        StoryTag.create(story_id: @story.id, tag_id: tag.id)
       end
     end
   end

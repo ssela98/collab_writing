@@ -15,6 +15,7 @@
       <% end %>
 
       <%= tag.div class: "d-flex justify-content-start align-items-center" do %>
+        <!-- TODO: replace with turbo-frame -->
         <%= render partial: 'tags/tag', collection: story.tags, as: :tag %>
       <% end %>
 
