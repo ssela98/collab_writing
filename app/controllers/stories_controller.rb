@@ -2,14 +2,28 @@
 
 class StoriesController < ApplicationController
   include ForbiddenUnlessCreator
-  include Vote
   include FilterableAndOrderable
+  include Vote
 
-  before_action :authenticate_user!, except: :show
-  before_action :set_story, except: %i[new create]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_story, except: %i[index new create]
   before_action -> { forbidden_unless_creator(@story) }, only: %i[edit update destroy]
-  before_action :set_story_tags, except: %i[new create destroy]
-  before_action :set_tag_names, except: :destroy
+  before_action :set_story_tags, except: %i[index new create destroy]
+  before_action :set_tag_names, except: %i[index destroy]
+
+  def index
+    stories = if params[:username]
+                user = User.find_by(username: params[:username])
+                return unless user
+
+                @username = params[:username]
+                user.stories.where(current_user == user ? {} : { visible: true })
+              else
+                Story.where(visible: true)
+              end
+
+    filtered_and_ordered_stories(stories)
+  end
 
   def show
     comments = @story.comments.where(parent_id: nil)

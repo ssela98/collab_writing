@@ -1,0 +1,47 @@
+<%= turbo_frame_tag [@username, 'stories'].compact.join("_") do %>
+  <div class="d-flex flex-column justify-content-center align-items-center mx-auto">
+
+    <div class="d-flex flex-row">
+      <div class="dropdown me-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <%= session[:stories_filter_by].humanize || 'All Time' %>
+        </button><!-- TODO: translation -->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <% %w[today this_week this_month this_year all_time].each do |time_filter| %>
+            <li><%= link_to time_filter.humanize, request.params.merge(filter_by_date: time_filter), class: "dropdown-item" %></li><!-- TODO: translation -->
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <%= session[:stories_order_by].humanize || 'Top' %>
+        </button><!-- TODO: translation -->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <% %w[new top].each do |order| %>
+            <li><%= link_to order.humanize, request.params.merge(order_by: order), class: "dropdown-item" %></li><!-- TODO: translation -->
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <% @stories.each do |story| %>
+      <div class="container m-3">
+        <%= link_to story_path(story), class: "text-decoration-none text-reset" do %>
+          <%= render partial: 'stories/story', locals: { story: story } %>
+        <% end %>
+        <%= render partial: "shared/votes", locals: { votable: story, vote_path: "vote_story_path", vote_params: { id: story.id }} %>
+      </div>
+    <% end %>
+
+    <div id="pager" class="d-flex justify-between mb-5">
+      <div>
+        <%= link_to "< Previous page", request.params.merge(page: @pagy.prev) if @pagy.prev %>
+      </div>
+      <div class="text-right">
+        <%= link_to "Next page >", request.params.merge(page: @pagy.next) if @pagy.next %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

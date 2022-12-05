@@ -18,7 +18,6 @@
 
     <%= render partial: 'shared/comments_ordering', locals: { current_path: 'story_path', params: @story } %>
 
-    <%= turbo_stream_from "#{dom_id(@story)}_comments" %>
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
       <%= render partial: "stories/comments/comment_with_replies", collection: @comments, as: :comment %>
       <div id="<%= dom_id(@story) %>_more_comments"></div>

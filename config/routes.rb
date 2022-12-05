@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :stories, except: :index do
+  resources :stories do
     member do
       patch :vote
     end
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :pins, only: %i[create update destroy]
+  resources :pins, only: %i[index create update destroy]
   resources :tags, except: %i[edit], param: :name
 
   get 'home/index'

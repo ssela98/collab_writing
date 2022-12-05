@@ -1,3 +1,1 @@
-<div id="stories" class="d-flex flex-column justify-content-center align-items-center mx-auto">
-  <%= render partial: 'frontpage_stories', locals: { stories: @stories, pagy: @pagy, current_path: 'root_path' } %>
-</div>
+<%= turbo_frame_tag "stories", src: stories_path %>
