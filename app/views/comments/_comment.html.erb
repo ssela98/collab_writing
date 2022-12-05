@@ -8,8 +8,8 @@
       <p id="<%= dom_id(comment) %>_content" class="card-text"><%= comment.content %></p>
       <% if comment.user == current_user %>
         <div class="d-flex justify-content-start align-items-center mt-3 mb-3">
-          <%= link_to t('edit'), edit_story_comment_path(comment.story_id, comment.id), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
-          <%= button_to t('delete'), story_comment_path(comment.story_id, comment.id),
+          <%= link_to t('edit'), edit_comment_path(comment.id, story_id: comment.story_id), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
+          <%= button_to t('delete'), comment_path(comment.id, story_id: comment.story_id),
             method: :delete,
             class: "btn btn-link",
             data: { confirm: t('are_you_sure_delete') }

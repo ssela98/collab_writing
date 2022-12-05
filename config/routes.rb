@@ -5,10 +5,10 @@ Rails.application.routes.draw do
     member do
       patch :vote
     end
-    resources :comments, module: :stories, except: %i[index new] do
-      member do
-        patch :vote
-      end
+  end
+  resources :comments, except: %i[index new] do
+    member do
+      patch :vote
     end
   end
   resources :pins, only: %i[index create update destroy]
