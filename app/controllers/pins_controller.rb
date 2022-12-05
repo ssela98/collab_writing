@@ -3,13 +3,16 @@
 class PinsController < ApplicationController
   include ForbiddenUnlessCreator
 
-  before_action :authenticate_user!
-  before_action :set_pin
-  before_action :set_story
-  before_action :set_comment
-  before_action -> { forbidden_unless_creator(@story) }
+  before_action :authenticate_user!, except: :index
+  before_action :set_pin, except: :index
+  before_action :set_story, except: :index
+  before_action :set_comment, except: :index
+  before_action -> { forbidden_unless_creator(@story) }, except: :index
 
-  # POST /pins or /pins.json
+  def index
+    @story = Story.find_by(id: params[:story_id])
+  end
+
   def create
     if @pin.save
       flash.now[:notice] = I18n.t('pins.notices.successfully_created')
@@ -18,10 +21,8 @@ class PinsController < ApplicationController
     end
   end
 
-  # PATCH/PUT pins/1
   def update; end
 
-  # DELETE /pins/1 or /pins/1.json
   def destroy
     @pin.destroy
 
@@ -34,7 +35,6 @@ class PinsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_pin
     @pin = Pin.find_by(id: params[:id]) || Pin.new(pin_create_params)
   end
@@ -47,7 +47,6 @@ class PinsController < ApplicationController
     @comment = Comment.find_by(id: params.dig('pin', 'comment_id')) || @pin&.comment
   end
 
-  # Only allow a list of trusted parameters through.
   def pin_create_params
     params.require(:pin).permit(:story_id, :comment_id)
   end
