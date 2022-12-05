@@ -1,5 +1,3 @@
-<%= turbo_stream_from "#{dom_id(comment)}_comments" %>
-
 <div class="<%= comment.parent.nil? || defined?(is_root_comment) ? 'mt-3' : 'ps-3 border-left' %> py-1" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply pin-comment">
 
   <%= render partial: 'stories/comments/comment', locals: { comment: comment } %>
