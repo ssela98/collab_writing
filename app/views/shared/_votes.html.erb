@@ -1,4 +1,3 @@
-<%= turbo_stream_from "#{dom_id(votable)}_votes" %>
 <div id="<%= dom_id(votable) %>_votes" class="d-flex flex-row justify-content-start align-items-center">
   <%= link_to public_send(vote_path, vote_params.merge(type: :upvote)), method: :patch, class: "me-2" do %>
     <%= image_tag("icons/votes/#{upvote_icon(votable, current_user)}.svg", width: '24px', height: '24px') %>
