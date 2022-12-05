@@ -9,11 +9,7 @@
       </h6>
       <p id="<%= dom_id(story) %>_content"><%= story.content %></p>
 
-      <%= turbo_stream_from "#{dom_id(story)}_pins" %>
-      <%= tag.div id: "#{dom_id(story)}_pins" do %>
-        <%= render partial: 'pins/pin', collection: story.pins, as: :pin %>
-      <% end %>
-
+      <%= turbo_frame_tag "#{dom_id(story)}_pins", src: pins_path(story_id: story.id) %>
       <%= turbo_frame_tag "#{dom_id(story)}_tags", src: tags_path(story_id: story.id) %>
 
       <% if story.user == current_user %>
