@@ -13,14 +13,14 @@ class StoriesController < ApplicationController
 
   def index
     stories = if params[:username]
-      user = User.find_by(username: params[:username])
-      return unless user
+                user = User.find_by(username: params[:username])
+                return unless user
 
-      @username = params[:username]
-      user.stories.where(current_user != user ? { visible: true } : {})
-    else
-      Story.where(visible: true)
-    end
+                @username = params[:username]
+                user.stories.where(current_user == user ? {} : { visible: true })
+              else
+                Story.where(visible: true)
+              end
 
     filtered_and_ordered_stories(stories)
   end
