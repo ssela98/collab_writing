@@ -16,7 +16,6 @@
       <div class="mb-3">
         <%= form.label :tags, class: "form-label h6" %>
 
-        <%= turbo_stream_from "#{dom_id(story)}_form_tags" %>
         <div id="<%= dom_id(story) %>_form_tags">
           <% tag_names.each do |tag_name| %>
             <%= turbo_frame_tag [dom_id(story), tag_name].join("_"), src: tag_path(name: tag_name, story_id: story.id) %>
