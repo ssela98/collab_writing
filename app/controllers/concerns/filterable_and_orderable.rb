@@ -13,7 +13,7 @@ module FilterableAndOrderable
     filtered_stories = stories.filter_by_date_keyword(session[:stories_filter_by])
     filtered_and_ordered_stories = filtered_stories.order_by_keyword(session[:stories_order_by]).with_rich_text_content
 
-    @pagy, @stories = pagy(filtered_and_ordered_stories, items: 50)
+    @pagy, @stories = pagy(filtered_and_ordered_stories, items: 25)
   end
 
   def ordered_comments(comments)
