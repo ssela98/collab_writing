@@ -1,9 +1,9 @@
 <div class="<%= comment.parent.nil? || defined?(is_root_comment) ? 'mt-3' : 'ps-3 border-left' %> py-1" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply pin-comment">
 
-  <%= render partial: 'stories/comments/comment', locals: { comment: comment } %>
+  <%= render partial: 'comments/comment', locals: { comment: comment } %>
 
   <div class="text-sm d-flex py-1">
-    <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_story_comment_path", vote_params: { story_id: comment.story_id, id: comment.id }} %>
+    <%= render partial: "shared/votes", locals: { votable: comment, vote_path: "vote_comment_path", vote_params: { story_id: comment.story_id, id: comment.id }} %>
     <% if user_signed_in? %>
       <%= link_to t('reply'), "#", id: "#{dom_id(comment)}_reply_button", class: "btn btn-link", data: { action: "click->comment-reply#toggle" } %>
     <% end %>
@@ -13,17 +13,17 @@
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">
-    <%= render partial: "stories/comments/form", locals: { target: comment, comment: comment.story.comments.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
+    <%= render partial: "comments/form", locals: { target: comment, comment: comment.story.comments.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
     <% if comment.level.to_i != 0 && comment.level.to_i % 10 == 0 && comment.comments.any? && !defined?(is_root_comment) %>
       <div class="ms-2 p-1">
         <%= link_to(
           "Continue this thread",
-          story_comment_path(story_id: comment.story_id, id: comment.id),
+          comment_path(comment.id, story_id: comment.story_id),
           data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
         ) %>
       </div>
     <% else %>
-      <%= render partial: "stories/comments/comment_with_replies", collection: comment.comments.order_by_keyword(session[:comments_order_by]).with_rich_text_content, as: :comment %>
+      <%= render partial: "comments/comment_with_replies", collection: comment.comments.order_by_keyword(session[:comments_order_by]).with_rich_text_content, as: :comment %>
     <% end %>
   </div>
 

@@ -5,10 +5,10 @@
     <% else %>
       <%= link_to(
         "Back to previous comments in this thread",
-        story_comment_path(story_id: @story.id, id: (@comment.parent&.root_comment_id || @comment.root_comment_id)),
+        comment_path((@comment.parent&.root_comment_id || @comment.root_comment_id), story_id: @story.id),
         data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }
       ) %>
     <% end %>
-    <%= render partial: "stories/comments/comment_with_replies", locals: { comment: @comment, is_root_comment: true } %>
+    <%= render partial: "comments/comment_with_replies", locals: { comment: @comment, is_root_comment: true } %>
   </div>
 <% end %>
