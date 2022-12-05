@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "#{dom_id(@story)}_pins" do %>
+  <div class="d-flex flex-column">
+    <%= render partial: 'pins/pin', collection: @story.pins, as: :pin %>
+  </div>
+<% end %>
