@@ -4,7 +4,7 @@
     <div class="d-flex flex-row">
       <div class="dropdown me-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Filter By
+          <%= session[:stories_filter_by].humanize || 'All Time' %>
         </button><!-- TODO: translation -->
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <% %w[today this_week this_month this_year all_time].each do |time_filter| %>
@@ -15,7 +15,7 @@
 
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Order By
+          <%= session[:stories_order_by].humanize || 'Top' %>
         </button><!-- TODO: translation -->
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <% %w[new top].each do |order| %>
