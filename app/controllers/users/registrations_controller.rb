@@ -12,9 +12,9 @@ module Users
 
     # POST /resource
     def create
+      super
       # TODO: uncomment this when you re-enable :registerable
-      # super
-      redirect_to root_path, alert: I18n.t(:sign_up_disabled_for_now)
+      # redirect_to root_path, alert: I18n.t(:sign_up_disabled_for_now)
     end
 
     # GET /resource/edit
