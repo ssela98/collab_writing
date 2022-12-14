@@ -79,7 +79,7 @@ Rails.application.configure do
     domain: 'gmail.com',
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: Rails.application.credentials.mailer[:user_name],
+    user_name: Rails.application.credentials.mailer[:username],
     password: Rails.application.credentials.mailer[:password]
   }
 
