@@ -25,6 +25,11 @@
         <%= turbo_frame_tag "#{dom_id(story)}_new_tag", src: new_tag_path(story_id: story&.id) %>
       </div>
 
+      <div class="form-check mb-3">
+        <%= form.check_box :visible, class:"form-check-input" %>
+        <%= form.label :visible, class:"form-check-label" %>
+      </div>
+
       <div class="mb-3 d-flex align-items-center justify-content-center">
         <%= form.submit t('save'), class:"btn btn-m btn-primary m-3", data: { turbo: story.persisted? } %>
         <%= link_to t('cancel'), story, class: "btn btn-link", data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } if story.persisted? %>
