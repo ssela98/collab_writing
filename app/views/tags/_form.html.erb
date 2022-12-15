@@ -1,7 +1,7 @@
 <%= turbo_frame_tag dom_id_for_records(story, tag) do %>
   <%= form_with model: tag, method: :post, class: 'input-group w-25'  do |form| %>
     <%= hidden_field_tag :story_id, story.id if story.persisted? %>
-    <%= form.text_field :name, t('name'), class: 'form-control form-control-sm' %>
+    <%= form.text_field :name, class: 'form-control form-control-sm' %>
     <%= form.submit t('add_tag'), class: 'btn btn-sm btn-secondary' %>
   <% end %>
 <% end %>
