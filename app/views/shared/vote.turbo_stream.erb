@@ -1,4 +1,4 @@
 <%= turbo_stream.replace "#{dom_id(@votable)}_votes" do %>
   <%= render partial: 'shared/votes', locals: { votable: @votable, vote_path: @vote_path, vote_params: @vote_params} %>
 <% end %>
-<%= turbo_stream.prepend "flash", partial: "shared/flash" %>
+<%= turbo_stream.prepend 'flash', partial: 'shared/flash' %>

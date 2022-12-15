@@ -1,23 +1,23 @@
-<%= tag.div id: dom_id(story), class: "story" do %>
-  <div class="card">
-    <div class="card-body d-flex flex-column w-100">
+<%= tag.div id: dom_id(story), class: 'story' do %>
+  <div class='card'>
+    <div class='card-body d-flex flex-column w-100'>
 
-      <h5 id="<%= dom_id(story) %>_title" class="card-title"><%= story.title %></h5>
-      <h6 class="card-subtitle mb-2 text-muted">
-        <span id="<%= dom_id(story) %>_user_username"><%= t('by_username', username: story.user.username) %></span>
-        <span id="<%= dom_id(story) %>_created_at"><%= t('at_date', date: story.created_at) %></span>
+      <h5 id='<%= dom_id(story) %>_title' class='card-title'><%= story.title %></h5>
+      <h6 class='card-subtitle mb-2 text-muted'>
+        <span id='<%= dom_id(story) %>_user_username'><%= t('by_username', username: story.user.username) %></span>
+        <span id='<%= dom_id(story) %>_created_at'><%= t('at_date', date: story.created_at) %></span>
       </h6>
-      <p id="<%= dom_id(story) %>_content"><%= story.content %></p>
+      <p id='<%= dom_id(story) %>_content'><%= story.content %></p>
 
       <%= turbo_frame_tag "#{dom_id(story)}_pins", src: pins_path(story_id: story.id) %>
       <%= turbo_frame_tag "#{dom_id(story)}_tags", src: tags_path(story_id: story.id) %>
 
       <% if story.user == current_user %>
-        <div class="d-flex justify-content-start align-items-center mt-3 mb-3">
-          <%= link_to t('edit'), edit_story_path(story), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: "me-2" %>|
+        <div class='d-flex justify-content-start align-items-center mt-3 mb-3'>
+          <%= link_to t('edit'), edit_story_path(story), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: 'me-2' %>|
           <%= button_to t('delete'), story_path(story),
             method: :delete,
-            class: "btn btn-link",
+            class: 'btn btn-link',
             data: { confirm: t('are_you_sure_delete') }
           %>
         </div>

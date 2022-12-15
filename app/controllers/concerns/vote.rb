@@ -22,7 +22,7 @@ module Vote
       end
     end
 
-    flash.now[:notice] = params[:type]
+    flash.now[:notice] = I18n.t("votes.notices.#{params[:type]}")
     respond_to do |format|
       format.turbo_stream { render 'shared/vote', locals: { votable: @votable, vote_path: @vote_path, vote_params: @vote_params } }
     end

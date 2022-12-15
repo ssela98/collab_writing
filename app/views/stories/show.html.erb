@@ -1,27 +1,27 @@
-<div class="container pb-2">
-  <div class="m-3">
-    <%= button_to "Back to Stories", root_path, method: :get, class: "btn btn-m btn-secondary mb-3" %>
+<div class='container pb-2'>
+  <div class='m-3'>
+    <%= button_to t('back_to_stories'), root_path, method: :get, class: 'btn btn-m btn-secondary mb-3' %>
     <%= render @story %>
 
-    <%= render partial: "shared/votes", locals: { votable: @story, vote_path: "vote_story_path", vote_params: { id: @story.id }} %>
+    <%= render partial: 'shared/votes', locals: { votable: @story, vote_path: 'vote_story_path', vote_params: { id: @story.id }} %>
 
-    <h5 class="mt-3 mb-3"><%= t('comments_title') %></h5>
+    <h5 class='mt-3 mb-3'><%= t('comments_title') %></h5>
     <% if user_signed_in? %>
-      <%= render partial: "comments/form", locals: { comment: @story.comments.new, target: @story } %>
+      <%= render partial: 'comments/form', locals: { comment: @story.comments.new, target: @story } %>
     <% else %>
-      <p id="<%= dom_id(@story) %>_sign_up_or_log_in_links">
-        <%= t("comments.sign_up_or_log_in.html",
-          sign_up_href: link_to(t("comments.sign_up_or_log_in.sign_up_href"), new_user_registration_path),
-          log_in_href:  link_to(t("comments.sign_up_or_log_in.log_in_href"), new_user_session_path)) %>
+      <p id='<%= dom_id(@story) %>_sign_up_or_log_in_links'>
+        <%= t('comments.sign_up_or_log_in.html',
+          sign_up_href: link_to(t('comments.sign_up_or_log_in.sign_up_href'), new_user_registration_path),
+          log_in_href:  link_to(t('comments.sign_up_or_log_in.log_in_href'), new_user_session_path)) %>
       </p>
     <% end %>
 
     <%= render partial: 'shared/comments_ordering', locals: { current_path: 'story_path', params: @story } %>
 
     <%= tag.div id: "#{dom_id(@story)}_comments" do %>
-      <%= render partial: "comments/comment_with_replies", collection: @comments, as: :comment %>
-      <div id="<%= dom_id(@story) %>_more_comments"></div>
-      <%= render partial: "comments/load_more", locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
+      <%= render partial: 'comments/comment_with_replies', collection: @comments, as: :comment %>
+      <div id='<%= dom_id(@story) %>_more_comments'></div>
+      <%= render partial: 'comments/load_more', locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
     <% end %>
   </div>
 </div>

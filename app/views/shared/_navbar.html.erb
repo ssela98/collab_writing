@@ -1,19 +1,19 @@
-<nav id="navbar" class="navbar navbar-light bg-light">
-  <div class="container-fluid mx-2">
-    <div class="d-flex justify-content-between align-items-center w-100">
-      <div><%= link_to t('home'), root_url, class: "navbar-brand" %></div>
+<nav id='navbar' class='navbar navbar-light bg-light'>
+  <div class='container-fluid mx-2'>
+    <div class='d-flex justify-content-between align-items-center w-100'>
+      <div><%= link_to t('home'), root_url, class: 'navbar-brand' %></div>
 
-      <div class="d-flex justify-content-center align-items-center">
-        <%= link_to t('stories.new_story'), new_story_path, id: "navbar-new-story", class: "btn btn-m btn-primary m-1" %>
-        <div class="btn-group">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= current_user&.username || 'Account' %>
+      <div class='d-flex justify-content-center align-items-center'>
+        <%= link_to t('stories.new_story'), new_story_path, id: 'navbar-new-story', class: 'btn btn-m btn-primary m-1' %>
+        <div class='btn-group'>
+          <button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>
+            <%= current_user&.username || t('account') %>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><%= link_to 'Profile', user_path(username: current_user.username), id: "navbar-userpage", class: "dropdown-item" if user_signed_in? %></li>
-            <li><%= link_to t('users.sign_up'), new_user_registration_path, id: "navbar-sign-up", class: "dropdown-item" unless user_signed_in? %></li>
-            <li><%= link_to t('users.log_in'), new_user_session_path, id: "navbar-log-in", class: "dropdown-item" unless user_signed_in? %></li>
-            <li><%= link_to t('users.log_out'), destroy_user_session_path, method: :delete, id: "navbar-log-out", class: "dropdown-item" if user_signed_in? %></li>
+          <ul class='dropdown-menu dropdown-menu-end'>
+            <li><%= link_to t('profile'), user_path(username: current_user.username), id: 'navbar-userpage', class: 'dropdown-item' if user_signed_in? %></li>
+            <li><%= link_to t('users.sign_up'), new_user_registration_path, id: 'navbar-sign-up', class: 'dropdown-item' unless user_signed_in? %></li>
+            <li><%= link_to t('users.log_in'), new_user_session_path, id: 'navbar-log-in', class: 'dropdown-item' unless user_signed_in? %></li>
+            <li><%= link_to t('users.log_out'), destroy_user_session_path, method: :delete, id: 'navbar-log-out', class: 'dropdown-item' if user_signed_in? %></li>
           </ul>
         </div>
       </div>

@@ -1,32 +1,32 @@
-<h2 class="page-title"><%= t('users.log_in') %></h2>
+<h2 class='page-title'><%= t('users.log_in') %></h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
 
-  <div class="d-flex flex-column justify-content-center align-items-center">
+  <div class='d-flex flex-column justify-content-center align-items-center'>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :username, class:"form-label" %>
-      <%= form.text_field :username, autofocus: true, autocomplete: "username", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :username } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :username, t('username'), class: 'form-label' %>
+      <%= form.text_field :username, autofocus: true, autocomplete: 'username', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :username } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :password, class: "form-label" %>
-      <%= form.password_field :password, autocomplete: "current-password", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :password, t('password'), class: 'form-label' %>
+      <%= form.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password } %>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="form-check mb-3 w-50">
-        <%= form.check_box :remember_me, class:"form-check-input" %>
-        <%= form.label :remember_me, class:"form-check-label" %>
+      <div class='form-check mb-3 w-50'>
+        <%= form.check_box :remember_me, class: 'form-check-input' %>
+        <%= form.label :remember_me, t('remember_me'), class: 'form-check-label' %>
       </div>
     <% end %>
 
-    <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= form.submit "Log in", class:"btn btn-m btn-primary" %>
+    <div class='mb-3 d-flex align-items-center justify-content-center'>
+      <%= form.submit t('users.log_in'), class: 'btn btn-m btn-primary' %>
     </div>
 
-    <%= render "devise/shared/links" %>
+    <%= render 'devise/shared/links' %>
   </div>
 <% end %>
