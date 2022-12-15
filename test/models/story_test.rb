@@ -56,7 +56,7 @@ class StoryTest < ActiveSupport::TestCase
 
   test 'should create with title with non-latin alphabet letters and special chars' do
     title = Faker::String.random
-    story = create(:story, title: title)
+    story = create(:story, title:)
 
     assert story.valid?
     assert_equal title, story.title
@@ -73,11 +73,11 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal 1, story.weighted_score # nothing changed
 
     story.downvote! @user
-    assert_equal -1, story.weighted_score
+    assert_equal(-1, story.weighted_score)
 
     story.downvote! @user
     story.downvote! @user
-    assert_equal -1, story.weighted_score # nothing changed
+    assert_equal(-1, story.weighted_score) # nothing changed
   end
 
   test 'ordering works' do
@@ -102,7 +102,7 @@ class StoryTest < ActiveSupport::TestCase
       create(:story)
     end
     today_story = create(:story)
-    
+
     assert_equal [last_year_story, last_month_story, last_week_story, today_story], Story.filter_by_date_keyword('all_time')
     assert_equal [last_month_story, last_week_story, today_story], Story.filter_by_date_keyword('this_year')
     assert_equal [last_week_story, today_story], Story.filter_by_date_keyword('this_month')

@@ -106,11 +106,11 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal 1, comment.weighted_score # nothing changed
 
     comment.downvote! @user
-    assert_equal -1, comment.weighted_score
+    assert_equal(-1, comment.weighted_score)
 
     comment.downvote! @user
     comment.downvote! @user
-    assert_equal -1, comment.weighted_score # nothing changed
+    assert_equal(-1, comment.weighted_score) # nothing changed
   end
 
   test 'ordering works' do
