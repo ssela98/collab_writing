@@ -98,9 +98,13 @@ en:
     log_in: "Log In"
     log_out: "Log Out"
     mailer:
-      button: "Confirm my account"
-      content: "You can confirm your account email through the link below:"
-      welcome: "Welcome %{email}!"
+      confirmation:
+        button: "Confirm my account"
+        content: "You can confirm your account email through the link below:"
+        welcome: "Welcome %{email}!"
+      email_changed:
+        content: "We're contacting you to notify you that your email is being changed to %{email}."
+        greeting: "Hello %{email}!"
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
   votes:
