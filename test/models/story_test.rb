@@ -142,4 +142,19 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal [story_tag, story_tag_2], story.story_tags
     assert_equal [story_tag.tag, story_tag_2.tag], story.tags
   end
+
+  test 'destroying should destroy pins, story_tags and comments' do
+    story = create(:story)
+    comment = create(:comment, story:)
+    pin = create(:pin, comment:)
+    story_tag = create(:story_tag, story:)
+
+    assert_difference 'Pin.count', -1 do
+      assert_difference 'Comment.count', -1 do
+        assert_difference 'StoryTag.count', -1 do
+          story.destroy
+        end
+      end
+    end
+  end
 end
