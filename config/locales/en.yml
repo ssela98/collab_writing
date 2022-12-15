@@ -31,6 +31,7 @@
 
 en:
   account: "Account"
+  add_tag: "Add Tag"
   all_time: "All Time"
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
@@ -70,6 +71,7 @@ en:
         attachments_not_allowed: "File attachment not supported!"
   hello_email: "Hello %{email}!"
   home: "Home"
+  name: "Name"
   new: "New"
   next_path: "Next page >"
   password: "Password"
