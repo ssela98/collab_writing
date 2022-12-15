@@ -5,13 +5,13 @@
   <div class='d-flex flex-column justify-content-center align-items-center'>
 
     <div class='form-group mb-3 w-50'>
-      <%= form.label :email, t('email'), class:'form-label' %>
-      <%= form.email_field :email, autofocus: true, autocomplete: 'email', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class:'form-control' %>
+      <%= form.label :email, t('email'), class: 'form-label' %>
+      <%= form.email_field :email, autofocus: true, autocomplete: 'email', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control' %>
       <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :email } %>
     </div>
 
     <div class='mb-3 d-flex align-items-center justify-content-center'>
-      <%= form.submit t('users.resend_confirmation'), class:'btn btn-m btn-primary' %>
+      <%= form.submit t('users.resend_confirmation'), class: 'btn btn-m btn-primary' %>
     </div>
 
     <%= render 'devise/shared/links' %>

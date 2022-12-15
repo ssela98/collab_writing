@@ -6,22 +6,22 @@
   <div class='d-flex flex-column justify-content-center align-items-center'>
 
     <div class='form-group mb-3 w-50'>
-      <%= form.label :password, t('users.passwords.new_password'), class:'form-label' %>
+      <%= form.label :password, t('users.passwords.new_password'), class: 'form-label' %>
       <% if @minimum_password_length %>
         <em><%= t('users.passwords.characters_minimum', amount: @minimum_password_length) %></em>
       <% end %>
-      <%= form.password_field :password, autofocus: true, autocomplete: 'new-password', class:'form-control'  %>
+      <%= form.password_field :password, autofocus: true, autocomplete: 'new-password', class: 'form-control'  %>
       <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password } %>
     </div>
 
     <div class='form-group mb-3 w-50'>
-      <%= form.label :password_confirmation, t('users.passwords.confirm_new_password'), class:'form-label' %>
-      <%= form.password_field :password_confirmation, autocomplete: 'new-password', class:'form-control'  %>
+      <%= form.label :password_confirmation, t('users.passwords.confirm_new_password'), class: 'form-label' %>
+      <%= form.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'  %>
       <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password_confirmation } %>
     </div>
 
     <div class='mb-3 d-flex align-items-center justify-content-center'>
-      <%= form.submit t('users.passwords.change_my_password'), class:'btn btn-m btn-primary' %>
+      <%= form.submit t('users.passwords.change_my_password'), class: 'btn btn-m btn-primary' %>
     </div>
 
     <%= render 'devise/shared/links' %>
