@@ -39,7 +39,7 @@ class PinTest < ActiveSupport::TestCase
   end
 
   test 'should not create for same comment and should return validation error' do
-    pin = create(:pin, comment: @comment)
+    create(:pin, comment: @comment)
     same_pin = Pin.create(comment: @comment, story: @comment.story)
 
     assert_not same_pin.valid?

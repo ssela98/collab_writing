@@ -81,7 +81,7 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test 'ordering works' do
-    story = create(:story)
+    create(:story)
     top_story = create(:story)
     newest_story = create(:story)
 

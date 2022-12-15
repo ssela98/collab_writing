@@ -114,7 +114,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'ordering works' do
-    comment = create(:comment, story: @story)
+    create(:comment, story: @story)
     top_comment = create(:comment, story: @story)
     newest_comment = create(:comment, story: @story)
 
