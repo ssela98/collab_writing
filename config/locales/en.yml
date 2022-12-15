@@ -31,10 +31,12 @@
 
 en:
   account: "Account"
+  all_time: "All Time"
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   at_date: "at %{date}"
   back: "Back"
+  back_to_stories: "Back to Stories"
   by_username: "by %{username}"
   cancel: "Cancel"
   cancel_my_account: "Cancel my account"
@@ -58,6 +60,7 @@ en:
       html: "%{sign_up_href} or %{log_in_href} to comment"
       sign_up_href: "Sign up"
       log_in_href: "log in"
+  content: "Content"
   current_password: "Current password"
   delete: "Delete"
   edit: "Edit"
@@ -68,6 +71,7 @@ en:
   hello_email: "Hello %{email}!"
   home: "Home"
   new: "New"
+  next_path: "Next page >"
   password: "Password"
   password_confirmation: "Password confirmation"
   password_confirm_changes: "(we need your current password to confirm your changes)"
@@ -83,6 +87,7 @@ en:
       successfully_created: "Pin was added successfully."
       successfully_destroyed: "Pin was removed successfully."
       successfully_updated: "Pin order was updated successfully."
+  previous_page: "< Previous page"
   profile: "Profile"
   remember_me: "Remember me"
   reply: "Reply"
@@ -100,6 +105,7 @@ en:
       successfully_created: "Story was created successfully."
       successfully_destroyed: "Story was destroyed successfully."
       successfully_updated: "Story was updated successfully."
+  title: "Title"
   tags:
     errors:
       failed_to_create: "Tag failed to get added."
@@ -107,6 +113,11 @@ en:
     notices:
       successfully_created: "Tag was added successfully."
       successfully_destroyed: "Tag was removed successfully."
+    title: "Tags"
+  this_month: "This Month"
+  this_week: "This Week"
+  this_year: "This Year"
+  today: "Today"
   top: "Top"
   unpin: "Unpin"
   update: "Update"
@@ -141,6 +152,7 @@ en:
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
     waiting_confirmation: "Currently waiting confirmation for: %{email}"
+  visible: "Visible"
   votes:
     errors:
       vote_type: "No such vote type!"
