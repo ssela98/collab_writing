@@ -33,8 +33,10 @@ en:
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   at_date: "at %{date}"
+  back: "Back"
   by_username: "by %{username}"
   cancel: "Cancel"
+  cancel_my_account: "Cancel my account"
   comments_title: "Comments"
   comments:
     alerts:
@@ -55,6 +57,7 @@ en:
       html: "%{sign_up_href} or %{log_in_href} to comment"
       sign_up_href: "Sign up"
       log_in_href: "log in"
+  current_password: "Current password"
   delete: "Delete"
   edit: "Edit"
   email: "Email"
@@ -63,6 +66,9 @@ en:
         attachments_not_allowed: "File attachment not supported!"
   hello_email: "Hello %{email}!"
   home: "Home"
+  password: "Password"
+  password_confirmation: "Password confirmation"
+  password_confirm_changes: "(we need your current password to confirm your changes)"
   pins:
     errors:
       failed_to_create: "Pin failed to get added."
@@ -96,7 +102,10 @@ en:
     notices:
       successfully_created: "Tag was added successfully."
       successfully_destroyed: "Tag was removed successfully."
+  update: "Update"
+  username: "Username"
   users:
+    edit_resource: "Edit %{resource}"
     log_in: "Log In"
     log_out: "Log Out"
     mailer:
@@ -118,10 +127,12 @@ en:
       characters_minimum: "(%{amount} characters minimum)"
       confirm_new_password: "Confirm new password"
       forgot_password: "Forgot your password?"
+      leave_blank: "(leave blank if you don't want to change it)"
       new_password: "New Password"
       send_reset_instructions: "Send me reset password instructions"
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
+    waiting_confirmation: "Currently waiting confirmation for: %{email}"
   votes:
     errors:
       vote_type: "No such vote type!"

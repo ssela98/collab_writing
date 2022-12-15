@@ -1,57 +1,57 @@
-<h2 class="page-title">Edit <%= resource_name.to_s.humanize %></h2>
+<h2 class='page-title'><%= t('users.edit_resource', resource: resource_name.to_s.humanize) %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |form| %>
 
-  <div class="d-flex flex-column justify-content-center align-items-center">
+  <div class='d-flex flex-column justify-content-center align-items-center'>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :email class:"form-label" %>
-      <%= form.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :email } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :email, t('email'), class: 'form-label' %>
+      <%= form.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :email } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :username, class:"form-label" %>
-      <%= form.text_field :username, autocomplete: "username", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :username } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :username, t('username'), class: 'form-label' %>
+      <%= form.text_field :username, autocomplete: 'username', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :username } %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div><%= t('users.waiting_confirmation', email: resource.unconfirmed_email) %></div>
     <% end %>
 
-    <div class="form-group mb-3  w-50">
-      <%= form.label :password, class:"form-label" %> <i>(leave blank if you don't want to change it)</i>
-      <%= form.password_field :password, autocomplete: "new-password", class:"form-control" %>
+    <div class='form-group mb-3  w-50'>
+      <%= form.label :password, t('password'), class: 'form-label' %> <i><%= t('users.passwords.leave_blank') %></i>
+      <%= form.password_field :password, autocomplete: 'new-password', class: 'form-control' %>
       <% if @minimum_password_length %>
-        <span><em><%= @minimum_password_length %> characters minimum</em></span>
+        <span><em><%= t('users.passwords.characters_minimum', amount: @minimum_password_length) %></em></span>
       <% end %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password } %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :password_confirmation, class:"form-label" %>
-      <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password_confirmation } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :password_confirmation, t('password_confirmation'), class: 'form-label' %>
+      <%= form.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password_confirmation } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :current_password, class:"form-label" %> <i>(we need your current password to confirm your changes)</i>
-      <%= form.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :current_password } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :current_password, t('current_password'), class: 'form-label' %> <i><%= t('password_confirm_changes') %></i>
+      <%= form.password_field :current_password, autocomplete: 'current-password', class: 'form-control' %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :current_password } %>
     </div>
 
-    <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= form.submit "Update", class:"btn btn-m btn-primary" %>
+    <div class='mb-3 d-flex align-items-center justify-content-center'>
+      <%= form.submit t('update'), class: 'btn btn-m btn-primary' %>
     </div>
 
   </div>
 <% end %>
 
-<div class="d-flex flex-column justify-content-center align-items-center">
-  <h3>Cancel my account</h3>
+<div class='d-flex flex-column justify-content-center align-items-center'>
+  <h3><%= t('cancel_my_account') %></h3>
 
-  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-m btn-danger" %>
+  <%= button_to t('cancel_my_account'), registration_path(resource_name), data: { confirm: t('are_you_sure_delete') }, method: :delete, class: 'btn btn-m btn-danger' %>
 
-  <%= link_to "Back", :back %>
+  <%= link_to t('back'), :back %>
 </div>
