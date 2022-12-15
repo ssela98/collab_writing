@@ -1,29 +1,29 @@
-<h2 class="page-title">Change your password</h2>
+<h2 class='page-title'><%= t('users.passwords.change_your_password') %></h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |form| %>
   <%= form.hidden_field :reset_password_token %>
 
-  <div class="d-flex flex-column justify-content-center align-items-center">
+  <div class='d-flex flex-column justify-content-center align-items-center'>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :password, "New password", class:"form-label" %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :password, t('users.passwords.new_password'), class:'form-label' %>
       <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <em><%= t('users.passwords.characters_minimum', amount: @minimum_password_length) %></em>
       <% end %>
-      <%= form.password_field :password, autofocus: true, autocomplete: "new-password", class:"form-control"  %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password } %>
+      <%= form.password_field :password, autofocus: true, autocomplete: 'new-password', class:'form-control'  %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password } %>
     </div>
 
-    <div class="form-group mb-3 w-50">
-      <%= form.label :password_confirmation, "Confirm new password", class:"form-label" %>
-      <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control"  %>
-      <%= render partial: "shared/errors", locals: { resource: resource, attribute: :password_confirmation } %>
+    <div class='form-group mb-3 w-50'>
+      <%= form.label :password_confirmation, t('users.passwords.confirm_new_password'), class:'form-label' %>
+      <%= form.password_field :password_confirmation, autocomplete: 'new-password', class:'form-control'  %>
+      <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :password_confirmation } %>
     </div>
 
-    <div class="mb-3 d-flex align-items-center justify-content-center">
-      <%= form.submit "Change my password", class:"btn btn-m btn-primary" %>
+    <div class='mb-3 d-flex align-items-center justify-content-center'>
+      <%= form.submit t('users.passwords.change_my_password'), class:'btn btn-m btn-primary' %>
     </div>
 
-    <%= render "devise/shared/links" %>
+    <%= render 'devise/shared/links' %>
   </div>
 <% end %>

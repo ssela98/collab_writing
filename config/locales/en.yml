@@ -111,6 +111,12 @@ en:
         content: "Someone has requested a link to change your password. You can do this through the link below."
         footer_1: "If you didn't request this, please ignore this email."
         footer_2: "Your password won't change until you access the link above and create a new one."
+    passwords:
+      change_my_password: "Change my password"
+      change_your_password: "Change your password"
+      characters_minimum: "(%{amount} characters minimum)"
+      confirm_new_password: "Confirm new password"
+      new_password: "New Password"
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
   votes:
