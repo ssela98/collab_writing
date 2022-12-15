@@ -60,6 +60,7 @@ en:
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
+  hello_email: "Hello %{email}!"
   home: "Home"
   pins:
     errors:
@@ -101,10 +102,10 @@ en:
       confirmation:
         button: "Confirm my account"
         content: "You can confirm your account email through the link below:"
-        welcome: "Welcome %{email}!"
       email_changed:
         content: "We're contacting you to notify you that your email is being changed to %{email}."
-        greeting: "Hello %{email}!"
+      password_changed:
+        content: "We're contacting you to notify you that your password has been changed."
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
   votes:
@@ -113,3 +114,4 @@ en:
     notices:
       downvote: "Downvoted!"
       upvote: "Upvoted!"
+  welcome_email: "Welcome %{email}!"
