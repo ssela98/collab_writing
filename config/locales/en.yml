@@ -80,6 +80,7 @@ en:
       successfully_created: "Pin was added successfully."
       successfully_destroyed: "Pin was removed successfully."
       successfully_updated: "Pin order was updated successfully."
+  remember_me: "Remember me"
   reply: "Reply"
   save: "Save"
   stories_title: "Stories"
