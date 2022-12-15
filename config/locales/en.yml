@@ -57,6 +57,7 @@ en:
       log_in_href: "log in"
   delete: "Delete"
   edit: "Edit"
+  email: "Email"
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
@@ -116,7 +117,9 @@ en:
       change_your_password: "Change your password"
       characters_minimum: "(%{amount} characters minimum)"
       confirm_new_password: "Confirm new password"
+      forgot_password: "Forgot your password?"
       new_password: "New Password"
+      send_reset_instructions: "Send me reset password instructions"
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
   votes:

@@ -5,7 +5,7 @@
   <div class='d-flex flex-column justify-content-center align-items-center'>
 
     <div class='form-group mb-3 w-50'>
-      <%= form.label :email, class:'form-label' %>
+      <%= form.label :email, t('email'), class:'form-label' %>
       <%= form.email_field :email, autofocus: true, autocomplete: 'email', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class:'form-control' %>
       <%= render partial: 'shared/errors', locals: { resource: resource, attribute: :email } %>
     </div>
