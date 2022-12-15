@@ -96,7 +96,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'voting works' do
-    comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
+    comment = create(:comment)
 
     comment.upvote! @user
     assert_equal 1, comment.weighted_score
@@ -114,9 +114,9 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'ordering works' do
-    comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
-    top_comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
-    newest_comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
+    comment = create(:comment, story: @story)
+    top_comment = create(:comment, story: @story)
+    newest_comment = create(:comment, story: @story)
 
     top_comment.upvote! @user
 
@@ -126,19 +126,19 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'finding by content works' do
     content = Faker::Fantasy::Tolkien.poem
-    comment = Comment.create(user: @user, story: @story, content: content)
+    comment = create(:comment, content:)
 
     assert_equal [comment], Comment.where_content(content)
   end
 
   test 'user relationship works' do
-    comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
+    comment = create(:comment, user: @user)
 
     assert_equal @user, comment.user
   end
 
   test 'story comments relationship works' do
-    comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
+    comment = create(:comment, story: @story)
 
     assert_equal @story, comment.story
     assert_equal @story.comments, [comment]
@@ -146,14 +146,14 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'parent comments relationship works' do
     comment = create(:comment)
-    comment_2 = Comment.create(user: @user, story: comment.story, parent: comment, content: Faker::Fantasy::Tolkien.poem)
+    comment_2 = create(:comment, story: comment.story, parent: comment)
 
     assert_equal comment.story, comment_2.story
     assert_equal comment.comments, [comment_2]
   end
 
   test 'pin relationship works' do
-    comment = Comment.create(user: @user, story: @story, content: Faker::Fantasy::Tolkien.poem)
+    comment = create(:comment)
     pin = create(:pin, comment:)
 
     assert_equal pin, comment.pin
