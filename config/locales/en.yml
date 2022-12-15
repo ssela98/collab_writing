@@ -131,6 +131,7 @@ en:
       leave_blank: "(leave blank if you don't want to change it)"
       new_password: "New Password"
       send_reset_instructions: "Send me reset password instructions"
+    receive_confirmation: "Didn't receive confirmation instructions?"
     resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
     waiting_confirmation: "Currently waiting confirmation for: %{email}"
