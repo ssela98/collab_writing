@@ -1,6 +1,6 @@
 <% if defined?(resource) && defined?(attribute) && resource.errors&.include?(attribute) %>
-  <div style="color: red">
-    <ul id="<%= dom_id(resource) %>_<%= attribute %>_errors" class="error">
+  <div style='color: red'>
+    <ul id='<%= dom_id(resource) %>_<%= attribute %>_errors' class='error'>
       <% resource.errors.full_messages_for(attribute).each do |msg| %>
         <li><%= msg %></li>
       <% end %>

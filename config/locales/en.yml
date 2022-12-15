@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  account: "Account"
   are_you_sure_delete: "Are you sure? You won't be able to undo this action."
   are_you_sure_changes_unsaved: "Are you sure? All your changes will be lost."
   at_date: "at %{date}"
@@ -66,6 +67,7 @@ en:
         attachments_not_allowed: "File attachment not supported!"
   hello_email: "Hello %{email}!"
   home: "Home"
+  new: "New"
   password: "Password"
   password_confirmation: "Password confirmation"
   password_confirm_changes: "(we need your current password to confirm your changes)"
@@ -81,6 +83,7 @@ en:
       successfully_created: "Pin was added successfully."
       successfully_destroyed: "Pin was removed successfully."
       successfully_updated: "Pin order was updated successfully."
+  profile: "Profile"
   remember_me: "Remember me"
   reply: "Reply"
   save: "Save"
@@ -104,6 +107,7 @@ en:
     notices:
       successfully_created: "Tag was added successfully."
       successfully_destroyed: "Tag was removed successfully."
+  top: "Top"
   unpin: "Unpin"
   update: "Update"
   username: "Username"
