@@ -158,4 +158,17 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_equal pin, comment.pin
   end
+
+  test 'destroying should destroy pins and nested comments' do
+    comment = create(:comment)
+    nested_comment = create(:comment, parent: comment)
+    nested_comment_2 = create(:comment, parent: nested_comment)
+    pin = create(:pin, comment:)
+
+    assert_difference 'Pin.count', -1 do
+      assert_difference 'Comment.count', -3 do
+        comment.destroy
+      end
+    end
+  end
 end
