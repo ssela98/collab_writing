@@ -95,9 +95,13 @@ en:
       successfully_created: "Tag was added successfully."
       successfully_destroyed: "Tag was removed successfully."
   users:
-    resend_confirmation: "Resend confirmation instructions"
     log_in: "Log In"
     log_out: "Log Out"
+    mailer:
+      button: "Confirm my account"
+      content: "You can confirm your account email through the link below:"
+      welcome: "Welcome %{email}!"
+    resend_confirmation: "Resend confirmation instructions"
     sign_up: "Sign Up"
   votes:
     errors:
