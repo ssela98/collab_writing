@@ -1,2 +1,2 @@
-<%= render partial: "users/shared/user_navbar", locals: { username: @user.username, active_nav_link: :stories } %>
+<%= render partial: 'users/shared/user_navbar', locals: { username: @user.username, active_nav_link: :stories } %>
 <%= turbo_frame_tag "#{@user.username}_stories", src: stories_path(username: @user.username) %>

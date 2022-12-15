@@ -69,6 +69,7 @@ en:
   errors:
       messages:
         attachments_not_allowed: "File attachment not supported!"
+  favourites: "Favourites"
   hello_email: "Hello %{email}!"
   home: "Home"
   name: "Name"
