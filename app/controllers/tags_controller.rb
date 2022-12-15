@@ -23,7 +23,6 @@ class TagsController < ApplicationController
 
       flash.now[:notice] = I18n.t('tags.notices.successfully_created')
     else
-      # TODO: render new with "old" tag and errors
       flash.now[:alert] = I18n.t('tags.errors.failed_to_create')
     end
   end
