@@ -5,7 +5,7 @@
 <% end %>
 
 <%= turbo_stream.replace dom_id_for_records(@parent || @story, @new_comment || @comment) do %>
-  <%= render partial: "comments/form", locals: { comment: @new_comment || @comment, target: @parent || @story }.merge(@locals || {}) %>
+  <%= render partial: 'comments/form', locals: { comment: @new_comment || @comment, target: @parent || @story }.merge(@locals || {}) %>
 <% end %>
 
 <%= turbo_stream.prepend('flash', partial: 'shared/flash') %>

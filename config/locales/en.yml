@@ -39,14 +39,18 @@ en:
   comments:
     alerts:
       not_the_creator: "You are not the creator of this comment."
+    continue_thread: "Continue this thread"
     errors:
       failed_to_create: "Comment failed to get created."
       failed_to_destroy: "Comment failed to get destroyed."
       failed_to_update: "Comment failed to get updated."
+    load_more: "Load more comments"
     notices:
       successfully_created: "Comment was created successfully."
       successfully_destroyed: "Comment was destroyed successfully."
       successfully_updated: "Comment was updated successfully."
+    previous_comments: "Back to previous comments"
+    previous_thread: "Back to previous comments in this thread"
     sign_up_or_log_in:
       html: "%{sign_up_href} or %{log_in_href} to comment"
       sign_up_href: "Sign up"
@@ -62,14 +66,15 @@ en:
       failed_to_create: "Pin failed to get added."
       failed_to_destroy: "Pin failed to get removed."
       failed_to_update: "Pin order failed to get updated."
+      validations:
+        another_story: "can't be from another story"
     notices:
       successfully_created: "Pin was added successfully."
       successfully_destroyed: "Pin was removed successfully."
       successfully_updated: "Pin order was updated successfully."
   reply: "Reply"
   save: "Save"
-  sign_up_disabled_for_now: "Sign ups are disabled for now." # TODO: remove this after enabling :registreable
-  stories_title: 'Stories'
+  stories_title: "Stories"
   stories:
     alerts:
       not_the_creator: "You are not the creator of this story."
@@ -96,3 +101,6 @@ en:
   votes:
     errors:
       vote_type: "No such vote type!"
+    notices:
+      downvote: "Downvoted!"
+      upvote: "Upvoted!"
