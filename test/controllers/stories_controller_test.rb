@@ -11,6 +11,19 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     @story = create(:story, user: @user)
   end
 
+  test 'should get index' do
+    get stories_url
+
+    assert_response :success
+  end
+
+  test 'should get index with user stories if signed in' do
+    sign_in @user
+    get stories_url
+
+    assert_response :success
+  end
+
   test 'should get new' do
     sign_in @user
     get new_story_url
@@ -58,23 +71,22 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test 'should get edit' do
-  #   sign_in @user
-  #   get edit_story_url(@story)
+  test 'should get edit' do
+    sign_in @user
+    get edit_story_url(@story, format: :turbo_stream)
 
-  #   assert_response :success
-  # end
+    assert_response :success
+  end
 
-  # test 'should not get edit if signed in as another user and should get forbidden response' do
-  #   sign_in @stranger
-  #   get edit_story_url(@story)
+  test 'should not get edit if signed in as another user' do
+    sign_in @stranger
+    get edit_story_url(@story, format: :turbo_stream)
 
-  #   assert_response :forbidden
-  #   assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
-  # end
+    assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
+  end
 
   test 'should not get edit if not signed in' do
-    get edit_story_url(@story)
+    get edit_story_url(@story, format: :turbo_stream)
 
     assert_redirected_to new_user_session_path
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
@@ -103,13 +115,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  # test 'should not update if signed in as another user and should get forbidden response' do
-  #   sign_in @stranger
-  #   patch story_url(@story), params: { story: { title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote } }
+  test 'should not update if signed in as another user and should get forbidden response' do
+    sign_in @stranger
+    patch story_url(@story), params: { story: { title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote }, format: :turbo_stream }
 
-  #   assert_response :forbidden
-  #   assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
-  # end
+    assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
+  end
 
   test 'should destroy story' do
     sign_in @user
@@ -131,13 +142,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  # test 'should not destroy if signed in as another user and should get forbidden response' do
-  #   sign_in @stranger
-  #   assert_difference 'Story.count', 0 do
-  #     delete story_url(@story)
-  #   end
+  test 'should not destroy if signed in as another user and should get forbidden response' do
+    sign_in @stranger
+    assert_difference 'Story.count', 0 do
+      delete story_url(@story)
+    end
 
-  #   assert_response :forbidden
-  #   assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
-  # end
+    assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
+  end
 end
