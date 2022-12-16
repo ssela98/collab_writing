@@ -5,7 +5,7 @@ class TagsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_story
-  before_action -> { forbidden_unless_creator(@story) }, except: %i[index show new]
+  before_action -> { forbidden_unless_creator(@story) if @story.persisted? }, except: %i[index show new]
   before_action :set_tag_name, only: %i[show destroy]
 
   def index; end
