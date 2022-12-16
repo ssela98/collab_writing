@@ -86,9 +86,9 @@ class UserTest < ActiveSupport::TestCase
 
   test 'destroying should destroy stories and comments' do
     user = create(:user)
-    story_1 = create(:story, user:)
-    story_2 = create(:story, user:)
-    comment = create(:comment, user:)
+    create(:story, user:)
+    create(:story, user:)
+    create(:comment, user:)
 
     assert_difference 'Story.count', -2 do
       assert_difference 'Comment.count', -1 do

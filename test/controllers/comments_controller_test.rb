@@ -116,7 +116,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy comment' do
     sign_in @user
-    story = @comment.story
+    @comment.story
 
     assert_difference 'Comment.count', -1 do
       delete comment_url(@comment, format: :turbo_stream)
