@@ -63,26 +63,25 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference 'StoryTag.count', 2 do
       assert_difference 'Tag.count', 2 do
-        post stories_url(story: { title:, content: }, story_tag_names: ['new_tag', 'new_tag_2'])
+        post stories_url(story: { title:, content: }, story_tag_names: %w[new_tag new_tag_2])
       end
     end
 
     story = Story.where_content(content).take
 
-    assert_equal ['new_tag', 'new_tag_2'], story.story_tags.joins(:tag).pluck('tags.name')
+    assert_equal %w[new_tag new_tag_2], story.story_tags.joins(:tag).pluck('tags.name')
   end
 
   test 'should create or destroy story_tags and tags on update' do
     sign_in @user
-    title = Faker::Movies::HitchhikersGuideToTheGalaxy.quote
 
     assert_difference 'StoryTag.count', 2 do
       assert_difference 'Tag.count', 2 do
-        patch story_url(@story, story_tag_names: ['new_tag', 'new_tag_2'], format: :turbo_stream)
+        patch story_url(@story, story_tag_names: %w[new_tag new_tag_2], format: :turbo_stream)
       end
     end
 
-    assert_equal ['new_tag', 'new_tag_2'], @story.story_tags.joins(:tag).pluck('tags.name')
+    assert_equal %w[new_tag new_tag_2], @story.story_tags.joins(:tag).pluck('tags.name')
 
     assert_difference 'StoryTag.count', -1 do
       assert_difference 'Tag.count', -1 do
