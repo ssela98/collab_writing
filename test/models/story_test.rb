@@ -145,7 +145,7 @@ class StoryTest < ActiveSupport::TestCase
 
   test 'destroying should destroy pins, story_tags and comments' do
     story = create(:story)
-    create(:comment, story:)
+    comment = create(:comment, story:)
     create(:pin, comment:)
     create(:story_tag, story:)
 
