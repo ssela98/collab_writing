@@ -37,6 +37,16 @@ class PinsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
+  test 'should not create pin if signed in as another user and should get forbidden response' do
+    sign_in create(:user)
+
+    assert_difference 'Pin.count', 0 do
+      post pins_url(pin: { story_id: @story.id, comment_id: @comment.id }, format: :turbo_stream)
+    end
+
+    assert_equal I18n.t('stories.alerts.not_the_creator'), flash.now[:alert]
+  end
+
   # TODO: add edit form
   # test 'should get edit' do
   #   get edit_pin_url(@pin)
