@@ -32,7 +32,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  test 'should not get edit if signed in as another user and should get forbidden response' do
+  test 'should not get edit if signed in as another user' do
     sign_in @stranger
     get edit_comment_url(@comment, format: :turbo_stream)
 
@@ -107,7 +107,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  test 'should not update comment if signed in as another user and should get forbidden response' do
+  test 'should not update comment if signed in as another user' do
     sign_in @stranger
     patch comment_url(id: @comment.id, comment: { content: Faker::Fantasy::Tolkien.poem }, format: :turbo_stream)
 
@@ -135,7 +135,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  test 'should not destroy comment if signed in as another user and should get forbidden response' do
+  test 'should not destroy comment if signed in as another user' do
     sign_in @stranger
     assert_difference 'Comment.count', 0 do
       delete comment_url(@comment, format: :turbo_stream)
