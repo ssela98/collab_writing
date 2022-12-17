@@ -48,7 +48,7 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test 'should create with large content' do
-    story = Story.create(user: @user, title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote, content: 'a' * 32768)
+    story = create(:story, content: 'a' * 32768)
 
     assert story.valid?
     assert_equal 32768, story.content.to_plain_text.length
@@ -56,16 +56,105 @@ class StoryTest < ActiveSupport::TestCase
 
   test 'should create with title with non-latin alphabet letters and special chars' do
     title = Faker::String.random
-    story = Story.create(user: @user, title:, content: Faker::TvShows::BrooklynNineNine.quote)
+    story = create(:story, title:)
 
     assert story.valid?
     assert_equal title, story.title
   end
 
+  test 'voting works' do
+    story = create(:story)
+
+    story.upvote! @user
+    assert_equal 1, story.weighted_score
+
+    story.upvote! @user
+    story.upvote! @user
+    assert_equal 1, story.weighted_score # nothing changed
+
+    story.downvote! @user
+    assert_equal(-1, story.weighted_score)
+
+    story.downvote! @user
+    story.downvote! @user
+    assert_equal(-1, story.weighted_score) # nothing changed
+  end
+
+  test 'ordering works' do
+    create(:story)
+    top_story = create(:story)
+    newest_story = create(:story)
+
+    top_story.upvote! @user
+
+    assert_equal newest_story, Story.order_by_keyword('new').first
+    assert_equal top_story, Story.order_by_keyword('top').first
+  end
+
+  test 'filtering works' do
+    last_year_story = travel_to 1.year.ago do
+      create(:story)
+    end
+    last_month_story = travel_to 1.month.ago do
+      create(:story)
+    end
+    last_week_story = travel_to 1.week.ago do
+      create(:story)
+    end
+    today_story = create(:story)
+
+    assert_equal [last_year_story, last_month_story, last_week_story, today_story], Story.filter_by_date_keyword('all_time')
+    assert_equal [last_month_story, last_week_story, today_story], Story.filter_by_date_keyword('this_year')
+    assert_equal [last_week_story, today_story], Story.filter_by_date_keyword('this_month')
+    assert_equal [today_story], Story.filter_by_date_keyword('this_week')
+    assert_equal [today_story], Story.filter_by_date_keyword('today')
+  end
+
   test 'user relationship works' do
-    story = Story.create(user: @user, title: Faker::Movies::HitchhikersGuideToTheGalaxy.quote,
-                         content: Faker::TvShows::BrooklynNineNine.quote)
+    story = create(:story, user: @user)
 
     assert_equal @user, story.user
+  end
+
+  test 'comments relationship works' do
+    story = create(:story)
+    comment = create(:comment, story:)
+    comment_2 = create(:comment, story:)
+
+    assert_equal [comment, comment_2], story.comments
+  end
+
+  test 'pins relationship works' do
+    story = create(:story)
+    comment = create(:comment, story:)
+    comment_2 = create(:comment, story:)
+    pin = create(:pin, comment:)
+    pin_2 = create(:pin, comment: comment_2)
+
+    assert_equal [pin, pin_2], story.pins
+  end
+
+  test 'tags and story_tags relationship works' do
+    story = create(:story)
+    story_tag = create(:story_tag, story:)
+    story_tag_2 = create(:story_tag, story:)
+
+    assert_equal [story_tag, story_tag_2], story.story_tags
+    assert_equal [story_tag.tag, story_tag_2.tag], story.tags
+  end
+
+  test 'destroying should destroy pins, story_tags and comments' do
+    story = create(:story)
+    comment = create(:comment, story:)
+    create(:pin, comment:)
+    create(:story_tag, story:)
+
+    assert_difference 'Pin.count', -1 do
+      assert_difference 'Comment.count', -1 do
+        assert_difference 'StoryTag.count', -1 do
+          story.destroy
+        end
+      end
+    end
   end
 end

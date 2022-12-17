@@ -29,6 +29,7 @@ class Comment < ApplicationRecord
   has_many :comments, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
   has_one :pin, class_name: 'Pin', dependent: :destroy
 
+  # TODO: extract this and story.rb's part in a concern
   has_rich_text :content
   scope :joins_content, lambda {
                           joins("INNER JOIN action_text_rich_texts

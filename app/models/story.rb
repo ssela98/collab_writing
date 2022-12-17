@@ -23,11 +23,23 @@ class Story < ApplicationRecord
 
   belongs_to :user
 
-  has_rich_text :content
   has_many :comments, dependent: :destroy, inverse_of: :story
   has_many :pins, dependent: :destroy, inverse_of: :story
   has_many :story_tags, dependent: :destroy, inverse_of: :story
   has_many :tags, through: :story_tags
+
+  # TODO: extract this and comment.rb's part in a concern
+  has_rich_text :content
+  scope :joins_content, lambda {
+                          joins("INNER JOIN action_text_rich_texts
+                                        ON action_text_rich_texts.record_id = stories.id
+                                        AND action_text_rich_texts.record_type = 'Story'")
+                        }
+  scope :where_content, lambda { |content|
+    return joins_content.where(action_text_rich_texts: { body: nil }) unless content
+
+    joins_content.where('action_text_rich_texts.body LIKE ?', "%#{content}%")
+  }
 
   validates :title, presence: true
   validates :content, no_attachments: true

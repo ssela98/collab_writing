@@ -49,8 +49,10 @@ class StoriesController < ApplicationController
   end
 
   def update
+    create_or_destroy_tags
+    return unless params.include?(:story)
+
     if @story.update(story_params)
-      create_or_destroy_tags
       flash.now[:notice] = I18n.t('stories.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('stories.errors.failed_to_update')

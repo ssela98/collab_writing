@@ -36,9 +36,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  # validatons - create
-
-  test 'should not create without username fails and should return validation error' do
+  test 'should not create without username and should return validation error' do
     user = User.create(email: Faker::Internet.email, password: Faker::Internet.password)
 
     assert_not user.valid?
@@ -72,19 +70,30 @@ class UserTest < ActiveSupport::TestCase
     assert_equal ['Email is too long (maximum is 200 characters)'], user.errors.full_messages
   end
 
-  # relationships
-
-  test 'deleting should delete stories' do
+  test 'stories relationship works' do
     user = create(:user)
-    story_1 = create(:story, user:)
-    story_2 = create(:story, user:)
+    story = create(:story, user:)
+
+    assert_equal [story], user.stories
+  end
+
+  test 'comments relationship works' do
+    user = create(:user)
+    comment = create(:comment, user:)
+
+    assert_equal [comment], user.comments
+  end
+
+  test 'destroying should destroy stories and comments' do
+    user = create(:user)
+    create(:story, user:)
+    create(:story, user:)
+    create(:comment, user:)
 
     assert_difference 'Story.count', -2 do
-      user.destroy
+      assert_difference 'Comment.count', -1 do
+        user.destroy
+      end
     end
-
-    assert_not User.find_by(id: user.id)
-    assert_not Story.find_by(id: story_1.id)
-    assert_not Story.find_by(id: story_2.id)
   end
 end
