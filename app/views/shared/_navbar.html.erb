@@ -1,7 +1,7 @@
 <nav id='navbar' class='navbar navbar-light bg-light'>
   <div class='container-fluid mx-2'>
     <div class='d-flex justify-content-between align-items-center w-100'>
-      <div><%= link_to t('home'), root_url, class: 'navbar-brand' %></div>
+      <div><%= link_to t('home'), root_url, id: 'navbar-home', class: 'navbar-brand' %></div>
 
       <div class='d-flex justify-content-center align-items-center'>
         <%= link_to t('stories.new_story'), new_story_path, id: 'navbar-new-story', class: 'btn btn-m btn-primary m-1' %>
