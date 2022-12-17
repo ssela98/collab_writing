@@ -15,7 +15,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'should show comment' do
     get comment_url(@comment, { story_id: @comment.story.id })
 
-    assert_redirected_to story_path(anchor: dom_id(@comment))
+    assert_redirected_to story_path(@comment.story, anchor: dom_id(@comment))
   end
 
   test 'should get edit' do
