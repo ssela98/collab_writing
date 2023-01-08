@@ -1,0 +1,21 @@
+databases:
+  - name: nowyouwrite-db
+    databaseName: nowyouwrite_production
+    user: nowyouwrite_production_user
+
+services:
+  - name: nowyouwrite
+    type: web
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: RAILS_MASTER_KEY
+      - key: SECRET_KEY_BASE
+      - key: RACK_ENV
+      - key: RAILS_ENV
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nowyouwrite-db
+          property: connectionString
+          
