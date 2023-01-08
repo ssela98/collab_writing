@@ -73,7 +73,7 @@ gem 'faker', require: false
 # Use Bootstrap 5
 gem 'bootstrap', '~> 5.1.3'
 
-# Use Postgres for Render.com's compability
+# Use Postgres for Heroku's compability
 group :production do
   gem 'pg', '1.3.5'
 end
