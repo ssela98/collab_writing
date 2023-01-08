@@ -1,0 +1,23 @@
+<%= turbo_frame_tag dom_id(@comment, :wrapper) do %>
+  <div style="<%= 'padding-left: 2px; border-left: 2px solid grey;' if @parent %>">
+    <%= render @comment, parent: @parent, story: @story %>
+
+    <div class='text-sm d-flex py-1'>
+      <%= render partial: 'shared/votes', locals: { votable: comment, vote_path: 'vote_comment_path', vote_params: { story_id: comment.story_id, id: comment.id }} %>
+      <% if user_signed_in? %>
+        <%= link_to t('reply'), new_comment_path(parent_id: comment.id, story_id: comment.story_id), data: { turbo_frame: dom_id(comment, :new_comment) } %>
+      <% end %>
+      <% if comment.story.user == current_user %>
+        <%= render partial: comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: comment } %>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag dom_id(@comment, :new_comment) %>
+
+    <%= turbo_frame_tag dom_id(@comment, :comments) do %>
+      <% @comment.comments.each do |comment| %>
+        <%= turbo_frame_tag dom_id(comment, :wrapper), src: comment_path(comment, story_id: @story.id, parent_id: @comment.id) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
