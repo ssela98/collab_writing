@@ -1,4 +1,4 @@
-<%= turbo_stream.replace dom_id(@comment) do %>
-  <%= render partial: 'comments/comment', locals: { comment: @comment } %>
+<%= turbo_stream.replace @comment do %>
+  <%= turbo_frame_tag @comment, src: comment_path(@comment, story_id: @story.id) %>
 <% end %>
 <%= turbo_stream.prepend 'flash', partial: 'shared/flash' %>
