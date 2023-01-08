@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       patch :vote
     end
   end
-  resources :comments, except: %i[index new] do
+  resources :comments do
     member do
       patch :vote
     end
