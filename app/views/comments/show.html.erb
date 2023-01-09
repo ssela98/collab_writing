@@ -1,14 +1,14 @@
 <%= turbo_frame_tag dom_id(@comment, :wrapper) do %>
-  <div style="<%= 'padding-left: 2px; border-left: 2px solid grey;' if @parent %>">
+  <div style="<%= @parent ? 'padding: 2px 0 2px 12px; border-left: 2px solid grey;' : 'margin-top: 12px;' %>">
     <%= render @comment, parent: @parent, story: @story %>
 
     <div class='text-sm d-flex py-1'>
-      <%= render partial: 'shared/votes', locals: { votable: comment, vote_path: 'vote_comment_path', vote_params: { story_id: comment.story_id, id: comment.id }} %>
+      <%= render partial: 'shared/votes', locals: { votable: @comment, vote_path: 'vote_comment_path', vote_params: { story_id: @comment.story_id, id: @comment.id }} %>
       <% if user_signed_in? %>
-        <%= link_to t('reply'), new_comment_path(parent_id: comment.id, story_id: comment.story_id), data: { turbo_frame: dom_id(comment, :new_comment) } %>
+        <%= link_to t('reply'), new_comment_path(parent_id: @comment.id, story_id: @comment.story_id), data: { turbo_frame: dom_id(@comment, :new_comment) } %>
       <% end %>
-      <% if comment.story.user == current_user %>
-        <%= render partial: comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: comment } %>
+      <% if @comment.story.user == current_user %>
+        <%= render partial: @comment.pin ? 'pins/button/unpin' : 'pins/button/pin', locals: { comment: @comment } %>
       <% end %>
     </div>
 
