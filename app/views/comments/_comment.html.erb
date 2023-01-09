@@ -1,4 +1,4 @@
-<%= tag.div id: dom_id(comment) do %>
+<%= turbo_frame_tag comment do %>
   <div class='card comment <%= 'pinned-comment' if comment.pin %>' data-pin-comment-target='comment'>
     <div class='card-body d-flex flex-column w-100'>
       <h6 class='card-subtitle mb-2 text-muted'>
@@ -8,8 +8,8 @@
       <p id='<%= dom_id(comment) %>_content' class='card-text'><%= comment.content %></p>
       <% if comment.user == current_user %>
         <div class='d-flex justify-content-start align-items-center mt-3 mb-3'>
-          <%= link_to t('edit'), edit_comment_path(comment.id, story_id: comment.story_id), data: { controller: 'turbo', action: 'click->turbo#getTurboStream' }, class: 'me-2' %>|
-          <%= button_to t('delete'), comment_path(comment.id, story_id: comment.story_id),
+          <%= link_to t('edit'), edit_comment_path(comment, story_id: comment.story_id), class: 'me-2' %>|
+          <%= button_to t('delete'), comment,
             method: :delete,
             class: 'btn btn-link',
             data: { confirm: t('are_you_sure_delete') }
