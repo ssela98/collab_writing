@@ -1,27 +1,31 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  include ActionView::RecordIdentifier
-  include RecordHelper
   include ForbiddenUnlessCreator
+  include FilterableAndOrderable
   include Vote
 
   before_action :authenticate_user!, except: :show
   before_action :set_story
-  before_action :set_comment
-  before_action -> { forbidden_unless_creator(@comment) }, except: %i[show create vote]
+  before_action :set_comment, only: %i[show edit update destroy]
+  before_action :set_parent, only: %i[show new create]
+  before_action -> { forbidden_unless_creator(@comment) }, except: %i[index show new create vote]
 
-  def show
-    respond_to do |format|
-      format.html { redirect_to story_path(@story.id, anchor: dom_id(@comment)) }
-      format.turbo_stream { render :show }
-    end
+  def index
+    comments = @story.comments.where(parent_id: nil)
+
+    ordered_comments(comments)
+  end
+
+  def show; end
+
+  def new
+    @comment = Comment.new
   end
 
   def edit; end
 
   def create
-    @parent = Comment.find_by(id: params[:comment_id])
     @comment = @story.comments.new(comment_params)
     @comment.user = current_user
     @comment.parent_id = @parent&.id
@@ -29,10 +33,10 @@ class CommentsController < ApplicationController
     if @comment.save
       flash.now[:notice] = I18n.t('comments.notices.successfully_created')
       @new_comment = @story.comments.new
-
-      @locals = { data: { comment_reply_target: :form }, class: 'd-none' } if @parent
     else
       flash.now[:alert] = I18n.t('comments.errors.failed_to_create')
+
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -41,9 +45,8 @@ class CommentsController < ApplicationController
       flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-      respond_to do |format|
-        format.turbo_stream { render :edit, status: :unprocessable_entity }
-      end
+      
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -55,6 +58,8 @@ class CommentsController < ApplicationController
       flash.now[:notice] = I18n.t('comments.notices.successfully_destroyed')
     else
       flash.now[:alert] = I18n.t('comments.errors.failed_to_destroy')
+
+      render turbo_stream: turbo_stream.prepend('flash', partial: 'shared/flash')
     end
   end
 
@@ -72,6 +77,10 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find_by(id: params[:id])
+  end
+
+  def set_parent
+    @parent = Comment.find_by(id: params[:parent_id])
   end
 
   def comment_params
