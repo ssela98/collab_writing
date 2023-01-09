@@ -1,15 +1,16 @@
-<%= form_with model: comment,
-  id: dom_id_for_records(*[local_assigns[:target], comment].compact),
-  data: local_assigns[:data],
-  class: ['my-4'] + Array.wrap(local_assigns[:class]) do |form|
-%>
-  <%= hidden_field_tag :story_id, comment.story_id %>
-  <%= hidden_field_tag(:comment_id, local_assigns[:target]&.id) if local_assigns[:target]&.class&.name == 'Comment' %>
-  <%= form.rich_text_area :content, id: "#{dom_id_for_records(*[local_assigns[:target], comment].compact)}_content", autocomplete: 'content', class: 'form-control', rows: 4 %>
+<%= form_with(model: comment) do |form| %>
+  <%= hidden_field_tag :story_id, story.id %>
+  <%= hidden_field_tag :parent_id, local_assigns[:parent]&.id %>
+
+  <%= form.rich_text_area :content, id: "#{dom_id(local_assigns[:parent] || story, comment)}_content", autocomplete: 'content', class: 'form-control', rows: 4 %>
   <%= render partial: 'shared/errors', locals: { resource: form.object, attribute: :content } %>
 
   <div class='d-flex align-items-center mt-3'>
     <%= form.submit t('save'), class: 'btn btn-m btn-primary me-3' %>
-    <%= link_to t('cancel'), '#', class: 'btn btn-link', data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } if form.object.persisted? %>
+
+    <% target = local_assigns[:parent] || comment %>
+    <% if target&.persisted? %>
+      <%= link_to "Cancel", comment_path(target, story_id: story.id), class: 'btn btn-link', data: { turbo_method: :get, turbo_confirm: t('are_you_sure_changes_unsaved') } %>
+    <% end %>
   </div>
 <% end %>
