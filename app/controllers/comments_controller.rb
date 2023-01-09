@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
       flash.now[:notice] = I18n.t('comments.notices.successfully_updated')
     else
       flash.now[:alert] = I18n.t('comments.errors.failed_to_update')
-      
+
       render :edit, status: :unprocessable_entity
     end
   end
