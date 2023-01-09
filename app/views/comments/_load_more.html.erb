@@ -3,6 +3,6 @@
 <% url ||= url_for(request.params.merge(offset: offset)) %>
 <% if count > offset %>
 <div id="<%= dom_id(story) %>_load_more">
-  <%= link_to t('comments.load_more'), url, data: { controller: 'turbo', action: 'click->turbo#getTurboStream' } %>
+  <%= link_to t('comments.load_more'), url %>
 </div>
 <% end %>
