@@ -25,11 +25,7 @@ class StoriesController < ApplicationController
     filtered_and_ordered_stories(stories)
   end
 
-  def show
-    comments = @story.comments.where(parent_id: nil)
-
-    ordered_comments(comments)
-  end
+  def show; end
 
   def new
     @story = Story.new

@@ -7,7 +7,7 @@
 
     <h5 class='mt-3 mb-3'><%= t('comments_title') %></h5>
     <% if user_signed_in? %>
-      <%= render partial: 'comments/form', locals: { comment: @story.comments.new, target: @story } %>
+      <%= turbo_frame_tag dom_id(@story, :new_comment), src: new_comment_path(story_id: @story.id) %>
     <% else %>
       <p id='<%= dom_id(@story) %>_sign_up_or_log_in_links'>
         <%= t('comments.sign_up_or_log_in.html',
@@ -18,10 +18,9 @@
 
     <%= render partial: 'shared/comments_ordering', locals: { current_path: 'story_path', params: @story } %>
 
-    <%= tag.div id: "#{dom_id(@story)}_comments" do %>
-      <%= render partial: 'comments/comment_with_replies', collection: @comments, as: :comment %>
-      <div id='<%= dom_id(@story) %>_more_comments'></div>
-      <%= render partial: 'comments/load_more', locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
-    <% end %>
+    <%= turbo_frame_tag dom_id(@story, :comments), src: comments_path(story_id: @story.id) %>
+
+    <%= turbo_frame_tag "#{dom_id(@story)}_more_comments" %>
+    <%= render partial: 'comments/load_more', locals: { count: @comments_count, offset: @offset.to_i + @limit.to_i, story: @story } %>
   </div>
 </div>
